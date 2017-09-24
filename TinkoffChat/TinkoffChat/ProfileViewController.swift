@@ -33,12 +33,12 @@ class ProfileViewController: UIViewController {
     }
 
     override func viewWillLayoutSubviews() {
-        //super.viewWillLayoutSubviews()
+        super.viewWillLayoutSubviews()
         printFuncName()
     }
 
     override func viewDidLayoutSubviews() {
-        //super.viewDidLayoutSubviews()
+        super.viewDidLayoutSubviews()
         printFuncName()
     }
 
