@@ -10,11 +10,19 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
+    @IBOutlet weak var nameLabel: UILabel!
+
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         printFuncName()
-        //view.backgroundColor = .green
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,5 +62,24 @@ class ProfileViewController: UIViewController {
 
     func printFuncName(name: String = #function) {
         print(name)
+    }
+
+    @IBAction func editAction(_ sender: Any) {
+        let optionalButton = sender as? UIButton
+        //force unwrap
+        let button = optionalButton!
+        //if unwrapping
+        if let button2 = optionalButton {
+            //code to do
+        }
+        //use guard
+        guard let button3 = optionalButton else {
+            return
+        }
+        //some code to do when button exists
+        //
+        //default value
+        let button4: UIButton = optionalButton ?? UIButton()
+        
     }
 }
