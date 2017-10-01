@@ -23,8 +23,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         printFuncName()
+//        настраиваем пикер
         picker!.delegate = self
-        
         
 //      setup corner radius
         photoImageView.layer.cornerRadius = 50
@@ -99,36 +99,31 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
 
     @IBAction func editAction(_ sender: Any) {
-       print("edit button pressed")
+       print("Edit button pressed")
     }
     
     @IBAction func getProfileImage(_ sender: Any) {
-        // 1
-        let optionMenu = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .actionSheet)
+        let optionMenu = UIAlertController(title: nil, message: "Выбери источник картинки", preferredStyle: .actionSheet)
         
-        // 2
-        let deleteAction = UIAlertAction(title: "Camera", style: .default, handler: {
+        let deleteAction = UIAlertAction(title: "Камера", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.openCamera()
         })
-        let saveAction = UIAlertAction(title: "Galery", style: .default, handler: {
+        
+        let saveAction = UIAlertAction(title: "Галерея", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             self.openGallary()
         })
         
-        //
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Cancelled")
         })
         
-        
-        // 4
         optionMenu.addAction(deleteAction)
         optionMenu.addAction(saveAction)
         optionMenu.addAction(cancelAction)
         
-        // 5
         self.present(optionMenu, animated: true, completion: nil)
     }
     
@@ -148,7 +143,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             picker!.cameraCaptureMode = .photo
             present(picker!, animated: true, completion: nil)
         }else{
-            let alert = UIAlertController(title: "Camera Not Found", message: "This device has no Camera", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Нет камеры", message: "На этом устройстве нет камеры", preferredStyle: .alert)
             let ok = UIAlertAction(title: "OK", style:.default, handler: nil)
             alert.addAction(ok)
             present(alert, animated: true, completion: nil)
