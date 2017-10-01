@@ -11,7 +11,8 @@ import UIKit
 class ProfileViewController: UIViewController {
 
     @IBOutlet weak var nameLabel: UILabel!
-
+    @IBOutlet weak var infoLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         printFuncName()
@@ -57,21 +58,6 @@ class ProfileViewController: UIViewController {
     }
 
     @IBAction func editAction(_ sender: Any) {
-        let optionalButton = sender as? UIButton
-        //force unwrap
-        let button = optionalButton!
-        //if unwrapping
-        if let button2 = optionalButton {
-            //code to do
-        }
-        //use guard
-        guard let button3 = optionalButton else {
-            return
-        }
-        //some code to do when button exists
-        //
-        //default value
-        let button4: UIButton = optionalButton ?? UIButton()
-        
+       
     }
 }
