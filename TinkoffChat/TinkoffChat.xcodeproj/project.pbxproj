@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE009D711F8A21AE00E4DF93 /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE009D701F8A21AE00E4DF93 /* ConversationsListViewController.swift */; };
+		DE009D731F8A321D00E4DF93 /* DialogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE009D721F8A321D00E4DF93 /* DialogCell.swift */; };
 		DE040F081F72C9DC00638712 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE040F071F72C9DC00638712 /* AppDelegate.swift */; };
 		DE040F0A1F72C9DC00638712 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE040F091F72C9DC00638712 /* ProfileViewController.swift */; };
 		DE040F0D1F72C9DC00638712 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE040F0B1F72C9DC00638712 /* Profile.storyboard */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DE009D701F8A21AE00E4DF93 /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
+		DE009D721F8A321D00E4DF93 /* DialogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogCell.swift; sourceTree = "<group>"; };
 		DE040F041F72C9DC00638712 /* TinkoffChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE040F071F72C9DC00638712 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DE040F091F72C9DC00638712 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -63,6 +67,8 @@
 				DE040F101F72C9DC00638712 /* LaunchScreen.storyboard */,
 				DE040F131F72C9DC00638712 /* Info.plist */,
 				DE040F191F72D1AD00638712 /* Media.xcassets */,
+				DE009D701F8A21AE00E4DF93 /* ConversationsListViewController.swift */,
+				DE009D721F8A321D00E4DF93 /* DialogCell.swift */,
 			);
 			path = TinkoffChat;
 			sourceTree = "<group>";
@@ -142,6 +148,8 @@
 			files = (
 				DE040F0A1F72C9DC00638712 /* ProfileViewController.swift in Sources */,
 				DE040F081F72C9DC00638712 /* AppDelegate.swift in Sources */,
+				DE009D711F8A21AE00E4DF93 /* ConversationsListViewController.swift in Sources */,
+				DE009D731F8A321D00E4DF93 /* DialogCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
