@@ -7,6 +7,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -155,7 +156,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="15" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jad-uA-grd">
-                                                    <rect key="frame" x="12" y="12" width="220" height="20"/>
+                                                    <rect key="frame" x="12" y="12" width="240" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -163,7 +164,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottomMargin" secondItem="jad-uA-grd" secondAttribute="bottom" constant="4" id="AKo-55-8aH"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="jad-uA-grd" secondAttribute="trailing" constant="80" id="MZb-XQ-Oor"/>
+                                                <constraint firstItem="jad-uA-grd" firstAttribute="width" secondItem="8IE-Q0-q5X" secondAttribute="width" multiplier="0.75" id="j75-Dj-wb4"/>
                                                 <constraint firstItem="jad-uA-grd" firstAttribute="leading" secondItem="8IE-Q0-q5X" secondAttribute="leadingMargin" constant="4" id="k6h-2c-ehu"/>
                                                 <constraint firstItem="jad-uA-grd" firstAttribute="top" secondItem="8IE-Q0-q5X" secondAttribute="topMargin" constant="4" id="vjc-0B-WpX"/>
                                             </constraints>
@@ -180,15 +181,15 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="20" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RWW-yh-8Tm">
-                                                    <rect key="frame" x="88" y="12" width="220" height="20"/>
+                                                    <rect key="frame" x="68" y="12" width="240" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="RWW-yh-8Tm" firstAttribute="width" secondItem="TNE-vM-21S" secondAttribute="width" multiplier="0.75" id="3cy-D1-6Oy"/>
                                                 <constraint firstItem="RWW-yh-8Tm" firstAttribute="top" secondItem="TNE-vM-21S" secondAttribute="topMargin" constant="4" id="PrV-O7-AZw"/>
-                                                <constraint firstItem="RWW-yh-8Tm" firstAttribute="leading" secondItem="TNE-vM-21S" secondAttribute="leadingMargin" constant="80" id="Q0L-iG-cel"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="RWW-yh-8Tm" secondAttribute="trailing" constant="4" id="WdM-QZ-0YT"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="RWW-yh-8Tm" secondAttribute="bottom" constant="4" id="xXr-ej-98z"/>
                                             </constraints>
