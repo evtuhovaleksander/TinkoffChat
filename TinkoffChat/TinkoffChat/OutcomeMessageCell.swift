@@ -9,14 +9,10 @@
 import UIKit
 
 class OutcomeMessageCell: UITableViewCell {
-    
-    @IBOutlet weak var leftSpace: NSLayoutConstraint!
-    
-    @IBOutlet weak var messageLabel: UILabel!
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        leftSpace.constant = self.bounds.size.width/4
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

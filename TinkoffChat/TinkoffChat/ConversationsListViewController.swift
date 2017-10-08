@@ -50,7 +50,14 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         else{
             dialog = offlineDialogs![indexPath.row]
         }
-        return dialog.configCell(cell: cell)
+        
+        cell.name = dialog.name
+        cell.message = dialog.message
+        cell.date = dialog.date
+        cell.hasUnreadMessage = dialog.hasUnreadMessage
+        cell.online = dialog.online
+        cell.setupUI()
+        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -75,6 +82,7 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         }
         
         performSegue(withIdentifier: "ToMessages", sender: dialog)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -140,61 +148,7 @@ class Dialog:ConversationCellConfiguration{
     var date: Date?
     var online: Bool
     var hasUnreadMessage: Bool
-    
-    func configCell(cell : DialogCell)->DialogCell{
-        cell.nameLabel.text = name
-        
-        if let messageText = message{
-            if(hasUnreadMessage){
-                cell.messageLabel.font = UIFont.boldSystemFont(ofSize: 13)
-                cell.messageLabel.text = messageText
-            }else{
-                cell.messageLabel.font = UIFont.systemFont(ofSize: 13)
-                cell.messageLabel.text = messageText
-            }
 
-        }
-        else{
-            cell.messageLabel.font = UIFont(name: "Kefa", size: 13)
-            cell.messageLabel.text = "No messages yet"
-        }
-        
-        
-        
-        
-        if(online){
-            cell.onlineMarker.backgroundColor = .green
-            cell.backgroundColor = UIColor(red:1.00, green:1.00, blue:0.88, alpha:1.0)
-            
-        }
-        else{
-            cell.onlineMarker.backgroundColor = .red
-            cell.backgroundColor = .white
-        }
-        
-        var dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd.MM.YYYY"
-        if(dateFormatter.string(from: date!) != dateFormatter.string(from: Date())){
-            dateFormatter.dateFormat = "dd.MMM"
-            cell.dateLabel.text = dateFormatter.string(from: date!)
-        }
-        else{
-            dateFormatter.dateFormat = "HH:mm"
-            cell.dateLabel.text = dateFormatter.string(from: date!)
-        }
-        
-        cell.avatarImage.image = UIImage(named:"EmptyAvatar")
-        
-        let roundConstant = cell.onlineMarker.bounds.size.width / 2.0
-        cell.avatarImage.layer.cornerRadius = roundConstant
-        cell.avatarImage.clipsToBounds = true
-        cell.onlineMarker.layer.cornerRadius = roundConstant
-        cell.onlineMarker.clipsToBounds = true
-
-        return cell
-    }
-    
-    
 }
 
 protocol ConversationCellConfiguration : class{

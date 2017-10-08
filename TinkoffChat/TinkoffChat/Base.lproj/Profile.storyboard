@@ -112,7 +112,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="table" destination="l9n-Jx-Ebl" id="mE8-DB-9h8"/>
-                        <segue destination="or8-AM-I79" kind="show" id="wXt-ox-klB"/>
+                        <segue destination="or8-AM-I79" kind="show" identifier="ToMessages" id="wXt-ox-klB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3ka-XM-FuA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -147,7 +147,7 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="IncomeMessageCell" id="fq4-ck-bab" customClass="IncomeMessageCell" customModule="TinkoffChat" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="IncomeMessageCell" id="fq4-ck-bab" customClass="MessageCell" customModule="TinkoffChat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fq4-ck-bab" id="8IE-Q0-q5X">
@@ -155,7 +155,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="15" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jad-uA-grd">
-                                                    <rect key="frame" x="12" y="12" width="260" height="20"/>
+                                                    <rect key="frame" x="12" y="12" width="220" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -163,17 +163,16 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottomMargin" secondItem="jad-uA-grd" secondAttribute="bottom" constant="4" id="AKo-55-8aH"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="jad-uA-grd" secondAttribute="trailing" constant="40" id="MZb-XQ-Oor"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="jad-uA-grd" secondAttribute="trailing" constant="80" id="MZb-XQ-Oor"/>
                                                 <constraint firstItem="jad-uA-grd" firstAttribute="leading" secondItem="8IE-Q0-q5X" secondAttribute="leadingMargin" constant="4" id="k6h-2c-ehu"/>
                                                 <constraint firstItem="jad-uA-grd" firstAttribute="top" secondItem="8IE-Q0-q5X" secondAttribute="topMargin" constant="4" id="vjc-0B-WpX"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="messageLabel" destination="jad-uA-grd" id="f6u-1F-fM0"/>
-                                            <outlet property="rightSpace" destination="MZb-XQ-Oor" id="pNK-oX-SZl"/>
+                                            <outlet property="messageLabel" destination="jad-uA-grd" id="vzA-mq-m9z"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="OutcomeMessageCell" id="odR-gy-TYi" customClass="OutcomeMessageCell" customModule="TinkoffChat" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="OutcomeMessageCell" id="odR-gy-TYi" customClass="MessageCell" customModule="TinkoffChat" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="72" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="odR-gy-TYi" id="TNE-vM-21S">
@@ -181,7 +180,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="wordWrap" numberOfLines="20" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RWW-yh-8Tm">
-                                                    <rect key="frame" x="48" y="12" width="260" height="20"/>
+                                                    <rect key="frame" x="88" y="12" width="220" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -189,13 +188,12 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="RWW-yh-8Tm" firstAttribute="top" secondItem="TNE-vM-21S" secondAttribute="topMargin" constant="4" id="PrV-O7-AZw"/>
-                                                <constraint firstItem="RWW-yh-8Tm" firstAttribute="leading" secondItem="TNE-vM-21S" secondAttribute="leadingMargin" constant="40" id="Q0L-iG-cel"/>
+                                                <constraint firstItem="RWW-yh-8Tm" firstAttribute="leading" secondItem="TNE-vM-21S" secondAttribute="leadingMargin" constant="80" id="Q0L-iG-cel"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="RWW-yh-8Tm" secondAttribute="trailing" constant="4" id="WdM-QZ-0YT"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="RWW-yh-8Tm" secondAttribute="bottom" constant="4" id="xXr-ej-98z"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="leftSpace" destination="Q0L-iG-cel" id="yqG-LA-1gH"/>
                                             <outlet property="messageLabel" destination="RWW-yh-8Tm" id="XHX-r3-Bfj"/>
                                         </connections>
                                     </tableViewCell>

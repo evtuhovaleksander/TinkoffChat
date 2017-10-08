@@ -9,9 +9,8 @@
 /* Begin PBXBuildFile section */
 		DE009D711F8A21AE00E4DF93 /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE009D701F8A21AE00E4DF93 /* ConversationsListViewController.swift */; };
 		DE009D731F8A321D00E4DF93 /* DialogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE009D721F8A321D00E4DF93 /* DialogCell.swift */; };
-		DE009D751F8A691400E4DF93 /* IncomeMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE009D741F8A691400E4DF93 /* IncomeMessageCell.swift */; };
-		DE009D771F8A692800E4DF93 /* OutcomeMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE009D761F8A692800E4DF93 /* OutcomeMessageCell.swift */; };
 		DE009D791F8A694B00E4DF93 /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE009D781F8A694B00E4DF93 /* ConversationViewController.swift */; };
+		DE009D7B1F8A8E8800E4DF93 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE009D7A1F8A8E8800E4DF93 /* MessageCell.swift */; };
 		DE040F081F72C9DC00638712 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE040F071F72C9DC00638712 /* AppDelegate.swift */; };
 		DE040F0A1F72C9DC00638712 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE040F091F72C9DC00638712 /* ProfileViewController.swift */; };
 		DE040F0D1F72C9DC00638712 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE040F0B1F72C9DC00638712 /* Profile.storyboard */; };
@@ -23,9 +22,8 @@
 /* Begin PBXFileReference section */
 		DE009D701F8A21AE00E4DF93 /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
 		DE009D721F8A321D00E4DF93 /* DialogCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogCell.swift; sourceTree = "<group>"; };
-		DE009D741F8A691400E4DF93 /* IncomeMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeMessageCell.swift; sourceTree = "<group>"; };
-		DE009D761F8A692800E4DF93 /* OutcomeMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutcomeMessageCell.swift; sourceTree = "<group>"; };
 		DE009D781F8A694B00E4DF93 /* ConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewController.swift; sourceTree = "<group>"; };
+		DE009D7A1F8A8E8800E4DF93 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		DE040F041F72C9DC00638712 /* TinkoffChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinkoffChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE040F071F72C9DC00638712 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DE040F091F72C9DC00638712 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -66,7 +64,6 @@
 		DE040F061F72C9DC00638712 /* TinkoffChat */ = {
 			isa = PBXGroup;
 			children = (
-				DE009D761F8A692800E4DF93 /* OutcomeMessageCell.swift */,
 				DE040F071F72C9DC00638712 /* AppDelegate.swift */,
 				DE040F091F72C9DC00638712 /* ProfileViewController.swift */,
 				DE040F0B1F72C9DC00638712 /* Profile.storyboard */,
@@ -76,8 +73,8 @@
 				DE040F191F72D1AD00638712 /* Media.xcassets */,
 				DE009D701F8A21AE00E4DF93 /* ConversationsListViewController.swift */,
 				DE009D721F8A321D00E4DF93 /* DialogCell.swift */,
-				DE009D741F8A691400E4DF93 /* IncomeMessageCell.swift */,
 				DE009D781F8A694B00E4DF93 /* ConversationViewController.swift */,
+				DE009D7A1F8A8E8800E4DF93 /* MessageCell.swift */,
 			);
 			path = TinkoffChat;
 			sourceTree = "<group>";
@@ -156,9 +153,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE009D791F8A694B00E4DF93 /* ConversationViewController.swift in Sources */,
+				DE009D7B1F8A8E8800E4DF93 /* MessageCell.swift in Sources */,
 				DE040F0A1F72C9DC00638712 /* ProfileViewController.swift in Sources */,
-				DE009D751F8A691400E4DF93 /* IncomeMessageCell.swift in Sources */,
-				DE009D771F8A692800E4DF93 /* OutcomeMessageCell.swift in Sources */,
 				DE040F081F72C9DC00638712 /* AppDelegate.swift in Sources */,
 				DE009D711F8A21AE00E4DF93 /* ConversationsListViewController.swift in Sources */,
 				DE009D731F8A321D00E4DF93 /* DialogCell.swift in Sources */,

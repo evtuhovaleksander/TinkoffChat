@@ -40,7 +40,7 @@ class ConversationViewController: UIViewController,UITableViewDelegate,UITableVi
         
         self.table.delegate = self
         self.table.dataSource = self
-        
+        self.table.reloadData()
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -49,23 +49,15 @@ class ConversationViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messages![indexPath.row]
-        let maskPath : UIBezierPath?
         
         if(message.income){
-            let cell = table.dequeueReusableCell(withIdentifier: "IncomeMessageCell", for: indexPath) as! IncomeMessageCell
-            
-            cell.messageLabel.text = message.text
-            cell.messageLabel.backgroundColor = UIColor(red:0.95, green:1.00, blue:0.63, alpha:1.0)
-            cell.messageLabel.layer.cornerRadius = 3
-            cell.messageLabel.clipsToBounds = true
+            let cell = table.dequeueReusableCell(withIdentifier: "IncomeMessageCell", for: indexPath) as! MessageCell
+            cell.messageText = message.messageText
             return cell
             
         }else{
-            let cell = table.dequeueReusableCell(withIdentifier: "OutcomeMessageCell", for: indexPath) as! OutcomeMessageCell
-            cell.messageLabel.text = message.text
-            cell.messageLabel.backgroundColor = UIColor(red:0.63, green:0.65, blue:1.00, alpha:1.0)
-            cell.messageLabel.layer.cornerRadius = 3
-            cell.messageLabel.clipsToBounds = true
+            let cell = table.dequeueReusableCell(withIdentifier: "OutcomeMessageCell", for: indexPath) as! MessageCell
+            cell.messageText = message.messageText
             return cell
         }
         
@@ -74,25 +66,15 @@ class ConversationViewController: UIViewController,UITableViewDelegate,UITableVi
 }
 
 class Message : MessageCellConfiguration{
-    var text: String?
+    var messageText: String?
     var income: Bool
     
     init(message:String?,incomeP:Bool){
-        self.text = message
+        self.messageText = message
         self.income = incomeP
-    }
-    
-    func configCell(cell:UITableViewCell)->UITableViewCell{
-        if cell is IncomeMessageCell {
-           (cell as! IncomeMessageCell).messageLabel.text = text
-        }
-        else{
-            (cell as! OutcomeMessageCell).messageLabel.text = text
-        }
-        return cell
     }
 }
 
 protocol MessageCellConfiguration : class {
-    var text : String? {get set}
+    var messageText : String? {get set}
 }
