@@ -66,6 +66,26 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var dialog:Dialog
+        if(indexPath.section == 0){
+            dialog = onlineDialogs![indexPath.row]
+        }else{
+            dialog = offlineDialogs![indexPath.row]
+        }
+        
+        performSegue(withIdentifier: "ToMessages", sender: dialog)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "ToMessages"){
+            let navVC = segue.destination as? ConversationViewController
+            navVC?.title = (sender as! Dialog).name
+            
+           
+        }
+    }
+    
     func getTestData(){
         var online = [Dialog]()
         var offline = [Dialog]()
@@ -101,6 +121,8 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         onlineDialogs = online
         offlineDialogs = offline
     }
+    
+    
 }
 
 
