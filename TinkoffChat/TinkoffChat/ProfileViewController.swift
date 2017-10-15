@@ -32,6 +32,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     var profile:Profile = Profile.getEmptyProfile()
     
+    var operationTaskManager:OperationTaskManager = OperationTaskManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -75,12 +77,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         tap.cancelsTouchesInView = false
         
         view.addGestureRecognizer(tap)
+        
+        operationTaskManager.readProfile(controller: self)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        GCDTaskManager().readProfile(controller: self)
-    }
+
     
     @objc func dismissKeyboard() {
         //Causes the view (or one of its embedded text fields) to resign the first responder status.
@@ -168,7 +169,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
         profile.newAvatar = image
-        loadDataFromProfile()
+        photoImageView.image = image
+        setSaveButtonsAvalibleState()
         dismiss(animated:true, completion: nil)
     }
     
@@ -203,17 +205,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
 
-    
-//    func textFieldShouldReturn(textField: UITextField) -> Bool {
-//        self.view.endEditing(true)
-//        textField.resignFirstResponder()
-//        return true
-//    }
-    
-    
-
-    
-    
     @IBAction func nameChanged(_ sender: Any) {
         profile.newName = nameTextField.text!
         setSaveButtonsAvalibleState()
@@ -229,15 +220,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @IBAction func gcdSaveAction(_ sender: Any) {
         GCDTaskManager().saveProfile(controller: self)
-        //profile.saveProfile()
-        //profile = Profile.getProfile()
-        //loadDataFromProfile()
     }
     
     @IBAction func operationSaveAction(_ sender: Any) {
-        profile.saveProfile()
-        profile = Profile.getProfile()
-        loadDataFromProfile()
+        operationTaskManager.saveProfile(controller: self)
     }
     
     func activityStartAnimate(){
@@ -280,7 +266,7 @@ class Profile : NSObject, NSCoding, ProfileProtocol{
     
     var newAvatar: UIImage{
         didSet{
-                needSave = (newAvatar != avatar)
+            needSave = (imageToBase64ImageString(image: avatar) != imageToBase64ImageString(image: newAvatar))
         }
     }
     
@@ -325,7 +311,7 @@ class Profile : NSObject, NSCoding, ProfileProtocol{
     func encode(with aCoder: NSCoder) {
         aCoder.encode(name, forKey: "name")
         aCoder.encode(info, forKey: "info")
-        aCoder.encode(avatarToBase64ImageString(), forKey: "avatar")
+        aCoder.encode(imageToBase64ImageString(image: avatar), forKey: "avatar")
     }
     
     static func base64ImageStringToUIImage(base64String:String)->UIImage{
@@ -333,9 +319,9 @@ class Profile : NSObject, NSCoding, ProfileProtocol{
         return UIImage(data: dataDecoded)!
     }
     
-    func avatarToBase64ImageString()->String{
+    func imageToBase64ImageString(image:UIImage)->String{
         let jpegCompressionQuality: CGFloat = 1
-        return (UIImageJPEGRepresentation(avatar, jpegCompressionQuality)?.base64EncodedString())!
+        return (UIImageJPEGRepresentation(image, jpegCompressionQuality)?.base64EncodedString())!
     }
     
     func saveProfile()->String?{
@@ -362,70 +348,7 @@ class Profile : NSObject, NSCoding, ProfileProtocol{
                 return error.localizedDescription
             }
         }
-        
-        
         return "can't get path"
     }
 }
 
-
-//    func testProfile(){
-//
-//        profile.needSave = true
-//
-//        //if(profile.needSave){
-//        profile.name = "mame"
-//        profile.info = "info"
-//        profile.avatar = UIImage.init(named: "Photo")!
-//            let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("profile.prf")
-//
-//            let data = NSKeyedArchiver.archivedData(withRootObject: profile)
-//
-//            do {
-//                try data.write(to: fileURL)
-//            } catch {
-//                print("Couldn't write file")
-//            }
-//        if let d1:Data = try? Data(contentsOf: fileURL) {
-//        //let d1:Data = Data(contentsOf: fileURL)
-//        let d2 = NSKeyedUnarchiver.unarchiveObject(with: d1)
-//            let d3 = d2 as! Profile
-//            loadDataFromProfile()}
-//    }
-
-
-//    func test(){
-//        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("profile.prf")
-//
-//        let jpegCompressionQuality: CGFloat = 0.9 // Set this to whatever suits your purpose
-//        guard let base64String = UIImageJPEGRepresentation(self.profile.avatar, jpegCompressionQuality)?.base64EncodedString() else {
-//            return
-//        }
-//
-//        print(base64String)
-//
-//
-//        let dataDecoded : Data = Data(base64Encoded: base64String, options: .ignoreUnknownCharacters)!
-//        let decodedimage = UIImage(data: dataDecoded)
-//    }
-
-//    func saveGame(notification: NSNotification) {
-//        let saveData = NSMutableData()
-//        let archiver = NSKeyedArchiver(forWritingWith: saveData)
-//
-//        archiver.encode(player.name, forKey: "name")
-//        archiver.encode(player.score, forKey: "score")
-//        archiver.finishEncoding()
-//
-//        let saveLocation = saveFileLocation()
-//        _ = saveData.write(to: saveLocation, atomically: true)
-//    }
-//    func loadGame() {
-//        let saveLocation = saveFileLocation()
-//        if let saveData = try? Data(contentsOf: saveLocation) {
-//            let unarchiver = NSKeyedUnarchiver(forReadingWith: saveData)
-//            player.name = unarchiver.decodeObject(forKey: "name") as! String
-//            player.score = unarchiver.decodeInteger(forKey: "score")
-//            unarchiver.finishDecoding()
-//        }
-//    }

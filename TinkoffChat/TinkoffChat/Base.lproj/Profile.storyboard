@@ -7,6 +7,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -293,17 +294,36 @@
                                                             <constraint firstAttribute="height" constant="40" id="blu-Pq-cww"/>
                                                         </constraints>
                                                     </activityIndicatorView>
+                                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Nn9-00-CPF">
+                                                        <rect key="frame" x="252.5" y="138" width="112.5" height="31"/>
+                                                        <segments>
+                                                            <segment title="First"/>
+                                                            <segment title="Second"/>
+                                                        </segments>
+                                                    </segmentedControl>
+                                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="xMF-60-9eD">
+                                                        <rect key="frame" x="8" y="138" width="116.5" height="31"/>
+                                                    </slider>
                                                 </subviews>
-                                                <color key="backgroundColor" red="0.75686274509999996" green="0.82352941180000006" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="c7L-IL-zCc" firstAttribute="top" secondItem="utN-Bg-khT" secondAttribute="top" constant="16" id="4lS-bJ-GXM"/>
+                                                    <constraint firstItem="xMF-60-9eD" firstAttribute="leading" secondItem="utN-Bg-khT" secondAttribute="leading" constant="10" id="9CP-hq-258"/>
                                                     <constraint firstAttribute="trailing" secondItem="c7L-IL-zCc" secondAttribute="trailing" constant="16" id="B19-Dc-YOQ"/>
+                                                    <constraint firstItem="Nn9-00-CPF" firstAttribute="top" secondItem="dmG-iW-IVu" secondAttribute="bottom" constant="15" id="Ebu-3V-8yM"/>
+                                                    <constraint firstItem="Nn9-00-CPF" firstAttribute="leading" relation="lessThanOrEqual" secondItem="UNO-ID-FN1" secondAttribute="trailing" constant="45" id="IiM-ew-Ci4"/>
                                                     <constraint firstItem="dmG-iW-IVu" firstAttribute="leading" secondItem="utN-Bg-khT" secondAttribute="leading" constant="16" id="Inm-xa-DmI"/>
                                                     <constraint firstItem="c7L-IL-zCc" firstAttribute="leading" secondItem="utN-Bg-khT" secondAttribute="leading" constant="16" id="Jf9-9d-g5M"/>
                                                     <constraint firstAttribute="bottom" secondItem="dmG-iW-IVu" secondAttribute="bottom" constant="60" id="RMa-JB-nLb"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Nn9-00-CPF" secondAttribute="bottom" constant="15" id="TRf-R8-beV"/>
                                                     <constraint firstItem="UNO-ID-FN1" firstAttribute="centerX" secondItem="utN-Bg-khT" secondAttribute="centerX" id="WjU-le-sb2"/>
                                                     <constraint firstAttribute="bottom" secondItem="UNO-ID-FN1" secondAttribute="bottom" constant="10" id="XDD-to-kaf"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Nn9-00-CPF" secondAttribute="trailing" constant="10" id="ZP1-lV-hhE"/>
+                                                    <constraint firstItem="xMF-60-9eD" firstAttribute="width" secondItem="utN-Bg-khT" secondAttribute="width" multiplier="0.3" id="cV6-sh-JUa"/>
                                                     <constraint firstItem="dmG-iW-IVu" firstAttribute="top" secondItem="c7L-IL-zCc" secondAttribute="bottom" constant="8" id="hwM-lq-l9x"/>
+                                                    <constraint firstAttribute="bottom" secondItem="xMF-60-9eD" secondAttribute="bottom" constant="15" id="iiB-Cw-40t"/>
+                                                    <constraint firstItem="Nn9-00-CPF" firstAttribute="width" secondItem="utN-Bg-khT" secondAttribute="width" multiplier="0.3" id="jFY-SM-gto"/>
+                                                    <constraint firstItem="xMF-60-9eD" firstAttribute="top" secondItem="dmG-iW-IVu" secondAttribute="bottom" constant="15" id="jY8-iq-BBb"/>
                                                     <constraint firstAttribute="trailing" secondItem="dmG-iW-IVu" secondAttribute="trailing" constant="16" id="nCW-Xj-DgP"/>
                                                 </constraints>
                                             </view>

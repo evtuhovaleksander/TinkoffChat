@@ -31,7 +31,7 @@ class AlertManager{
         controller.present(optionMenu, animated: true, completion: nil)
     }
     
-    func showErrorAlert(error:String, controller:UIViewController, gcd:Bool){
+    func showErrorAlert(error:String, controller:UIViewController, operationTaskManager:OperationTaskManager?){
         let optionMenu = UIAlertController(title: "Ошибка", message: error, preferredStyle: .actionSheet)
         
         let cancelAction = UIAlertAction(title: "Отмена", style: .default, handler: {
@@ -47,11 +47,11 @@ class AlertManager{
         
         let againAction = UIAlertAction(title: "Повторить", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
-            if(gcd){
-                GCDTaskManager().saveProfile(controller: controller as! ProfileViewController)
+            if let manager = operationTaskManager {
+                manager.saveProfile(controller: controller as! ProfileViewController)
             }
             else{
-                
+                GCDTaskManager().saveProfile(controller: controller as! ProfileViewController)
             }
         })
         
@@ -72,7 +72,7 @@ class GCDTaskManager : AlertManager, TaskManager {
             //sleep(5)
             if let result = controller.profile.saveProfile(){
                 DispatchQueue.main.async() {
-                    self.showErrorAlert(error: result, controller: controller, gcd: true)
+                    self.showErrorAlert(error: result, controller: controller, operationTaskManager: nil)
                 }
             }else{
                 DispatchQueue.main.async() {
@@ -101,22 +101,126 @@ class GCDTaskManager : AlertManager, TaskManager {
     
 }
     
+class OperationTaskManager : AlertManager, TaskManager {
     
+    let operationQueue = OperationQueue()
     
-    
-//    func todo(){
-//    let queue = dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0)
-//    // submit a task to the queue for background execution
-//    dispatch_async(queue) {
-//    let enhancedImage = self.applyImageFilter(image) // expensive operation taking a few seconds
-//    // update UI on the main queue
-//    dispatch_async(dispatch_get_main_queue()) {
-//    self.imageView.image = enhancedImage
-//    UIView.animateWithDuration(0.3, animations: {
-//    self.imageView.alpha = 1
-//    }) { completed in
-//    // add code to happen next here
-//    }
-//    }
-//        }}
+    func saveProfile(controller:ProfileViewController) {
+        controller.activityStartAnimate()
+        let saveOperation = SaveProfileOperation(profile: controller.profile)
+        saveOperation.completionBlock = {
+            if let result = saveOperation.result {
+                DispatchQueue.main.async() {
+                    self.showErrorAlert(error: result, controller: controller, operationTaskManager: self)
+                }
+            } else {
+                DispatchQueue.main.async() {
+                    controller.activityStopAnimate()
+                    self.showSucsessAlert(controller: controller)
+                }
+            }
+            
+        }
+        operationQueue.addOperation(saveOperation)
 
+    }
+    
+    func readProfile(controller:ProfileViewController) {
+        controller.activityStartAnimate()
+        let readOperation = ReadProfileOperation()
+        readOperation.completionBlock = {
+            let profile = readOperation.profile!
+            DispatchQueue.main.async() {
+                controller.profile = profile
+                controller.loadDataFromProfile()
+                controller.activity.stopAnimating()
+            }
+            
+        }
+        operationQueue.addOperation(readOperation)
+    }
+
+}
+    
+    
+class AsyncOperation: Operation {
+    
+    // Определяем перечисление enum State со свойством keyPath
+    enum State: String {
+        case ready, executing, finished
+        
+        fileprivate var keyPath: String {
+            return "is" + rawValue.capitalized
+        }
+    }
+    
+    // Помещаем в subclass свойство state типа State
+    var state = State.ready {
+        willSet {
+            willChangeValue(forKey: newValue.keyPath)
+            willChangeValue(forKey: state.keyPath)
+        }
+        didSet {
+            didChangeValue(forKey: oldValue.keyPath)
+            didChangeValue(forKey: state.keyPath)
+        }
+    }
+}
+
+extension AsyncOperation {
+    // Переопределения для Operation
+    override var isReady: Bool {
+        return super.isReady && state == .ready
+    }
+    
+    override var isExecuting: Bool {
+        return state == .executing
+    }
+    
+    override var isFinished: Bool {
+        return state == .finished
+    }
+    
+    override var isAsynchronous: Bool {
+        return true
+    }
+    
+    override func start() {
+        if isCancelled {
+            state = .finished
+            return
+        }
+        main()
+        state = .executing
+    }
+    
+    override func cancel() {
+        state = .finished
+    }
+    
+}
+
+class ReadProfileOperation: AsyncOperation {
+    var profile:Profile?
+    
+    override func main() {
+        profile = Profile.getProfile()
+        sleep(4)
+        self.state = .finished
+    }
+}
+
+class SaveProfileOperation: AsyncOperation {
+    var result:String?
+    var profile:Profile
+    
+    init(profile:Profile) {
+        self.profile = profile
+        super.init()
+    }
+    override func main() {
+        result = profile.saveProfile()
+        sleep(4)
+        self.state = .finished
+    }
+}
