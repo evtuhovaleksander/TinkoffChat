@@ -42,7 +42,7 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = table.dequeueReusableCell(withIdentifier: "DialogCell", for: indexPath) as! DialogCell
+        let cell = table.dequeueReusableCell(withIdentifier: "DialogCell", for: indexPath) as! DialogCell
         let dialog:Dialog
         if(indexPath.section == 0){
             dialog = onlineDialogs![indexPath.row]
@@ -98,7 +98,7 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         var online = [Dialog]()
         var offline = [Dialog]()
         
-        var date = Date.init(timeIntervalSince1970: Date().timeIntervalSince1970 - 99999)
+        let date = Date.init(timeIntervalSince1970: Date().timeIntervalSince1970 - 99999)
         
         
         offline.append(Dialog(nameP: "Name1",messageP: "Message from 1",dateP: Date.init(),onlineP: false,hasUnread: false))

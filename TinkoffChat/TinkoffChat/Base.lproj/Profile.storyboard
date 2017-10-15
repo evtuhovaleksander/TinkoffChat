@@ -50,7 +50,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LwC-cs-Vhy">
-                                                    <rect key="frame" x="102" y="8" width="42" height="20.5"/>
+                                                    <rect key="frame" x="102" y="8" width="42" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -73,9 +73,12 @@
                                                 <constraint firstAttribute="trailing" secondItem="jxG-FL-uqB" secondAttribute="trailing" constant="6" id="4E7-vS-htf"/>
                                                 <constraint firstItem="q38-37-0G5" firstAttribute="leading" secondItem="9mR-UL-4Sw" secondAttribute="trailing" constant="6" id="7Ut-gf-UrE"/>
                                                 <constraint firstItem="2d1-zL-tCW" firstAttribute="bottom" secondItem="9mR-UL-4Sw" secondAttribute="bottom" id="N7W-Ec-JVy"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="q38-37-0G5" secondAttribute="trailing" constant="20" symbolic="YES" id="O25-zh-xvi"/>
                                                 <constraint firstItem="9mR-UL-4Sw" firstAttribute="top" secondItem="nez-Hl-533" secondAttribute="top" constant="4" id="VIw-ID-FCW"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="q38-37-0G5" secondAttribute="bottom" constant="8" id="X01-X2-sAm"/>
+                                                <constraint firstItem="jxG-FL-uqB" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="nez-Hl-533" secondAttribute="leading" constant="20" symbolic="YES" id="XWv-Az-vCh"/>
                                                 <constraint firstItem="9mR-UL-4Sw" firstAttribute="trailing" secondItem="2d1-zL-tCW" secondAttribute="trailing" id="bAC-de-5Sd"/>
+                                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="LwC-cs-Vhy" secondAttribute="trailing" constant="20" symbolic="YES" id="cp0-iS-V32"/>
                                                 <constraint firstItem="2d1-zL-tCW" firstAttribute="width" secondItem="2d1-zL-tCW" secondAttribute="height" multiplier="1:1" id="dDR-vh-evV"/>
                                                 <constraint firstItem="jxG-FL-uqB" firstAttribute="top" secondItem="nez-Hl-533" secondAttribute="top" constant="4" id="iqI-ZP-s4t"/>
                                                 <constraint firstAttribute="bottom" secondItem="9mR-UL-4Sw" secondAttribute="bottom" constant="4" id="ngv-An-uzK"/>
@@ -118,7 +121,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3ka-XM-FuA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1466.25" y="32.74647887323944"/>
+            <point key="canvasLocation" x="-1467" y="32"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="LdO-up-OcD">
@@ -191,6 +194,7 @@
                                                 <constraint firstItem="RWW-yh-8Tm" firstAttribute="width" secondItem="TNE-vM-21S" secondAttribute="width" multiplier="0.75" id="3cy-D1-6Oy"/>
                                                 <constraint firstItem="RWW-yh-8Tm" firstAttribute="top" secondItem="TNE-vM-21S" secondAttribute="topMargin" constant="4" id="PrV-O7-AZw"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="RWW-yh-8Tm" secondAttribute="trailing" constant="4" id="WdM-QZ-0YT"/>
+                                                <constraint firstItem="RWW-yh-8Tm" firstAttribute="leading" relation="lessThanOrEqual" secondItem="TNE-vM-21S" secondAttribute="leadingMargin" constant="60" id="h60-qz-7Lh"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="RWW-yh-8Tm" secondAttribute="bottom" constant="4" id="xXr-ej-98z"/>
                                             </constraints>
                                         </tableViewCellContentView>
