@@ -17,6 +17,7 @@
 		DE040F0F1F72C9DC00638712 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE040F0E1F72C9DC00638712 /* Assets.xcassets */; };
 		DE040F121F72C9DC00638712 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE040F101F72C9DC00638712 /* LaunchScreen.storyboard */; };
 		DE040F1A1F72D1AD00638712 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE040F191F72D1AD00638712 /* Media.xcassets */; };
+		DE395D8B1F93BE150019370A /* TaskManagers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE395D8A1F93BE150019370A /* TaskManagers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		DE040F111F72C9DC00638712 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DE040F131F72C9DC00638712 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE040F191F72D1AD00638712 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		DE395D8A1F93BE150019370A /* TaskManagers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 				DE009D721F8A321D00E4DF93 /* DialogCell.swift */,
 				DE009D781F8A694B00E4DF93 /* ConversationViewController.swift */,
 				DE009D7A1F8A8E8800E4DF93 /* MessageCell.swift */,
+				DE395D8A1F93BE150019370A /* TaskManagers.swift */,
 			);
 			path = TinkoffChat;
 			sourceTree = "<group>";
@@ -158,6 +161,7 @@
 				DE040F081F72C9DC00638712 /* AppDelegate.swift in Sources */,
 				DE009D711F8A21AE00E4DF93 /* ConversationsListViewController.swift in Sources */,
 				DE009D731F8A321D00E4DF93 /* DialogCell.swift in Sources */,
+				DE395D8B1F93BE150019370A /* TaskManagers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

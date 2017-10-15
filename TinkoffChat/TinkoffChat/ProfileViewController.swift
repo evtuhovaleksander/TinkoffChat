@@ -25,10 +25,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var photoImageView: UIImageView!
     
     @IBOutlet weak var makePhotoButton: UIButton!
-
+    
+    @IBOutlet weak var activity: UIActivityIndicatorView!
+    
     var picker:UIImagePickerController?=UIImagePickerController()
     
-    var profile:Profile = Profile.getProfile()
+    var profile:Profile = Profile.getEmptyProfile()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +53,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         photoImageView.clipsToBounds = true
         makePhotoButton.clipsToBounds = true
         
+        activity.hidesWhenStopped = true
         
 //      setup data
         loadDataFromProfile()
@@ -61,7 +64,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
 //      setup UI
         setupButton(button: gcdButton)
         setupButton(button: operationButton)
-        setupView(view: infoTextView)
+        setupView(view: infoTextView, radius: 10)
+        setupView(view: activity, radius: Float(activity.bounds.size.width/2.0))
         
         
         
@@ -71,6 +75,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         tap.cancelsTouchesInView = false
         
         view.addGestureRecognizer(tap)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        GCDTaskManager().readProfile(controller: self)
     }
     
     @objc func dismissKeyboard() {
@@ -91,11 +100,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     func keyboardWillHide(notification: Notification) -> Void {
-        if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
-            let keyboardRectangle = keyboardFrame.cgRectValue
-            let keyboardHeight = keyboardRectangle.height
             downConstraint.constant = 0
-        }
     }
     
     func setupButton(button : UIButton){
@@ -105,8 +110,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         button.clipsToBounds = true
     }
     
-    func setupView(view : UIView){
-        view.layer.cornerRadius = CGFloat(10)
+    func setupView(view : UIView,radius : Float){
+        view.layer.cornerRadius = CGFloat(radius)
         view.clipsToBounds = true
     }
 
@@ -162,7 +167,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-        profile.avatar = image
+        profile.newAvatar = image
         loadDataFromProfile()
         dismiss(animated:true, completion: nil)
     }
@@ -199,33 +204,34 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
 
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        textField.resignFirstResponder()
-        return true
-    }
+//    func textFieldShouldReturn(textField: UITextField) -> Bool {
+//        self.view.endEditing(true)
+//        textField.resignFirstResponder()
+//        return true
+//    }
     
     
 
     
     
     @IBAction func nameChanged(_ sender: Any) {
-        profile.name = nameTextField.text!
+        profile.newName = nameTextField.text!
         setSaveButtonsAvalibleState()
     }
     
     
     func textViewDidChange(_ textView: UITextView) {
-        profile.info = infoTextView.text!
+        profile.newInfo = infoTextView.text!
         setSaveButtonsAvalibleState()
     }
     
     
     
     @IBAction func gcdSaveAction(_ sender: Any) {
-        profile.saveProfile()
-        profile = Profile.getProfile()
-        loadDataFromProfile()
+        GCDTaskManager().saveProfile(controller: self)
+        //profile.saveProfile()
+        //profile = Profile.getProfile()
+        //loadDataFromProfile()
     }
     
     @IBAction func operationSaveAction(_ sender: Any) {
@@ -234,6 +240,16 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         loadDataFromProfile()
     }
     
+    func activityStartAnimate(){
+        activity.isHidden=false
+        activity.startAnimating()
+        activity.hidesWhenStopped = true
+    }
+    func activityStopAnimate(){
+        activity.isHidden=true
+        activity.hidesWhenStopped = true
+        activity.stopAnimating()
+    }
     
 }
 
@@ -247,31 +263,28 @@ protocol ProfileProtocol : class{
 
 class Profile : NSObject, NSCoding, ProfileProtocol{
     
-    var name: String{
-        willSet{
-            if(newValue != name){
-                needSave = true
-            }
+    var newName: String{
+        didSet{
+           needSave = (newName != name)
         }
     }
     
+    var name: String
     
+    var newInfo: String{
+        didSet{
+            needSave = (newInfo != info)
+        }
+    }
+    var info: String
     
-    var info: String{
-        willSet{
-            if(newValue != info){
-                needSave = true
-            }
+    var newAvatar: UIImage{
+        didSet{
+                needSave = (newAvatar != avatar)
         }
     }
     
-    var avatar: UIImage{
-        willSet{
-            if(newValue != avatar){
-                needSave = true
-            }
-        }
-    }
+    var avatar: UIImage
     
     var needSave: Bool
     
@@ -283,13 +296,20 @@ class Profile : NSObject, NSCoding, ProfileProtocol{
                 return profile
             }
         }
-        return Profile(name: "",info: "",avatar: UIImage.init(named: "EmptyAvatar")!,needSave: true)
+        return Profile(name: "",info: "",avatar: UIImage.init(named: "EmptyAvatar")!,needSave: false)
+    }
+    
+    static func getEmptyProfile()->Profile{
+        return Profile(name: "",info: "",avatar: UIImage.init(named: "EmptyAvatar")!,needSave: false)
     }
     
     init(name: String, info: String, avatar : UIImage, needSave : Bool) {
         self.name = name
+        self.newName = name
         self.info = info
+        self.newInfo = info
         self.avatar = avatar
+        self.newAvatar = avatar
         self.needSave = needSave
     }
     
@@ -318,17 +338,33 @@ class Profile : NSObject, NSCoding, ProfileProtocol{
         return (UIImageJPEGRepresentation(avatar, jpegCompressionQuality)?.base64EncodedString())!
     }
     
-    func saveProfile(){
+    func saveProfile()->String?{
         self.needSave = false
-        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("profile.prf")
         
-        let data = NSKeyedArchiver.archivedData(withRootObject: self)
+        avatar = newAvatar
+        name = newName
+        info = newInfo
         
-        do {
-            try data.write(to: fileURL)
-        } catch {
-            print("Couldn't write file")
+        
+        if let fileURL = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("profile.prf"){
+            do {
+                let data = NSKeyedArchiver.archivedData(withRootObject: self)
+                try data.write(to: fileURL)
+                if( Int(arc4random_uniform(2))==1){
+                    return nil
+                    
+                }else{
+                    return "generated error"
+                    
+                }
+            } catch let error {
+                print(error.localizedDescription)
+                return error.localizedDescription
+            }
         }
+        
+        
+        return "can't get path"
     }
 }
 
