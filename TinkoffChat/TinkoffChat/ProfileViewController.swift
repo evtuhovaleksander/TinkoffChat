@@ -13,7 +13,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var infoLabel: UILabel!
 
-    @IBOutlet weak var editProfileButton: UIButton!
+    @IBOutlet weak var gcdButton: UIButton!
+    
+    @IBOutlet weak var operationButton: UIButton!
+    
+    
     @IBOutlet weak var photoImageView: UIImageView!
 
     @IBOutlet weak var makePhotoButton: UIButton!
@@ -36,23 +40,16 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
 //      setup data
         nameLabel.text = "Alex Dark"
         infoLabel.text = "Hello! I'm Alex Dark, and you can be my best friend!"
-//      setup button
-        editProfileButton.layer.borderWidth = 1
-        editProfileButton.layer.borderColor = UIColor.black.cgColor
-        editProfileButton.layer.cornerRadius = CGFloat(10)
-        editProfileButton.clipsToBounds = true
-        
-//      попытка распечатать свойсво кнопки в методе инит - приведет к ошибке
-//      так как в методе инит самой кнопки пока еще не существует
-//      кнопка будет создана во viewDidLoad
-//      поэтому тут мы можем смотреть на свойства кнопки
-//      тут ее размер будет равен тому который был в сториборде
-//      так как ее просто создали и присвоили размер
-//      адаптивная верстка происходит на этапе layoutSubviews
-//      тоесть констрейнты будут применяться  позже
-//      поэтому итоговый размер кнопки надо смотреть в методе viewDidLayoutSubviews
-        print(editProfileButton.frame.size)
-        //
+//      setup buttons
+        setupButton(button: gcdButton)
+        setupButton(button: operationButton)
+    }
+    
+    func setupButton(button : UIButton){
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.cornerRadius = CGFloat(10)
+        button.clipsToBounds = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -63,10 +60,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         printFuncName()
-//      теперь ко всем элементам уже применены констрейнты
-//      размеры элементов изменены
-//      теперь мы можем посмотреть конечный размер кнопки на экране телефона
-        print(editProfileButton.frame.size)
     }
 
     override func viewDidAppear(_ animated: Bool) {
