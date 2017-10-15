@@ -8,8 +8,11 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate,UITextViewDelegate {
 
+    @IBOutlet weak var scrollView: UIScrollView!
+
+    @IBOutlet weak var downConstraint: NSLayoutConstraint!
     @IBOutlet weak var nameTextField: UITextField!
     
     @IBOutlet weak var infoTextView: UITextView!
@@ -20,18 +23,25 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     
     @IBOutlet weak var photoImageView: UIImageView!
-
+    
     @IBOutlet weak var makePhotoButton: UIButton!
 
     var picker:UIImagePickerController?=UIImagePickerController()
     
-    var profile:Profile = Profile()
+    var profile:Profile = Profile.getProfile()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        настраиваем пикер
+//        set delegates
         picker!.delegate = self
+        nameTextField.delegate = self
+        infoTextView.delegate = self
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIKeyboardWillShow, object: nil, queue: nil, using: self.keyboardWillShow)
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIKeyboardWillHide, object: nil, queue: nil, using: self.keyboardWillHide)
+
+
         
 //      setup corner radius
         photoImageView.layer.cornerRadius = 50
@@ -43,6 +53,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         
 //      setup data
+        loadDataFromProfile()
+        //setSaveButtonsAvalibleState()
         //self.profile.avatar = self.photoImageView.image!
         //saveProfile()
         
@@ -50,6 +62,40 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         setupButton(button: gcdButton)
         setupButton(button: operationButton)
         setupView(view: infoTextView)
+        
+        
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+        
+        //Uncomment the line below if you want the tap not not interfere and cancel other interactions.
+        tap.cancelsTouchesInView = false
+        
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+        view.endEditing(true)
+    }
+    
+    
+    func keyboardWillShow(notification: Notification) -> Void {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            
+            downConstraint.constant = keyboardHeight
+            
+            scrollView.contentOffset.y = 300
+        }
+    }
+    
+    func keyboardWillHide(notification: Notification) -> Void {
+        if let keyboardFrame: NSValue = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardRectangle = keyboardFrame.cgRectValue
+            let keyboardHeight = keyboardRectangle.height
+            downConstraint.constant = 0
+        }
     }
     
     func setupButton(button : UIButton){
@@ -64,44 +110,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         view.clipsToBounds = true
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        printFuncName()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        printFuncName()
-    }
-
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        printFuncName()
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        printFuncName()
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        printFuncName()
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        printFuncName()
-    }
-
-    func printFuncName(name: String = #function) {
-        print(name)
-    }
 
     
     @IBAction func getProfileImage(_ sender: Any) {
@@ -154,7 +162,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-        photoImageView.image = image
+        profile.avatar = image
+        loadDataFromProfile()
         dismiss(animated:true, completion: nil)
     }
     
@@ -166,40 +175,66 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         self.dismiss(animated: true, completion: nil)
     }
     
-    func testProfile(){
-        
-        profile.needSave = true
-        
-        //if(profile.needSave){
-        profile.name = "mame"
-        profile.info = "info"
-        profile.avatar = UIImage.init(named: "Photo")!
-            let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("profile.prf")
-            
-            let data = NSKeyedArchiver.archivedData(withRootObject: profile)
-            
-            do {
-                try data.write(to: fileURL)
-            } catch {
-                print("Couldn't write file")
-            }
-        
-        
-        if let d1:Data = try? Data(contentsOf: fileURL) {
-        //let d1:Data = Data(contentsOf: fileURL)
-        let d2 = NSKeyedUnarchiver.unarchiveObject(with: d1)
-            let d3 = d2 as! Profile
-
-        
-            loadDataFromProfile()}
-        
-    }
-    
     func loadDataFromProfile(){
         photoImageView.image = profile.avatar
         nameTextField.text = profile.name
         infoTextView.text = profile.info
+        setSaveButtonsAvalibleState()
     }
+    
+    func setSaveButtonsAvalibleState(){
+        if(profile.needSave){
+            gcdButton.isEnabled = true
+            operationButton.isEnabled = true
+            gcdButton.backgroundColor = .green
+            operationButton.backgroundColor = .green
+        }
+        else{
+            gcdButton.isEnabled = false
+            operationButton.isEnabled = false
+            gcdButton.backgroundColor = .red
+            operationButton.backgroundColor = .red
+        }
+    }
+    
+
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    
+
+    
+    
+    @IBAction func nameChanged(_ sender: Any) {
+        profile.name = nameTextField.text!
+        setSaveButtonsAvalibleState()
+    }
+    
+    
+    func textViewDidChange(_ textView: UITextView) {
+        profile.info = infoTextView.text!
+        setSaveButtonsAvalibleState()
+    }
+    
+    
+    
+    @IBAction func gcdSaveAction(_ sender: Any) {
+        profile.saveProfile()
+        profile = Profile.getProfile()
+        loadDataFromProfile()
+    }
+    
+    @IBAction func operationSaveAction(_ sender: Any) {
+        profile.saveProfile()
+        profile = Profile.getProfile()
+        loadDataFromProfile()
+    }
+    
+    
 }
 
 
@@ -220,6 +255,8 @@ class Profile : NSObject, NSCoding, ProfileProtocol{
         }
     }
     
+    
+    
     var info: String{
         willSet{
             if(newValue != info){
@@ -238,11 +275,15 @@ class Profile : NSObject, NSCoding, ProfileProtocol{
     
     var needSave: Bool
     
-    override init() {
-        name = ""
-        info = ""
-        avatar = UIImage.init(named: "EmptyAvatar")!
-        needSave = true
+    public static func getProfile()->Profile{
+        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("profile.prf")
+        if let simpleData:Data = try? Data(contentsOf: fileURL) {
+            let decodedData = NSKeyedUnarchiver.unarchiveObject(with: simpleData)
+            if let profile = decodedData as? Profile{
+                return profile
+            }
+        }
+        return Profile(name: "",info: "",avatar: UIImage.init(named: "EmptyAvatar")!,needSave: true)
     }
     
     init(name: String, info: String, avatar : UIImage, needSave : Bool) {
@@ -277,14 +318,44 @@ class Profile : NSObject, NSCoding, ProfileProtocol{
         return (UIImageJPEGRepresentation(avatar, jpegCompressionQuality)?.base64EncodedString())!
     }
     
-    func loadProfile(){
-        
-    }
-    
     func saveProfile(){
+        self.needSave = false
+        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("profile.prf")
         
+        let data = NSKeyedArchiver.archivedData(withRootObject: self)
+        
+        do {
+            try data.write(to: fileURL)
+        } catch {
+            print("Couldn't write file")
+        }
     }
 }
+
+
+//    func testProfile(){
+//
+//        profile.needSave = true
+//
+//        //if(profile.needSave){
+//        profile.name = "mame"
+//        profile.info = "info"
+//        profile.avatar = UIImage.init(named: "Photo")!
+//            let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("profile.prf")
+//
+//            let data = NSKeyedArchiver.archivedData(withRootObject: profile)
+//
+//            do {
+//                try data.write(to: fileURL)
+//            } catch {
+//                print("Couldn't write file")
+//            }
+//        if let d1:Data = try? Data(contentsOf: fileURL) {
+//        //let d1:Data = Data(contentsOf: fileURL)
+//        let d2 = NSKeyedUnarchiver.unarchiveObject(with: d1)
+//            let d3 = d2 as! Profile
+//            loadDataFromProfile()}
+//    }
 
 
 //    func test(){
