@@ -97,8 +97,6 @@ class GCDTaskManager : AlertManager, TaskManager {
                 }
         }
     }
-    
-    
 }
     
 class OperationTaskManager : AlertManager, TaskManager {
@@ -135,11 +133,9 @@ class OperationTaskManager : AlertManager, TaskManager {
                 controller.loadDataFromProfile()
                 controller.activity.stopAnimating()
             }
-            
         }
         operationQueue.addOperation(readOperation)
     }
-
 }
     
     
