@@ -18,6 +18,9 @@
 		DE040F121F72C9DC00638712 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE040F101F72C9DC00638712 /* LaunchScreen.storyboard */; };
 		DE040F1A1F72D1AD00638712 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE040F191F72D1AD00638712 /* Media.xcassets */; };
 		DE395D8B1F93BE150019370A /* TaskManagers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE395D8A1F93BE150019370A /* TaskManagers.swift */; };
+		DE4A4EFE1F9C8273009F3296 /* CommunicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4A4EFD1F9C8273009F3296 /* CommunicationManager.swift */; };
+		DE4A4F061F9CB7D5009F3296 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4A4F051F9CB7D5009F3296 /* Protocols.swift */; };
+		DE4A4F081F9CB932009F3296 /* MultipeerCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4A4F071F9CB932009F3296 /* MultipeerCommunicator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +37,9 @@
 		DE040F131F72C9DC00638712 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE040F191F72D1AD00638712 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		DE395D8A1F93BE150019370A /* TaskManagers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagers.swift; sourceTree = "<group>"; };
+		DE4A4EFD1F9C8273009F3296 /* CommunicationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationManager.swift; sourceTree = "<group>"; };
+		DE4A4F051F9CB7D5009F3296 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		DE4A4F071F9CB932009F3296 /* MultipeerCommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipeerCommunicator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +84,9 @@
 				DE009D781F8A694B00E4DF93 /* ConversationViewController.swift */,
 				DE009D7A1F8A8E8800E4DF93 /* MessageCell.swift */,
 				DE395D8A1F93BE150019370A /* TaskManagers.swift */,
+				DE4A4F071F9CB932009F3296 /* MultipeerCommunicator.swift */,
+				DE4A4EFD1F9C8273009F3296 /* CommunicationManager.swift */,
+				DE4A4F051F9CB7D5009F3296 /* Protocols.swift */,
 			);
 			path = TinkoffChat;
 			sourceTree = "<group>";
@@ -157,10 +166,13 @@
 			files = (
 				DE009D791F8A694B00E4DF93 /* ConversationViewController.swift in Sources */,
 				DE009D7B1F8A8E8800E4DF93 /* MessageCell.swift in Sources */,
+				DE4A4F081F9CB932009F3296 /* MultipeerCommunicator.swift in Sources */,
 				DE040F0A1F72C9DC00638712 /* ProfileViewController.swift in Sources */,
+				DE4A4F061F9CB7D5009F3296 /* Protocols.swift in Sources */,
 				DE040F081F72C9DC00638712 /* AppDelegate.swift in Sources */,
 				DE009D711F8A21AE00E4DF93 /* ConversationsListViewController.swift in Sources */,
 				DE009D731F8A321D00E4DF93 /* DialogCell.swift in Sources */,
+				DE4A4EFE1F9C8273009F3296 /* CommunicationManager.swift in Sources */,
 				DE395D8B1F93BE150019370A /* TaskManagers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -15,9 +15,16 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     var onlineDialogs : [Dialog]?
     var offlineDialogs : [Dialog]?
     
+    var multiPeerCommunicator : MultipeerCommunicator = MultipeerCommunicator(selfName: "name")
+    var communicationManager : CommunicationManager = CommunicationManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Tinkoff Chat"
+        
+        multiPeerCommunicator.delegate = communicationManager
+        
+        
         getTestData()
         table.dataSource = self
         table.delegate = self
@@ -148,7 +155,6 @@ class Dialog:ConversationCellConfiguration{
     var date: Date?
     var online: Bool
     var hasUnreadMessage: Bool
-
 }
 
 protocol ConversationCellConfiguration : class{
