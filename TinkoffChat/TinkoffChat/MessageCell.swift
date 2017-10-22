@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MessageCell: UITableViewCell,MessageCellConfiguration {
+class MessageCell: UITableViewCell{//,MessageCellConfiguration {
 
     @IBOutlet weak var messageLabel: UILabel!
     

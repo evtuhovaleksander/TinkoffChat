@@ -64,7 +64,8 @@ class CommunicationManager: CommunicatorDelegate{
         let dialog = getDialogByUserID(userID: userID)
         dialog.online = online
         
-        //refresh notification
+        NotificationCenter.default.post(name: .refreshDialog, object: nil)
+        NotificationCenter.default.post(name: .refreshDialogs, object: nil)
     }
     
     func didLostUser(userID: String) {
@@ -93,11 +94,57 @@ class CommunicationManager: CommunicatorDelegate{
         }
         
         dialog.messages.append(message)
+        dialog.messages.sort{ $0.date < $1.date }
         
-        //send refresh notification
+        NotificationCenter.default.post(name: .refreshDialog, object: nil)
+        NotificationCenter.default.post(name: .refreshDialogs, object: nil)
     }
     
+    func getDialogMessages(userName:String)->[ChatMessage]{
     
+    for item in dialogs{
+           if item.value.name == userName{
+                return item.value.messages
+            }
+        }
+        
+        return [ChatMessage]()
+        
+    }
+    
+    func getChatDialog(userName:String)->ChatDialog{
+        
+        for item in dialogs{
+            if item.value.name == userName{
+                return item.value
+            }
+        }
+        
+        return ChatDialog(name:"", userID: "")
+        
+    }
+    
+    func getChatDialog(userID:String)->ChatDialog{
+        
+        return dialogs[userID]!
+        
+    }
+    
+    func getChatDialogs()->[ChatDialog]{
+        var array = [ChatDialog]()
+        for item in dialogs{
+            array.append(item.value)
+        }
+        return array
+    }
+    
+    func updateUnread(userID:String){
+        let dialog = dialogs[userID]
+        for message in dialog!.messages{
+            message.unRead = false
+        }
+        
+    }
     
 
     

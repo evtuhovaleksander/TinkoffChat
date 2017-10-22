@@ -61,6 +61,10 @@ class DialogCell: UITableViewCell, ConversationCellConfiguration {
     
     var date: Date?{
         didSet{
+            if date == nil {
+               dateLabel.text = ""
+                return
+            }
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd.MM.YYYY"
             if(dateFormatter.string(from: date!) != dateFormatter.string(from: Date())){

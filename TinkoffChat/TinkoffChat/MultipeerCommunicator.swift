@@ -65,7 +65,7 @@ class MultipeerCommunicator:NSObject, Communicator{
     init(selfName: String) {
         
         
-        online = false
+        online = true
         myName = selfName
         
         chatSessions = [ChatSession]()
@@ -101,75 +101,19 @@ class MultipeerCommunicator:NSObject, Communicator{
     
     func sendMessage(string: String, to userID: String, completionHandler: ((Bool, Error?) -> ())?) {
         
-        let chatUser = getChatUser(userPeerID: userID, userName: "")
-        
-        chatUser.se
-        
-        delegate?.didRecieveMessage(text: "message", fromUser: peerID.displayName, toUser: "me")
+        if let chatUser = chatUsers[userID]{
+            do{
+                try chatUser.session.send(Data(), toPeers: [chatUser.mcPeerID], with: .reliable)
+                
+            }catch is Error {
+               return
+            }
+            
+            delegate?.didRecieveMessage(text: "message", fromUser: "me", toUser: chatUser.mcPeerID.displayName)
+        }
     }
-    
-//    func getChatSessionForPeer(peer:MCPeerID)->ChatSession{
-//        var chatSession:ChatSession? = nil
-//
-//        for item in chatSessions{
-//            if(item.mcPeerID == peer){
-//                chatSession = item
-//                break
-//            }
-//        }
-//        if chatSession == nil{
-//            chatSession = ChatSession()
-//        }
-//        if chatSession.session == nil {
-//            chatSession.session = MCSession(peer: myPeerID, securityIdentity: nil, encryptionPreference: .none)
-//            chatSession.session.delegate = self
-//        }
-//        return chatSession
-//    }
-    
-//    func getChatSession(userName:String,peerID:MCPeerID)->ChatSession{
-//
-//        var chatSession:ChatSession?
-//
-//        for item in chatSessions{
-//            if(item.userName == userName&&item.mcPeerID==peerID){
-//                chatSession = item
-//                break
-//            }
-//        }
-//
-//        if chatSession == nil{
-//            chatSession = ChatSession(userName:userName,mcPeerID:peerID, session: nil)
-//        }
-//
-//        var guardedChatSession = chatSession!
-//
-//        if guardedChatSession.session == nil {
-//            guardedChatSession.session = MCSession(peer: myPeerID, securityIdentity: nil, encryptionPreference: .none)
-//            guardedChatSession.session!.delegate = self
-//        }
-//        return guardedChatSession
-//    }
-    
-//    func getChatSessionForUserName(userName:String)->ChatSession{
-//
-//        var chatSession:ChatSession = ChatSession(userName: "",mcPeerID: MCPeerID(),session: nil)
-//
-//        for item in chatSessions{
-//            if(item.userName == userName){
-//                chatSession = item
-//                break
-//            }
-//        }
-//
-//        if chatSession.session == nil {
-//            chatSession.session = MCSession(peer: myPeerID, securityIdentity: nil, encryptionPreference: .none)
-//            chatSession.session!.delegate = self
-//        }
-//        return chatSession
-//    }
-    
-    
+
+  
     func getChatUser(userPeerID:MCPeerID,userName:String)->ChatUser{
         if let chatUser = chatUsers[userPeerID.displayName]{
             if chatUser.userName == "" && userName != ""{
@@ -188,7 +132,7 @@ extension MultipeerCommunicator : MCNearbyServiceAdvertiserDelegate {
     
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didNotStartAdvertisingPeer error: Error) {
         print( "didNotStartAdvertisingPeer: \(error)")
-        // send to delegate
+        delegate?.failedToStartAdvertising(error: error)
     }
     
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
@@ -208,6 +152,10 @@ extension MultipeerCommunicator : MCNearbyServiceBrowserDelegate{
     
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
         delegate?.didLostUser(userID: peerID.displayName)
+    }
+    
+    func browser(_ browser: MCNearbyServiceBrowser, didNotStartBrowsingForPeers error: Error) {
+        delegate?.failedToStartBrowsingForUsers(error: error)
     }
 }
 
