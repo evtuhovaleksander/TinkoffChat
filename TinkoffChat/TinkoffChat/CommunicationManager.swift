@@ -63,7 +63,7 @@ class CommunicationManager: CommunicatorDelegate{
     func userDidBecome(userID:String,online:Bool){
         let dialog = getDialogByUserID(userID: userID)
         dialog.online = online
-        
+        dialogs[userID] = dialog
         NotificationCenter.default.post(name: .refreshDialog, object: nil)
         NotificationCenter.default.post(name: .refreshDialogs, object: nil)
     }
@@ -85,17 +85,20 @@ class CommunicationManager: CommunicatorDelegate{
         
         let dialog:ChatDialog
         
+        var user = ""
         if(toUser == "me"){
             message.income = true
             dialog = getDialogByUserID(userID: fromUser)
+            user = fromUser
         }else{
             message.income = false
             dialog = getDialogByUserID(userID: toUser)
+            user = toUser
         }
         
         dialog.messages.append(message)
         dialog.messages.sort{ $0.date < $1.date }
-        
+        dialogs[user]=dialog
         NotificationCenter.default.post(name: .refreshDialog, object: nil)
         NotificationCenter.default.post(name: .refreshDialogs, object: nil)
     }
@@ -143,6 +146,7 @@ class CommunicationManager: CommunicatorDelegate{
         for message in dialog!.messages{
             message.unRead = false
         }
+        dialogs[userID]=dialog
         
     }
     

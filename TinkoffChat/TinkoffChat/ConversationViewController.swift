@@ -24,20 +24,25 @@ class ConversationViewController: UIViewController,UITableViewDelegate,UITableVi
     @IBOutlet weak var messageText: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.messages = communicationManager!.getDialogMessages(userName: userName!)
+        
         self.table.delegate = self
         self.table.dataSource = self
-        self.table.reloadData()
-        
         NotificationCenter.default.addObserver(self, selector: #selector(refreshDialog), name: .refreshDialog, object: nil)
-
-
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.messages = communicationManager!.getDialogMessages(userName: userName!)
     }
     @objc func refreshDialog(_ notification: NSNotification){
-        let dialog = communicationManager!.getChatDialog(userName: userName!)
-        self.messages = dialog.messages
-        sendButton.isEnabled = dialog.online
-        self.table.reloadData()
+        DispatchQueue.main.async {
+            let dialog = communicationManager!.getChatDialog(userName: userName!)
+            self.messages = dialog.messages
+            sendButton.isEnabled = dialog.online
+            self.table.reloadData()
+        }
+        
+
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -62,22 +67,15 @@ class ConversationViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     @IBAction func send(_ sender: Any) {
+        multipeerCommunicator?.sendMessage(string: messageText.text!, to: userID!, completionHandler: nil)
     }
     
 
 }
 
-//class Message : MessageCellConfiguration{
-//    var messageText: String?
-//    var income: Bool
-//    
-//    init(message:String?,incomeP:Bool){
-//        self.messageText = message
-//        self.income = incomeP
-//    }
-//}
-//
-//protocol MessageCellConfiguration : class {
-//    var messageText : String? {get set}
-//}
+
+
+protocol MessageCellConfiguration : class {
+    var messageText : String? {get set}
+}
 

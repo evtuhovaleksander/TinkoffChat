@@ -38,8 +38,10 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     }
     
     @objc func refreshDialogs(_ notification: NSNotification){
-        getDialogs()
-        table.reloadData()
+        DispatchQueue.main.async {
+            self.getDialogs()
+            self.table.reloadData()
+        }
     }
     
     func getDialogs(){
