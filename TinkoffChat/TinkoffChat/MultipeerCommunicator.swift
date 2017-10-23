@@ -107,6 +107,7 @@ class MultipeerCommunicator:NSObject, Communicator{
         }
         else{
             let chatUser = ChatUser(userName: userName, mcPeerID: userPeerID, myPeerID: myPeerID,delegate:self)
+            chatUsers[userPeerID.displayName]=chatUser
             return chatUser
         }
     }
