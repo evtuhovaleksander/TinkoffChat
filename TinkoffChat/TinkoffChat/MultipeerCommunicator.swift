@@ -145,6 +145,9 @@ extension MultipeerCommunicator : MCNearbyServiceBrowserDelegate{
     }
     
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
+        let chatUser = getChatUser(userPeerID: peerID, userName: "")
+        chatUser.session = MCSession(peer: myPeerID, securityIdentity: nil, encryptionPreference: .none)
+        chatUsers[peerID.displayName] = chatUser
         delegate?.didLostUser(userID: peerID.displayName)
         delegate?.userDidBecome(userID: peerID.displayName, online: false)
     }

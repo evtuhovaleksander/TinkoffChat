@@ -80,9 +80,7 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         
         self.offlineDialogs = offWith
         self.offlineDialogs.append(contentsOf: offWithout)
-        
-        
-        
+  
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
