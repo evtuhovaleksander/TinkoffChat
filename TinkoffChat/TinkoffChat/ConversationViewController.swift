@@ -36,9 +36,9 @@ class ConversationViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     @objc func refreshDialog(_ notification: NSNotification){
         DispatchQueue.main.async {
-            let dialog = communicationManager!.getChatDialog(userName: userName!)
+            let dialog = self.communicationManager!.getChatDialog(userName: self.userName!)
             self.messages = dialog.messages
-            sendButton.isEnabled = dialog.online
+            self.sendButton.isEnabled = dialog.online
             self.table.reloadData()
         }
         

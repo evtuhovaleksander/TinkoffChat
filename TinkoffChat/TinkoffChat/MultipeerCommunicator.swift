@@ -91,6 +91,7 @@ class MultipeerCommunicator:NSObject, Communicator{
                 let data = jsonManager.makeMessage(string: string)
                 try chatUser.session.send(data, toPeers: [chatUser.mcPeerID], with: .reliable)
             }catch {
+            print(error.localizedDescription)
                return
             }
             delegate?.didRecieveMessage(text: "message", fromUser: "me", toUser: chatUser.mcPeerID.displayName)
@@ -135,10 +136,16 @@ extension MultipeerCommunicator : MCNearbyServiceAdvertiserDelegate {
 
 extension MultipeerCommunicator : MCNearbyServiceBrowserDelegate{
     func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
-        let chatUser = getChatUser(userPeerID: peerID, userName: info!["userName"]!)
+        var name = "no name"
+        if let iinfo = info{
+            if let nname = iinfo["userName"]{
+                name = nname
+            }
+        }
+        let chatUser = getChatUser(userPeerID: peerID, userName: name)
         if(!chatUser.session.connectedPeers.contains(peerID)){
             browser.invitePeer(peerID, to: chatUser.session, withContext: nil, timeout: 30)
-            delegate?.didFoundUser(userID: peerID.displayName, userName: info!["userName"]!)
+            delegate?.didFoundUser(userID: peerID.displayName, userName: name)
             delegate?.userDidBecome(userID: peerID.displayName, online: true)
         }
         chatUsers[peerID.displayName]=chatUser
@@ -146,8 +153,8 @@ extension MultipeerCommunicator : MCNearbyServiceBrowserDelegate{
     
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
         let chatUser = getChatUser(userPeerID: peerID, userName: "")
-        chatUser.session = MCSession(peer: myPeerID, securityIdentity: nil, encryptionPreference: .none)
-        chatUsers[peerID.displayName] = chatUser
+        //chatUser.session = MCSession(peer: myPeerID, securityIdentity: nil, encryptionPreference: .none)
+        //chatUsers[peerID.displayName] = chatUser
         delegate?.didLostUser(userID: peerID.displayName)
         delegate?.userDidBecome(userID: peerID.displayName, online: false)
     }
