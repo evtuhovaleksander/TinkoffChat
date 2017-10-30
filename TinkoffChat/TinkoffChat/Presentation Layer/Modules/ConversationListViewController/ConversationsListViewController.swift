@@ -36,11 +36,13 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         table.delegate = self
         table.reloadData()
         model.getDialogs()
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshDialogs), name: .refreshDialogs, object: nil)
+
     }
     
     @objc func refreshDialogs(_ notification: NSNotification){
         DispatchQueue.main.async {
-            model.getDialogs()
+            self.model.getDialogs()
             self.table.reloadData()
         }
     }
