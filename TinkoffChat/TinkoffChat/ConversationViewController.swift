@@ -27,24 +27,38 @@ class ConversationViewController: UIViewController,UITableViewDelegate,UITableVi
         
         self.table.delegate = self
         self.table.dataSource = self
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshDialog), name: .refreshDialog, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshDialogNot), name: .refreshDialog, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.messages = communicationManager!.getDialogMessages(userName: userName!)
+        //self.messages = communicationManager!.getDialogMessages(userName: userName!)
+        refreshDialog()
     }
-    @objc func refreshDialog(_ notification: NSNotification){
+    
+    func refreshDialog(){
         DispatchQueue.main.async {
             let dialog = self.communicationManager!.getChatDialog(userName: self.userName!)
             self.messages = dialog.messages
             self.sendButton.isEnabled = dialog.online
             self.table.reloadData()
         }
+    }
+    
+    @objc func refreshDialogNot(_ notification: NSNotification){
+        refreshDialog()
         
 
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        communicationManager?.updateUnread(userID: userID!)
+        //NotificationCenter.default.post(name: .refreshDialog, object: nil)
+        NotificationCenter.default.post(name: .refreshDialogs, object: nil)
+        
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
     }

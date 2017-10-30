@@ -34,7 +34,7 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         table.dataSource = self
         table.delegate = self
         table.reloadData()
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshDialogs), name: .refreshDialog, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshDialogs), name: .refreshDialogs, object: nil)
     }
     
     @objc func refreshDialogs(_ notification: NSNotification){

@@ -14,7 +14,6 @@ class MessageCell: UITableViewCell,MessageCellConfiguration {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
     var messageText : String?{

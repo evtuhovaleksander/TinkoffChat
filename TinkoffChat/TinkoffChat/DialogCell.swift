@@ -82,7 +82,7 @@ class DialogCell: UITableViewCell, ConversationCellConfiguration {
         didSet{
             if(message != nil){
                 if(hasUnreadMessage){
-                    messageLabel.font = UIFont.boldSystemFont(ofSize: 13)
+                    messageLabel.font = UIFont.boldSystemFont(ofSize: 20)
                 }else{
                     messageLabel.font = UIFont.systemFont(ofSize: 13)
                 }

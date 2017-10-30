@@ -28,6 +28,8 @@ class ChatUser{
 
 class MultipeerCommunicator:NSObject, Communicator{
 
+   static var singltonMultipeerCommunicator:MultipeerCommunicator?
+    
     var chatUsers:Dictionary<String,ChatUser>
     var myName: String
     var myPeerID: MCPeerID
@@ -62,7 +64,8 @@ class MultipeerCommunicator:NSObject, Communicator{
      
         chatUsers = Dictionary<String,ChatUser>()
         
-        myPeerID = MCPeerID(displayName: (UIDevice.current.identifierForVendor?.uuidString)!)
+        myPeerID = MCPeerID(displayName: (UIDevice.current.identifierForVendor?.uuidString)!)//UUID().uuidString)
+        //"1")//(UIDevice.current.identifierForVendor?.uuidString)!)
         
         let discoveryInfo = ["userName":self.myName]
         
@@ -94,7 +97,7 @@ class MultipeerCommunicator:NSObject, Communicator{
             print(error.localizedDescription)
                return
             }
-            delegate?.didRecieveMessage(text: "message", fromUser: "me", toUser: chatUser.mcPeerID.displayName)
+            delegate?.didRecieveMessage(text: string, fromUser: "me", toUser: chatUser.mcPeerID.displayName)
         }
     }
 
@@ -144,19 +147,22 @@ extension MultipeerCommunicator : MCNearbyServiceBrowserDelegate{
         }
         let chatUser = getChatUser(userPeerID: peerID, userName: name)
         if(!chatUser.session.connectedPeers.contains(peerID)){
-            browser.invitePeer(peerID, to: chatUser.session, withContext: nil, timeout: 30)
+            browser.invitePeer(peerID, to: chatUser.session, withContext: nil, timeout: 5)
             delegate?.didFoundUser(userID: peerID.displayName, userName: name)
-            delegate?.userDidBecome(userID: peerID.displayName, online: true)
+            //delegate?.userDidBecome(userID: peerID.displayName, online: true)
         }
         chatUsers[peerID.displayName]=chatUser
     }
     
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
         let chatUser = getChatUser(userPeerID: peerID, userName: "")
-        //chatUser.session = MCSession(peer: myPeerID, securityIdentity: nil, encryptionPreference: .none)
-        //chatUsers[peerID.displayName] = chatUser
         delegate?.didLostUser(userID: peerID.displayName)
         delegate?.userDidBecome(userID: peerID.displayName, online: false)
+        if let user = chatUsers[peerID.displayName]{
+            
+        }
+        
+        chatUsers[peerID.displayName]=nil
     }
     
     func browser(_ browser: MCNearbyServiceBrowser, didNotStartBrowsingForPeers error: Error) {
