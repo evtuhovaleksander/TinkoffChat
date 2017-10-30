@@ -17,6 +17,7 @@ class ConversationViewController: UIViewController,UITableViewDelegate,UITableVi
     var multipeerCommunicator:MultipeerCommunicator?
     var userName:String?
     var userID:String?
+    
     @IBOutlet weak var table: UITableView!
     
     @IBOutlet weak var sendButton: UIButton!

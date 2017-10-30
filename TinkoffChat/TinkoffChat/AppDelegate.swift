@@ -18,8 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let navController = UINavigationController()
         let controller = ConversationsListViewControllerAsembler.createConversationsListViewController()
-        navController.pushViewController(controller, animated: false)
-        window?.rootViewController = navController
+        navController.viewControllers.append(controller)
+        window?.rootViewController = navController//  controller
         window?.makeKeyAndVisible()
         
         return true

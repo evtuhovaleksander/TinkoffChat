@@ -22,14 +22,16 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         self.model = model
         self.onlineDialogs = [ChatDialog]()
         self.offlineDialogs = [ChatDialog]()
+        
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        return nil
     }
     
     override func viewDidLoad() {
+        self.table.register(UINib.init(nibName: "ConversationsListCell", bundle: nil), forCellReuseIdentifier:"DialogCell" )
         super.viewDidLoad()
         self.title = "Tinkoff Chat"
         table.dataSource = self
@@ -172,7 +174,13 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
             navVC?.userName = (sender as! ChatDialog).name
             navVC?.userID = (sender as! ChatDialog).userID
         }
-    }   
+    }
+    
+    
+    @IBAction func toProfile(_ sender: Any) {
+        //self.present(Profi, animated: true, completion: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>)
+    }
+    
 }
 
 protocol ConversationCellConfiguration : class{

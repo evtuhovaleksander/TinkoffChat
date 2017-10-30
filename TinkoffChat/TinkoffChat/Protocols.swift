@@ -25,6 +25,20 @@ protocol CommunicatorDelegate : class{
     func failedToStartAdvertising(error:Error)
     
     func didRecieveMessage(text: String, fromUser: String, toUser: String)
+    
+    func getDialogByUserID(userID:String)->ChatDialog
+    
+    func getDialog(userID:String, userName:String)->ChatDialog
+    
+    func getDialogMessages(userName:String)->[ChatMessage]
+    
+    func getChatDialog(userName:String)->ChatDialog
+    
+    func getChatDialog(userID:String)->ChatDialog
+    
+    func getChatDialogs()->[ChatDialog]
+    
+    func updateUnread(userID:String)
 }
 
 

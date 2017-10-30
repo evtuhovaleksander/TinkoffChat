@@ -1,5 +1,5 @@
 //
-//  ConversationListManager.swift
+//  ConversationViewControllerAssembler.swift
 //  TinkoffChat
 //
 //  Created by Aleksander Evtuhov on 30/10/2017.

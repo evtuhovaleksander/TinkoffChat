@@ -105,8 +105,7 @@ class CommunicationManager: CommunicatorDelegate{
     }
     
     func getDialogMessages(userName:String)->[ChatMessage]{
-    
-    for item in dialogs{
+        for item in dialogs{
            if item.value.name == userName{
                 return item.value.messages
             }
@@ -148,7 +147,6 @@ class CommunicationManager: CommunicatorDelegate{
             message.unRead = false
         }
         dialogs[userID]=dialog
-        
     }
     
 
