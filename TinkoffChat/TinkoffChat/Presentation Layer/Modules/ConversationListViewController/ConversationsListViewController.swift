@@ -8,45 +8,44 @@
 
 import UIKit
 
-class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,IConversationsListViewControllerModelDelegate {
 
     @IBOutlet weak var table: UITableView!
     
-    //var onlineDialogs : [Dialog]?
-    //var offlineDialogs : [Dialog]?
-    
-    
+
     var onlineDialogs : [ChatDialog] = [ChatDialog]()
     var offlineDialogs : [ChatDialog] = [ChatDialog]()
+    var model : IConversationsListViewControllerModel
+
     
+    init(model: IConversationsListViewControllerModel) {
+        self.model = model
+        self.onlineDialogs = [ChatDialog]()
+        self.offlineDialogs = [ChatDialog]()
+        super.init(nibName: nil, bundle: nil)
+    }
     
-    
-    var multiPeerCommunicator : MultipeerCommunicator = MultipeerCommunicator(selfName: "name")
-    var communicationManager : CommunicationManager = CommunicationManager()
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Tinkoff Chat"
-        
-        multiPeerCommunicator.delegate = communicationManager
-        
-        getDialogs()
         table.dataSource = self
         table.delegate = self
         table.reloadData()
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshDialogs), name: .refreshDialogs, object: nil)
+        model.getDialogs()
     }
     
     @objc func refreshDialogs(_ notification: NSNotification){
         DispatchQueue.main.async {
-            self.getDialogs()
+            model.getDialogs()
             self.table.reloadData()
         }
     }
     
-    func getDialogs(){
-        var allDialogs = communicationManager.getChatDialogs()
-        
+    func setupDialogs(allDialogs: [ChatDialog]){
         var onWith = [ChatDialog]()
         var onWithout = [ChatDialog]()
         var offWith = [ChatDialog]()
@@ -67,7 +66,7 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
                 }
             }
         }
-       
+        
         
         onWith.sort{$0.messages.last!.date < $1.messages.last!.date}
         offWith.sort{$0.messages.last!.date < $1.messages.last!.date}
@@ -80,8 +79,10 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         
         self.offlineDialogs = offWith
         self.offlineDialogs.append(contentsOf: offWithout)
-  
+        
+        self.table.reloadData()
     }
+
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -164,68 +165,13 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         if (segue.identifier == "ToMessages"){
             let navVC = segue.destination as? ConversationViewController
             navVC?.title = (sender as! ChatDialog).name
-            navVC?.communicationManager = communicationManager
-            navVC?.multipeerCommunicator = multiPeerCommunicator
+            navVC?.communicationManager = rootAssembly.communicationManager
+            navVC?.multipeerCommunicator = rootAssembly.multiPeerCommunicator
             navVC?.userName = (sender as! ChatDialog).name
             navVC?.userID = (sender as! ChatDialog).userID
         }
-    }
-    
-//    func getTestData(){
-//        var online = [Dialog]()
-//        var offline = [Dialog]()
-//
-//        let date = Date.init(timeIntervalSince1970: Date().timeIntervalSince1970 - 99999)
-//
-//
-//        offline.append(Dialog(nameP: "Name1",messageP: "Message from 1",dateP: Date.init(),onlineP: false,hasUnread: false))
-//        offline.append(Dialog(nameP: "Name2",messageP: "Message from 2",dateP: Date.init(),onlineP: false,hasUnread: true))
-//        online.append(Dialog(nameP: "Name3",messageP: nil ,dateP: Date.init(),onlineP: true,hasUnread: false))
-//        online.append(Dialog(nameP: "Name4",messageP: "Message from 4",dateP: Date.init(),onlineP: true,hasUnread: true))
-//        online.append(Dialog(nameP: "Name5",messageP: "Message from 5"             ,dateP: Date.init(),onlineP:  true,hasUnread: false))
-//
-//        offline.append(Dialog(nameP: "Name6",messageP: "Message from 6",dateP: date,onlineP: false,hasUnread: false))
-//        offline.append(Dialog(nameP: "Name7",messageP: "Message from 7",dateP: date,onlineP: false,hasUnread: false))
-//        offline.append(Dialog(nameP: "Name8",messageP: "Message from 8",dateP: Date.init(),onlineP: false,hasUnread: false))
-//        offline.append(Dialog(nameP: "Name9",messageP: nil,dateP: Date.init(),onlineP: false,hasUnread: false))
-//
-//
-//        offline.append(Dialog(nameP: "Name10",messageP: nil,dateP: Date.init(),onlineP: false,hasUnread: false))
-//        online.append(Dialog(nameP: "Name11",messageP: "Message from 11",dateP: Date.init(),onlineP: true,hasUnread: false))
-//        offline.append(Dialog(nameP: "Name12",messageP: "Message from 12",dateP: Date.init(),onlineP: false,hasUnread: true))
-//        online.append(Dialog(nameP: "Name13",messageP: "Message from 13",dateP: Date.init(),onlineP: true,hasUnread: true))
-//        online.append(Dialog(nameP: "Name14",messageP: "Message from 14",dateP: Date.init(),onlineP: true,hasUnread: false))
-//
-//        offline.append(Dialog(nameP: "Name15",messageP: "Message from 15",dateP: date,onlineP: false,hasUnread: false))
-//        offline.append(Dialog(nameP: "Name16",messageP: "Message from 16",dateP: date,onlineP: false,hasUnread: false))
-//        offline.append(Dialog(nameP: "Name17",messageP: "Message from 17",dateP: Date.init(),onlineP: false,hasUnread: false))
-//        offline.append(Dialog(nameP: "Name18",messageP: nil,dateP: Date.init(),onlineP: false,hasUnread: false))
-//        offline.append(Dialog(nameP: "Name19",messageP: nil,dateP: Date.init(),onlineP: false,hasUnread: false))
-//        offline.append(Dialog(nameP: "Name20",messageP: "Message from 20",dateP: Date.init(),onlineP: false,hasUnread: false))
-//
-//        onlineDialogs = online
-//        offlineDialogs = offline
-//    }
-    
-    
+    }   
 }
-
-
-//class Dialog:ConversationCellConfiguration{
-//    init(nameP:String, messageP:String?,dateP:Date,onlineP:Bool,hasUnread:Bool){
-//        self.name = nameP
-//        self.message = messageP
-//        self.date = dateP
-//        self.online = onlineP
-//        self.hasUnreadMessage = hasUnread
-//    }
-//
-//    var name: String?
-//    var message: String?
-//    var date: Date?
-//    var online: Bool
-//    var hasUnreadMessage: Bool
-//}
 
 protocol ConversationCellConfiguration : class{
     var name : String? {get set}
@@ -234,5 +180,45 @@ protocol ConversationCellConfiguration : class{
     var online : Bool {get set}
     var hasUnreadMessage : Bool {get set}
 }
+
+
+//    func getDialogs1(){
+//        var allDialogs = communicationManager.getChatDialogs()
+//
+//        var onWith = [ChatDialog]()
+//        var onWithout = [ChatDialog]()
+//        var offWith = [ChatDialog]()
+//        var offWithout = [ChatDialog]()
+//
+//        for dialog in allDialogs{
+//            if(dialog.online){
+//                if(dialog.messages.count>0){
+//                    onWith.append(dialog)
+//                }else{
+//                    onWithout.append(dialog)
+//                }
+//            }else{
+//                if(dialog.messages.count>0){
+//                    offWith.append(dialog)
+//                }else{
+//                    offWithout.append(dialog)
+//                }
+//            }
+//        }
+//
+//
+//        onWith.sort{$0.messages.last!.date < $1.messages.last!.date}
+//        offWith.sort{$0.messages.last!.date < $1.messages.last!.date}
+//
+//        onWithout.sort{$0.name!<$1.name!}
+//        offWithout.sort{$0.name!<$1.name!}
+//
+//        self.onlineDialogs = onWith
+//        self.onlineDialogs.append(contentsOf: onWithout)
+//
+//        self.offlineDialogs = offWith
+//        self.offlineDialogs.append(contentsOf: offWithout)
+//
+//    }
 
 

@@ -39,6 +39,7 @@ class ChatDialog{
 
 class CommunicationManager: CommunicatorDelegate{
     
+    
     var dialogs: Dictionary<String,ChatDialog> = Dictionary<String,ChatDialog>()
     
     func getDialogByUserID(userID:String)->ChatDialog{

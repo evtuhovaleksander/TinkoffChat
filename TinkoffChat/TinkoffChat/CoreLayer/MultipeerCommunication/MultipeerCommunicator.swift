@@ -9,7 +9,11 @@
 import Foundation
 import MultipeerConnectivity
 
-//var myPeerID: MCPeerID = MCPeerID(displayName:"lol")
+protocol ICommunicator {
+    func sendMessage(string: String, to userID: String, completionHandler: ((_ sucsess:Bool, _ error: Error?)->())?)
+    weak var delegate : CommunicatorDelegate? {get set}
+    var online: Bool {get set}
+}
 
 
 
@@ -26,10 +30,7 @@ class ChatUser{
     }
 }
 
-class MultipeerCommunicator:NSObject, Communicator{
-
-   static var singltonMultipeerCommunicator:MultipeerCommunicator?
-    
+class MultipeerCommunicator:NSObject, ICommunicator{
     var chatUsers:Dictionary<String,ChatUser>
     var myName: String
     var myPeerID: MCPeerID
