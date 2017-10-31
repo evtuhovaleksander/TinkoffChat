@@ -160,13 +160,31 @@ extension MultipeerCommunicator : MCNearbyServiceAdvertiserDelegate {
     
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
         print( "didReceiveInvitationFromPeer \(peerID)")
-        let chatUser = getChatUser(userPeerID: peerID, userName: "")
-        if(!chatUser.session.connectedPeers.contains(peerID)){
-            invitationHandler(true,chatUser.session)
-        }else{
+        
+        if let chatUser = chatUsers[peerID.displayName]{
+            if(!chatUser.session.connectedPeers.contains(peerID)){
+                invitationHandler(true,chatUser.session)
+            }else{
+                invitationHandler(false,nil)
+            }
+            chatUsers[peerID.displayName]=chatUser
+        }
+        else{
             invitationHandler(false,nil)
         }
-        chatUsers[peerID.displayName]=chatUser
+        
+        
+        
+        
+        
+        
+//        if(!chatUser.session.connectedPeers.contains(peerID)){
+//            invitationHandler(true,chatUser.session)
+//        }else{
+//            invitationHandler(false,nil)
+//        }
+        
+        
     }
     
 }
