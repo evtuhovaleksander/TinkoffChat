@@ -19,21 +19,21 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="634"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zL6-UI-uZO">
-                    <rect key="frame" x="0.0" y="20" width="375" height="614"/>
+                    <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2zh-fI-2il">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="614"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                             <subviews>
                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="khq-FP-x7V">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="554"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="587"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </tableView>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="yl6-lb-TKE">
-                                    <rect key="frame" x="0.0" y="554" width="375" height="60"/>
+                                    <rect key="frame" x="0.0" y="587" width="375" height="60"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="97X-ZK-kHY">
                                             <rect key="frame" x="0.0" y="0.0" width="265" height="60"/>
@@ -59,6 +59,9 @@
                                                 <constraint firstAttribute="width" constant="100" id="UgM-60-V3x"/>
                                             </constraints>
                                             <state key="normal" title="Send"/>
+                                            <connections>
+                                                <action selector="send:" destination="-1" eventType="touchUpInside" id="aV7-oz-C8m"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>

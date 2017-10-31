@@ -36,7 +36,7 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     }
     
     override func viewDidLoad() {
-        self.table.register(UINib.init(nibName: "ConversationsListCell", bundle: nil), forCellReuseIdentifier:"DialogCell" )
+        self.table.register(UINib.init(nibName: "DialogCell", bundle: nil), forCellReuseIdentifier:"DialogCell" )
         super.viewDidLoad()
         self.title = "Tinkoff Chat"
         table.dataSource = self

@@ -17,15 +17,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DialogCell" customModule="TinkoffChat" customModuleProvider="target">
             <connections>
-                <outlet property="avatarImage" destination="NPo-8u-fRO" id="cUP-8Z-O5w"/>
-                <outlet property="dateLabel" destination="aQ4-Cm-dUt" id="YaN-Pw-hlZ"/>
-                <outlet property="messageLabel" destination="9Zp-u6-uKb" id="wFH-9H-5DT"/>
-                <outlet property="nameLabel" destination="Sj9-bq-amZ" id="TeJ-OB-Fmu"/>
-                <outlet property="onlineMarker" destination="Yiw-95-9hJ" id="o0d-yh-XUp"/>
+                <outlet property="avatarImage" destination="NPo-8u-fRO" id="Zpa-C3-EaJ"/>
+                <outlet property="dateLabel" destination="aQ4-Cm-dUt" id="FqY-xp-mDw"/>
+                <outlet property="messageLabel" destination="9Zp-u6-uKb" id="PtG-tI-cgQ"/>
+                <outlet property="nameLabel" destination="Sj9-bq-amZ" id="EBk-Of-DAL"/>
+                <outlet property="onlineMarker" destination="Yiw-95-9hJ" id="6q9-hF-g4m"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="106" id="eYm-op-qEa">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DialogCell" rowHeight="106" id="eYm-op-qEa" customClass="DialogCell" customModule="TinkoffChat" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="106"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eYm-op-qEa" id="YD4-Vs-kVj">
@@ -81,6 +81,13 @@
                     <constraint firstItem="Sj9-bq-amZ" firstAttribute="leading" secondItem="NPo-8u-fRO" secondAttribute="trailing" constant="6" id="zAb-NB-b94"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="avatarImage" destination="NPo-8u-fRO" id="8Hz-H3-eQo"/>
+                <outlet property="dateLabel" destination="aQ4-Cm-dUt" id="7hE-t9-mpR"/>
+                <outlet property="messageLabel" destination="9Zp-u6-uKb" id="Wq0-fQ-1eF"/>
+                <outlet property="nameLabel" destination="Sj9-bq-amZ" id="rnf-Fg-Anl"/>
+                <outlet property="onlineMarker" destination="Yiw-95-9hJ" id="swB-jY-9KX"/>
+            </connections>
             <point key="canvasLocation" x="56.5" y="37"/>
         </tableViewCell>
     </objects>
