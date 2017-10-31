@@ -6,7 +6,7 @@
 //  Copyright © 2017 Aleksander Evtuhov. All rights reserved.
 //
 
-import UIKit
+//import UIKit
 
 //class AlertManager{
 //    func showSucsessAlert(controller:UIViewController){

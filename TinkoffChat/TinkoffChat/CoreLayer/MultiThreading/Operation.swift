@@ -21,7 +21,7 @@ class OperationTaskManager : TaskManager, ProfileService  {
         saveOperation.completionBlock = {
             if let result = saveOperation.result {
                 DispatchQueue.main.async() {
-                    self.delegate?.showErrorAlert(string: result)
+                    self.delegate?.showErrorAlert(string: result,gcdMode: false)
                 }
             } else {
                 DispatchQueue.main.async() {

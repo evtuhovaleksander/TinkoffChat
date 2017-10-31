@@ -104,6 +104,7 @@
 		DE040EFB1F72C9DC00638712 = {
 			isa = PBXGroup;
 			children = (
+				DE65BEAA1FA88CD8000EEEED /* trash */,
 				DE040F061F72C9DC00638712 /* TinkoffChat */,
 				DE040F051F72C9DC00638712 /* Products */,
 			);
@@ -124,18 +125,26 @@
 				DEEEF0E71FA78AE200C428EF /* ServiceLayer */,
 				DEEEF0DF1FA7895200C428EF /* Presentation Layer */,
 				DE040F071F72C9DC00638712 /* AppDelegate.swift */,
-				DE040F0B1F72C9DC00638712 /* test.storyboard */,
-				DEEEF0E41FA78AA200C428EF /* Conversation.storyboard */,
-				DE040F091F72C9DC00638712 /* ProfileViewControllerOld.swift */,
 				DE040F0E1F72C9DC00638712 /* Assets.xcassets */,
 				DE040F101F72C9DC00638712 /* LaunchScreen.storyboard */,
 				DE040F131F72C9DC00638712 /* Info.plist */,
 				DE040F191F72D1AD00638712 /* Media.xcassets */,
-				DE009D781F8A694B00E4DF93 /* ConversationViewControllerOld.swift */,
 				DE4A4F051F9CB7D5009F3296 /* Protocols.swift */,
-				DE4A4F091F9CCD80009F3296 /* NotificationRouter.swift */,
 			);
 			path = TinkoffChat;
+			sourceTree = "<group>";
+		};
+		DE65BEAA1FA88CD8000EEEED /* trash */ = {
+			isa = PBXGroup;
+			children = (
+				DE040F091F72C9DC00638712 /* ProfileViewControllerOld.swift */,
+				DEEC92C91FA86639007A64FA /* Alert.swift */,
+				DE040F0B1F72C9DC00638712 /* test.storyboard */,
+				DEEEF0E41FA78AA200C428EF /* Conversation.storyboard */,
+				DE009D781F8A694B00E4DF93 /* ConversationViewControllerOld.swift */,
+				DE4A4F091F9CCD80009F3296 /* NotificationRouter.swift */,
+			);
+			path = trash;
 			sourceTree = "<group>";
 		};
 		DE8C67741FA8617900BB65E8 /* ProfileViewController */ = {
@@ -230,7 +239,6 @@
 				DEEC92C31FA86557007A64FA /* ProtocolOperator.swift */,
 				DEEC92C51FA86601007A64FA /* Operation.swift */,
 				DEEC92C71FA8660C007A64FA /* GCD.swift */,
-				DEEC92C91FA86639007A64FA /* Alert.swift */,
 			);
 			path = MultiThreading;
 			sourceTree = "<group>";

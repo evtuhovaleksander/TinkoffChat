@@ -20,9 +20,8 @@ protocol ProfileViewControllerModelDelegate {
     
 }
 
-class ProfileViewControllerModel : TaskManagerDelegate{
+class ProfileViewControllerModel {
   
-    
     var profile:Profile
     var gcdManager:TaskManager
     var operationManager:TaskManager
@@ -34,14 +33,18 @@ class ProfileViewControllerModel : TaskManagerDelegate{
         self.gcdManager = GCDTaskManager()
         self.operationManager = OperationTaskManager()
     }
+    func setupManagersDelegates(delegate:TaskManagerDelegate){
+        self.gcdManager.delegate = delegate
+        self.operationManager.delegate = delegate
+    }
     
     
     func gcdSave(){
-        gcdManager.saveProfile()
+        gcdManager.saveProfile(profile: profile)
     }
     
     func operationSave(){
-        operationManager.saveProfile()
+        operationManager.saveProfile(profile: profile)
     }
 }
 

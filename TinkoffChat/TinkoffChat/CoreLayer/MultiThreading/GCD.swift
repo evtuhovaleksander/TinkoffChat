@@ -11,7 +11,7 @@ import Foundation
 
 
 class GCDTaskManager :TaskManager, ProfileService {
-    
+
 
     var delegate:TaskManagerDelegate?
     

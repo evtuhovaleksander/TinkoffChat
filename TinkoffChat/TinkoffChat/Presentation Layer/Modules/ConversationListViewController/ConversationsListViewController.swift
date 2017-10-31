@@ -194,7 +194,7 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     
     
     @IBAction func toProfile(_ sender: Any) {
-        //self.present(Profi, animated: true, completion: <#T##(() -> Void)?##(() -> Void)?##() -> Void#>)
+        self.present(ProfileViewControllerAssembler.createProfileViewControllerAssembler(), animated: true, completion: nil)
     }
     
 }

@@ -9,7 +9,8 @@
 import Foundation
 import UIKit
 
-class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate,UITextViewDelegate,TaskManagerDelegate {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate,UITextViewDelegate,TaskManagerDelegate,ProfileViewControllerModelDelegate {
+    
     func startAnimate() {
         self.startAnimate()
     }

@@ -9,7 +9,7 @@
 import Foundation
 
 extension Notification.Name {
-    static let refreshDialog = Notification.Name("refreshDialog")
-    static let refreshDialogs = Notification.Name("refreshDialogs")
+    //static let refreshDialog = Notification.Name("refreshDialog")
+    //static let refreshDialogs = Notification.Name("refreshDialogs")
 }
 

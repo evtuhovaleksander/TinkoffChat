@@ -82,7 +82,8 @@ class ConversationViewController: UIViewController,UITableViewDelegate,UITableVi
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         model.updateUnread()
-        NotificationCenter.default.post(name: .refreshDialogs, object: nil)
+        model.communicationManager.convListDelegate?.update()
+        //NotificationCenter.default.post(name: .refreshDialogs, object: nil)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

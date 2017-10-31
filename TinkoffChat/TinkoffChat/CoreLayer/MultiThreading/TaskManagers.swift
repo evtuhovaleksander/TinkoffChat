@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 protocol TaskManager {
+    var delegate:TaskManagerDelegate? {get set}
     func saveProfile(profile:Profile)
     func readProfile()
 }

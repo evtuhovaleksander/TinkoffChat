@@ -83,8 +83,10 @@ class CommunicationManager: CommunicatorDelegate{
         let dialog = getDialogByUserID(userID: userID)
         dialog.online = online
         dialogs[userID] = dialog
-        NotificationCenter.default.post(name: .refreshDialog, object: nil)
-        NotificationCenter.default.post(name: .refreshDialogs, object: nil)
+        convDelegate?.update()
+        convListDelegate?.update()
+        //NotificationCenter.default.post(name: .refreshDialog, object: nil)
+        //NotificationCenter.default.post(name: .refreshDialogs, object: nil)
     }
     
     func didLostUser(userID: String) {
@@ -118,8 +120,10 @@ class CommunicationManager: CommunicatorDelegate{
         dialog.messages.append(message)
         dialog.messages.sort{ $0.date < $1.date }
         dialogs[user]=dialog
-        NotificationCenter.default.post(name: .refreshDialog, object: nil)
-        NotificationCenter.default.post(name: .refreshDialogs, object: nil)
+        convDelegate?.update()
+        convListDelegate?.update()
+        //NotificationCenter.default.post(name: .refreshDialog, object: nil)
+        //NotificationCenter.default.post(name: .refreshDialogs, object: nil)
     }
     
     func getDialogMessages(userName:String)->[ChatMessage]{
