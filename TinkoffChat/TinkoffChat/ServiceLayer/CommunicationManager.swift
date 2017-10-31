@@ -37,10 +37,22 @@ class ChatDialog{
     var messages:[ChatMessage]
 }
 
+
+protocol CommunicationManagerConversationListDelegate{
+    func update()
+}
+
+protocol CommunicationManagerConversationDelegate{
+    func update()
+}
+
 class CommunicationManager: CommunicatorDelegate{
     
-    
     var dialogs: Dictionary<String,ChatDialog> = Dictionary<String,ChatDialog>()
+    
+    
+    var convListDelegate:CommunicationManagerConversationListDelegate?
+    var convDelegate:CommunicationManagerConversationDelegate?
     
     let multipeerCommunicator:MultipeerCommunicator
     

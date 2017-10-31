@@ -10,7 +10,7 @@ import Foundation
 
 class ConversationsListViewControllerAsembler {
     static func createConversationsListViewController()->ConversationsListViewController{
-        let multiPeerCommunicator = rootAssembly.communicationManager
+        let manager = rootAssembly.communicationManager
         let model = ConversationsListViewControllerModel()
         
         
@@ -18,6 +18,9 @@ class ConversationsListViewControllerAsembler {
         let viewController = ConversationsListViewController(model: model)
         viewController.model = model as IConversationsListViewControllerModel
         (model as IConversationsListViewControllerModel).delegate = viewController
+        
+        manager.convListDelegate=viewController
+        
         return viewController
     }
 }

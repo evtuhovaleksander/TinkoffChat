@@ -8,7 +8,16 @@
 
 import UIKit
 
-class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,IConversationsListViewControllerModelDelegate {
+class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,IConversationsListViewControllerModelDelegate,CommunicationManagerConversationListDelegate {
+    
+    
+    func update() {
+        DispatchQueue.main.async {
+            self.model.getDialogs()
+            self.table.reloadData()
+        }
+    }
+    
 
     @IBOutlet weak var table: UITableView!
     
@@ -38,16 +47,16 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         table.delegate = self
         table.reloadData()
         model.getDialogs()
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshDialogs), name: .refreshDialogs, object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(refreshDialogs), name: .refreshDialogs, object: nil)
 
     }
     
-    @objc func refreshDialogs(_ notification: NSNotification){
-        DispatchQueue.main.async {
-            self.model.getDialogs()
-            self.table.reloadData()
-        }
-    }
+//    @objc func refreshDialogs(_ notification: NSNotification){
+//        DispatchQueue.main.async {
+//            self.model.getDialogs()
+//            self.table.reloadData()
+//        }
+//    }
     
     func setupDialogs(allDialogs: [ChatDialog]){
         var onWith = [ChatDialog]()
@@ -161,20 +170,27 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
             dialog = offlineDialogs[indexPath.row]
         }
         
-        performSegue(withIdentifier: "ToMessages", sender: dialog)
+        //performSegue(withIdentifier: "ToMessages", sender: dialog)
+        let controller = ConversationViewControllerAsembler.createConversationsViewController(userName: dialog.name!, userID: dialog.userID!)
+        
+        self.navigationController?.pushViewController(controller, animated: true)
+        
+        
+        
+        
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "ToMessages"){
-            let navVC = segue.destination as? ConversationViewController
-            navVC?.title = (sender as! ChatDialog).name
-            navVC?.communicationManager = rootAssembly.communicationManager
-            //navVC?.multipeerCommunicator = rootAssembly.multiPeerCommunicator
-            navVC?.userName = (sender as! ChatDialog).name!
-            navVC?.userID = (sender as! ChatDialog).userID!
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if (segue.identifier == "ToMessages"){
+//            let navVC = segue.destination as? ConversationViewController
+//            navVC?.title = (sender as! ChatDialog).name
+//            navVC?.communicationManager = rootAssembly.communicationManager
+//            //navVC?.multipeerCommunicator = rootAssembly.multiPeerCommunicator
+//            navVC?.userName = (sender as! ChatDialog).name!
+//            navVC?.userID = (sender as! ChatDialog).userID!
+//        }
+//    }
     
     
     @IBAction func toProfile(_ sender: Any) {

@@ -8,27 +8,32 @@
 
 import UIKit
 
-class ConversationViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+class ConversationViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, ConversationViewControllerModelDelegate,CommunicationManagerConversationDelegate{
+    
+    func update() {
+        model.getDialog()
+    }
     
     
+    
+   
     
     var messages:[ChatMessage] = [ChatMessage]()
     
-    var communicationManager:CommunicationManager
+    //var communicationManager:CommunicationManager
     //var multipeerCommunicator:MultipeerCommunicator?
     
     
-    var userName:String
-    var userID:String
+    //var userName:String
+    //var userID:String
+    var model:ConversationViewControllerModel
     
     @IBOutlet weak var table: UITableView!
     
     @IBOutlet weak var sendButton: UIButton!
     
-    init(userName:String,userID:String,communicationManager:CommunicationManager) {
-        self.userID=userID
-        self.userName=userName
-        self.communicationManager = communicationManager
+    init(model:ConversationViewControllerModel) {
+        self.model=model
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -39,38 +44,45 @@ class ConversationViewController: UIViewController,UITableViewDelegate,UITableVi
     @IBOutlet weak var messageText: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = model.userName
         self.table.register(UINib.init(nibName: "IncomeMessageCell", bundle: nil), forCellReuseIdentifier: "IncomeMessageCell")
         self.table.register(UINib.init(nibName: "OutcomeMessageCell", bundle: nil), forCellReuseIdentifier: "OutcomeMessageCell")
         self.table.delegate = self
         self.table.dataSource = self
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshDialogNot), name: .refreshDialog, object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(refreshDialogNot), name: .refreshDialog, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        refreshDialog()
+        model.getDialog()
+    }
+    
+    func setupDialog(dialog:ChatDialog){
+                DispatchQueue.main.async {
+                    self.messages = dialog.messages
+                    self.sendButton.isEnabled = dialog.online
+                    self.table.reloadData()
+                }
     }
     
     
+//    func refreshDialog(){
+//        DispatchQueue.main.async {
+//            let dialog = self.communicationManager.getChatDialog(userName: self.userName)
+//            self.messages = dialog.messages
+//            self.sendButton.isEnabled = dialog.online
+//            self.table.reloadData()
+//        }
+//    }
     
-    func refreshDialog(){
-        DispatchQueue.main.async {
-            let dialog = self.communicationManager.getChatDialog(userName: self.userName)
-            self.messages = dialog.messages
-            self.sendButton.isEnabled = dialog.online
-            self.table.reloadData()
-        }
-    }
-    
-    @objc func refreshDialogNot(_ notification: NSNotification){
-        refreshDialog()
-    }
+//    @objc func refreshDialogNot(_ notification: NSNotification){
+//        model.getDialog()
+//    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        communicationManager.updateUnread(userID: userID)
+        model.updateUnread()
         NotificationCenter.default.post(name: .refreshDialogs, object: nil)
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -95,7 +107,7 @@ class ConversationViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     @IBAction func send(_ sender: Any) {
-        communicationManager.multipeerCommunicator.sendMessage(string: messageText.text!, to: userID, completionHandler: nil)
+        model.sendMessage(string: messageText.text!, to: model.userID)
         //multipeerCommunicator.sendMessage(string: messageText.text!, to: userID!, completionHandler: nil)
     }
     

@@ -11,6 +11,10 @@ import Foundation
 class ConversationViewControllerAsembler{
     static func createConversationsViewController(userName:String,userID:String)->ConversationViewController{
         let communicationManager = rootAssembly.communicationManager
-       return ConversationViewController(userName:userName,userID:userID,communicationManager:communicationManager)
+        let model = ConversationViewControllerModel(userName:userName,userID:userID,communicationManager:communicationManager)
+        let controller = ConversationViewController(model:model)
+        model.delegate = controller
+        communicationManager.convDelegate = controller
+        return controller
     }
 }
