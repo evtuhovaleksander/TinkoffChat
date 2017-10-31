@@ -9,33 +9,8 @@
 import Foundation
 import MultipeerConnectivity
 
-class ChatMessage{
-    init(text:String,date:Date,income:Bool) {
-        self.text = text
-        self.date = date
-        self.income = income
-        self.unRead = true
-    }
-    var text:String
-    var date:Date
-    var income:Bool
-    var unRead:Bool
-    
-}
 
-class ChatDialog{
-    init(name:String,userID:String){
-        self.name = name
-        self.userID = userID
-        self.online = false
-        self.messages = [ChatMessage]()
-    }
-    
-    var name: String?
-    var userID: String?
-    var online: Bool
-    var messages:[ChatMessage]
-}
+
 
 
 protocol CommunicationManagerConversationListDelegate{
@@ -46,6 +21,9 @@ protocol CommunicationManagerConversationDelegate{
     func update()
 }
 
+
+
+
 class CommunicationManager: CommunicatorDelegate{
     
     var dialogs: Dictionary<String,ChatDialog> = Dictionary<String,ChatDialog>()
@@ -54,7 +32,7 @@ class CommunicationManager: CommunicatorDelegate{
     var convListDelegate:CommunicationManagerConversationListDelegate?
     var convDelegate:CommunicationManagerConversationDelegate?
     
-    let multipeerCommunicator:MultipeerCommunicator
+    var multipeerCommunicator:MultipeerCommunicator
     
     init(multipeerCommunicator:MultipeerCommunicator) {
         self.multipeerCommunicator = multipeerCommunicator

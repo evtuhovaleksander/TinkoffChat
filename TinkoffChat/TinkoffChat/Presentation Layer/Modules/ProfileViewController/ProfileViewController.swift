@@ -12,16 +12,14 @@ import UIKit
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate,UITextViewDelegate,TaskManagerDelegate,ProfileViewControllerModelDelegate {
     
     func startAnimate() {
-        self.startAnimate()
+        self.activityStartAnimate()
     }
     
     func stopAnimate() {
-        self.stopAnimate()
+        self.activityStopAnimate()
     }
     
-    func showErrorAlert(string:String,gcdMode:Bool) {
-        self.showErrorAlert(string: string,gcdMode:gcdMode)
-    }
+    
     
     func receiveProfile(profile: Profile) {
         model.profile=profile
@@ -51,9 +49,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
    
     
-    var model:ProfileViewControllerModel
+    var model:IProfileViewControllerModel
     
-    init(model:ProfileViewControllerModel) {
+    init(model:IProfileViewControllerModel) {
         self.model = model
         super.init(nibName: nil, bundle: nil)
     }
@@ -276,14 +274,15 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         self.present(optionMenu, animated: true, completion: nil)
     }
     
-    func showErrorAlert(error:String, gcdMode:Bool){
-        let optionMenu = UIAlertController(title: "Ошибка", message: error, preferredStyle: .actionSheet)
+    func showErrorAlert(string:String, gcdMode:Bool){
+        let optionMenu = UIAlertController(title: "Ошибка", message: string, preferredStyle: .actionSheet)
         
         let cancelAction = UIAlertAction(title: "Отмена", style: .default, handler: {
             (alert: UIAlertAction!) -> Void in
             DispatchQueue.main.async() {
                 self.activityStopAnimate()
                 self.model.gcdManager.readProfile()
+                
             }
             optionMenu.dismiss(animated: true, completion: nil)
             

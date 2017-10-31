@@ -15,6 +15,39 @@ protocol ICommunicator {
     var online: Bool {get set}
 }
 
+protocol CommunicatorDelegate : class{
+    
+    var dialogs: Dictionary<String,ChatDialog> {get set}
+    
+    
+    var convListDelegate:CommunicationManagerConversationListDelegate? {get set}
+    var convDelegate:CommunicationManagerConversationDelegate? {get set}
+    
+    var multipeerCommunicator:MultipeerCommunicator {get set}
+    
+    func didFoundUser(userID: String, userName:String?)
+    func didLostUser(userID: String)
+    func userDidBecome(userID:String,online:Bool)
+    
+    func failedToStartBrowsingForUsers(error: Error)
+    func failedToStartAdvertising(error:Error)
+    
+    func didRecieveMessage(text: String, fromUser: String, toUser: String)
+    
+    func getDialogByUserID(userID:String)->ChatDialog
+    
+    func getDialog(userID:String, userName:String)->ChatDialog
+    
+    func getDialogMessages(userName:String)->[ChatMessage]
+    
+    func getChatDialog(userName:String)->ChatDialog
+    
+    func getChatDialog(userID:String)->ChatDialog
+    
+    func getChatDialogs()->[ChatDialog]
+    
+    func updateUnread(userID:String)
+}
 
 
 class ChatUser{

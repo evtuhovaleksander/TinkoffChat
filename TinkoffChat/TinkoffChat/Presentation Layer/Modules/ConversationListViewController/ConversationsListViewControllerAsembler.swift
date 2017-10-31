@@ -16,8 +16,8 @@ class ConversationsListViewControllerAsembler {
         
         
         let viewController = ConversationsListViewController(model: model)
-        viewController.model = model as IConversationsListViewControllerModel
-        (model as IConversationsListViewControllerModel).delegate = viewController
+        viewController.model = model as ConversationsListViewControllerModel
+        (model as ConversationsListViewControllerModel).delegate = viewController
         
         manager.convListDelegate=viewController
         

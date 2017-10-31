@@ -31,6 +31,15 @@ extension ProfileService{
     }
     
     func saveProfileService(profile:Profile)->String?{
+        
+        if( Int(arc4random_uniform(2))==1){
+            
+            
+        }else{
+            return "generated error"
+            
+        }
+        
         profile.needSave = false
         
         profile.avatar = profile.newAvatar
@@ -42,13 +51,7 @@ extension ProfileService{
             do {
                 let data = NSKeyedArchiver.archivedData(withRootObject: profile)
                 try data.write(to: fileURL)
-                if( Int(arc4random_uniform(2))==1){
-                    return nil
-                    
-                }else{
-                    return "generated error"
-                    
-                }
+                return nil
             } catch let error {
                 print(error.localizedDescription)
                 return error.localizedDescription

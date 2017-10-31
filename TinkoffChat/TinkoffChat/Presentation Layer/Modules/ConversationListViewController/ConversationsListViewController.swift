@@ -8,8 +8,7 @@
 
 import UIKit
 
-class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,IConversationsListViewControllerModelDelegate,CommunicationManagerConversationListDelegate {
-    
+class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,ConversationsListViewControllerModelDelegate,CommunicationManagerConversationListDelegate {
     
     func update() {
         DispatchQueue.main.async {
@@ -18,15 +17,12 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         }
     }
     
-
     @IBOutlet weak var table: UITableView!
     
-
     var onlineDialogs : [ChatDialog] = [ChatDialog]()
     var offlineDialogs : [ChatDialog] = [ChatDialog]()
     var model : IConversationsListViewControllerModel
 
-    
     init(model: IConversationsListViewControllerModel) {
         self.model = model
         self.onlineDialogs = [ChatDialog]()
@@ -50,13 +46,6 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         //NotificationCenter.default.addObserver(self, selector: #selector(refreshDialogs), name: .refreshDialogs, object: nil)
 
     }
-    
-//    @objc func refreshDialogs(_ notification: NSNotification){
-//        DispatchQueue.main.async {
-//            self.model.getDialogs()
-//            self.table.reloadData()
-//        }
-//    }
     
     func setupDialogs(allDialogs: [ChatDialog]){
         var onWith = [ChatDialog]()
@@ -180,18 +169,6 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if (segue.identifier == "ToMessages"){
-//            let navVC = segue.destination as? ConversationViewController
-//            navVC?.title = (sender as! ChatDialog).name
-//            navVC?.communicationManager = rootAssembly.communicationManager
-//            //navVC?.multipeerCommunicator = rootAssembly.multiPeerCommunicator
-//            navVC?.userName = (sender as! ChatDialog).name!
-//            navVC?.userID = (sender as! ChatDialog).userID!
-//        }
-//    }
-    
     
     @IBAction func toProfile(_ sender: Any) {
         self.present(ProfileViewControllerAssembler.createProfileViewControllerAssembler(), animated: true, completion: nil)

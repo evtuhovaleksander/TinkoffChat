@@ -20,7 +20,17 @@ protocol ProfileViewControllerModelDelegate {
     
 }
 
-class ProfileViewControllerModel {
+protocol IProfileViewControllerModel{
+    var profile:Profile {get set}
+    var gcdManager:TaskManager {get set}
+    var operationManager:TaskManager {get set}
+    var delegate:ProfileViewControllerModelDelegate? {get set}
+    func setupManagersDelegates(delegate:TaskManagerDelegate)
+    func gcdSave()
+    func operationSave()
+}
+
+class ProfileViewControllerModel : IProfileViewControllerModel{
   
     var profile:Profile
     var gcdManager:TaskManager

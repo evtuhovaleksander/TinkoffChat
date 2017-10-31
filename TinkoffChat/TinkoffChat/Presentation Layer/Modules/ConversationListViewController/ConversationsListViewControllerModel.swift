@@ -9,18 +9,18 @@
 import Foundation
 
 protocol IConversationsListViewControllerModel : class {
-    var communicationManager : CommunicationManager {get set}
-    var delegate : IConversationsListViewControllerModelDelegate? {get set}
+    var communicationManager : CommunicatorDelegate {get set}
+    var delegate : ConversationsListViewControllerModelDelegate? {get set}
     func getDialogs()
 }
 
-protocol IConversationsListViewControllerModelDelegate : class {
+protocol ConversationsListViewControllerModelDelegate : class {
     func setupDialogs(allDialogs: [ChatDialog])
 }
 
 class ConversationsListViewControllerModel:IConversationsListViewControllerModel{
-    var communicationManager : CommunicationManager
-    var delegate : IConversationsListViewControllerModelDelegate?
+    var communicationManager : CommunicatorDelegate
+    var delegate : ConversationsListViewControllerModelDelegate?
     
     init() {
         self.communicationManager = rootAssembly.communicationManager

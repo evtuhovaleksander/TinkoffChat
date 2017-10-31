@@ -42,6 +42,7 @@ class GCDTaskManager :TaskManager, ProfileService {
             let profile = self.getProfileService()
             DispatchQueue.main.async() {
                 self.delegate?.receiveProfile(profile: profile)
+                self.delegate?.stopAnimate()
             }
         }
     }

@@ -26,13 +26,13 @@ class ConversationViewController: UIViewController,UITableViewDelegate,UITableVi
     
     //var userName:String
     //var userID:String
-    var model:ConversationViewControllerModel
+    var model:IConversationViewControllerModel
     
     @IBOutlet weak var table: UITableView!
     
     @IBOutlet weak var sendButton: UIButton!
     
-    init(model:ConversationViewControllerModel) {
+    init(model:IConversationViewControllerModel) {
         self.model=model
         super.init(nibName: nil, bundle: nil)
     }

@@ -9,8 +9,9 @@
 import Foundation
 
 let rootAssembly : RootAssembly = RootAssembly(name: "name")
+
 class RootAssembly{
-    let communicationManager: CommunicationManager
+    let communicationManager: CommunicatorDelegate
     
     
     init(name:String) {

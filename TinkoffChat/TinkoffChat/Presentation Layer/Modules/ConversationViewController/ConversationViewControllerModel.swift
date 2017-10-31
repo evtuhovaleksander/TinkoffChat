@@ -12,14 +12,25 @@ protocol ConversationViewControllerModelDelegate{
     func setupDialog(dialog:ChatDialog)
 }
 
-class ConversationViewControllerModel{
+protocol IConversationViewControllerModel{
+    var communicationManager:CommunicatorDelegate {get set}
+    var userName:String {get set}
+    var userID:String {get set}
+    var delegate:ConversationViewControllerModelDelegate? {get set}
     
-    var communicationManager:CommunicationManager
+    func getDialog()
+    func updateUnread()
+    func sendMessage(string: String, to: String)
+}
+
+class ConversationViewControllerModel:IConversationViewControllerModel{
+    
+    var communicationManager:CommunicatorDelegate
     var userName:String
     var userID:String
     var delegate:ConversationViewControllerModelDelegate?
     
-    init(userName:String,userID:String,communicationManager:CommunicationManager) {
+    init(userName:String,userID:String,communicationManager:CommunicatorDelegate) {
         self.userID=userID
         self.userName=userName
         self.communicationManager = communicationManager
