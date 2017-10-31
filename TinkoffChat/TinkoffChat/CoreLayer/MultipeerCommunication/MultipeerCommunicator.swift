@@ -160,17 +160,18 @@ extension MultipeerCommunicator : MCNearbyServiceAdvertiserDelegate {
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
         print( "didReceiveInvitationFromPeer \(peerID)")
         
-        if let chatUser = chatUsers[peerID.displayName]{
+        //if let chatUser = chatUsers[peerID.displayName]{
+        let chatUser = getChatUser(userPeerID: peerID, userName: "")
             if(!chatUser.session.connectedPeers.contains(peerID)){
                 invitationHandler(true,chatUser.session)
             }else{
                 invitationHandler(false,nil)
             }
             chatUsers[peerID.displayName]=chatUser
-        }
-        else{
-            invitationHandler(false,nil)
-        }
+//        }
+//        else{
+//            invitationHandler(false,nil)
+//        }
         
     }
     
@@ -194,12 +195,12 @@ extension MultipeerCommunicator : MCNearbyServiceBrowserDelegate{
     }
     
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
-        let chatUser = getChatUser(userPeerID: peerID, userName: "")
+//        let chatUser = getChatUser(userPeerID: peerID, userName: "")
         delegate?.didLostUser(userID: peerID.displayName)
         delegate?.userDidBecome(userID: peerID.displayName, online: false)
-        if let user = chatUsers[peerID.displayName]{
-            
-        }
+//        if let user = chatUsers[peerID.displayName]{
+//
+//        }
         
         chatUsers[peerID.displayName]=nil
     }

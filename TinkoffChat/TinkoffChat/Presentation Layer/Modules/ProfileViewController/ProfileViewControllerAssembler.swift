@@ -10,9 +10,9 @@ import Foundation
 
 class ProfileViewControllerAssembler : ProfileService {
     static func createProfileViewControllerAssembler()->ProfileViewController{
-        var profile = ProfileViewControllerAssembler().getEmptyProfileService()
-        var model = ProfileViewControllerModel(profile: profile)
-        var controller = ProfileViewController(model: model)
+        let profile = ProfileViewControllerAssembler().getEmptyProfileService()
+        let model = ProfileViewControllerModel(profile: profile)
+        let controller = ProfileViewController(model: model)
         model.delegate = controller
         model.setupManagersDelegates(delegate: model)
         return controller

@@ -15,7 +15,7 @@ class RootAssembly{
     
     
     init(name:String) {
-        var multiPeerCommunicator = MultipeerCommunicator(selfName: name)
+        let multiPeerCommunicator = MultipeerCommunicator(selfName: name)
         self.communicationManager = CommunicationManager(multipeerCommunicator:multiPeerCommunicator)
         multiPeerCommunicator.delegate=self.communicationManager
     }
