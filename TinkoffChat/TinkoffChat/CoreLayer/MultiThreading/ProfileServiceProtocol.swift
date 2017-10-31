@@ -37,7 +37,6 @@ extension ProfileService{
             
         }else{
             return "generated error"
-            
         }
         
         profile.needSave = false

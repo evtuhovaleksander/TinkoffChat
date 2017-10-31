@@ -19,7 +19,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         self.activityStopAnimate()
     }
     
-    
+    func update(){
+        loadDataFromProfile()
+    }
     
     func receiveProfile(profile: Profile) {
         model.profile=profile

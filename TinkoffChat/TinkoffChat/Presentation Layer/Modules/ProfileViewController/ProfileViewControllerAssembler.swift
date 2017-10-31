@@ -14,7 +14,7 @@ class ProfileViewControllerAssembler : ProfileService {
         var model = ProfileViewControllerModel(profile: profile)
         var controller = ProfileViewController(model: model)
         model.delegate = controller
-        model.setupManagersDelegates(delegate: controller)
+        model.setupManagersDelegates(delegate: model)
         return controller
     }
 }

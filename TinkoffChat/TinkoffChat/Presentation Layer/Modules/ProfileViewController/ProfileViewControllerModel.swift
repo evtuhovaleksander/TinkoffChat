@@ -16,8 +16,8 @@ protocol ProfileProtocol : class{
 }
 
 
-protocol ProfileViewControllerModelDelegate {
-    
+protocol ProfileViewControllerModelDelegate : TaskManagerDelegate {
+    func update()
 }
 
 protocol IProfileViewControllerModel{
@@ -30,7 +30,29 @@ protocol IProfileViewControllerModel{
     func operationSave()
 }
 
-class ProfileViewControllerModel : IProfileViewControllerModel{
+class ProfileViewControllerModel : IProfileViewControllerModel,TaskManagerDelegate{
+    
+    func startAnimate() {
+        delegate?.startAnimate()
+    }
+    
+    func stopAnimate() {
+        delegate?.stopAnimate()
+    }
+    
+    func showErrorAlert(string: String, gcdMode: Bool) {
+        delegate?.showErrorAlert(string: string, gcdMode: gcdMode)
+    }
+    
+    func showSucsessAlert() {
+        delegate?.showSucsessAlert()
+    }
+    
+    func receiveProfile(profile: Profile) {
+        self.profile = profile
+        delegate?.update()
+    }
+    
   
     var profile:Profile
     var gcdManager:TaskManager
