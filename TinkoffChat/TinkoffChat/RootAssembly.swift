@@ -11,7 +11,7 @@ import Foundation
 let rootAssembly : RootAssembly = RootAssembly(name: "name")
 class RootAssembly{
     let communicationManager: CommunicationManager
-    //let multiPeerCommunicator : MultipeerCommunicator
+    
     
     init(name:String) {
         var multiPeerCommunicator = MultipeerCommunicator(selfName: name)

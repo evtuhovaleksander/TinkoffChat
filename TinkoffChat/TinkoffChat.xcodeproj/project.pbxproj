@@ -121,6 +121,7 @@
 		DE040F061F72C9DC00638712 /* TinkoffChat */ = {
 			isa = PBXGroup;
 			children = (
+				DEEEF0F31FA7946E00C428EF /* RootAssembly.swift */,
 				DEEEF0EC1FA78C0300C428EF /* CoreLayer */,
 				DEEEF0E71FA78AE200C428EF /* ServiceLayer */,
 				DEEEF0DF1FA7895200C428EF /* Presentation Layer */,
@@ -227,7 +228,6 @@
 			children = (
 				DE4A4F071F9CB932009F3296 /* MultipeerCommunicator.swift */,
 				DEEEF0F11FA78CFB00C428EF /* ChatUser.swift */,
-				DEEEF0F31FA7946E00C428EF /* RootAssembly.swift */,
 			);
 			path = MultipeerCommunication;
 			sourceTree = "<group>";
