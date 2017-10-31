@@ -23,7 +23,7 @@ class jsonManager{
     
     static func jsonToDictionary(data:Data) -> [String: String] {
             do {
-                return (try JSONSerialization.jsonObject(with: data, options: []) as? [String: String])!
+                return (try JSONSerialization.jsonObject(with: data, options: []) as? [String: String]) ?? [String:String]()
             } catch {
                 print(error.localizedDescription)
             }
@@ -32,7 +32,7 @@ class jsonManager{
     
     static func generateMessageID()->String{
         let string = "\(arc4random_uniform(UINT32_MAX))+\(Date.timeIntervalSinceReferenceDate)+\(arc4random_uniform(UINT32_MAX))".data(using: .utf8)?.base64EncodedString()
-        return string!
+        return string ?? "superkey"
     }
     
     static func makeMessage(string:String)->Data{
@@ -43,7 +43,7 @@ class jsonManager{
         return dictTojson(jsonObject: message)
     }
     static func readMessage(data:Data)->String{
-        return jsonToDictionary(data: data)["text"]!
+        return jsonToDictionary(data: data)["text"] ?? "message"
     }
     
 }

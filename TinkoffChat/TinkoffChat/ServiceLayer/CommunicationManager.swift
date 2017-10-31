@@ -53,7 +53,7 @@ class CommunicationManager: CommunicatorDelegate{
     }
     
     func didFoundUser(userID: String, userName: String?) {
-        let dialog = getDialog(userID: userID, userName: userName!)
+        let dialog = getDialog(userID: userID, userName: userName ?? "userName")
         print(dialog)
     }
     
@@ -129,7 +129,7 @@ class CommunicationManager: CommunicatorDelegate{
     
     func getChatDialog(userID:String)->ChatDialog{
         
-        return dialogs[userID]!
+        return dialogs[userID] ?? ChatDialog(name: "", userID: userID)
         
     }
     
@@ -143,7 +143,7 @@ class CommunicationManager: CommunicatorDelegate{
     
     func updateUnread(userID:String){
         let dialog = dialogs[userID]
-        for message in dialog!.messages{
+        for message in (dialog ?? ChatDialog(name: "", userID: userID)).messages{
             message.unRead = false
         }
         dialogs[userID]=dialog

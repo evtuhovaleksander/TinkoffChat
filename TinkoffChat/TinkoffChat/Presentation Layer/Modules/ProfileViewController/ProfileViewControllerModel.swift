@@ -110,20 +110,7 @@ class Profile : NSObject, NSCoding, ProfileProtocol{
     
     var needSave: Bool
     
-//    public static func getProfile()->Profile{
-//        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("profile.prf")
-//        if let simpleData:Data = try? Data(contentsOf: fileURL) {
-//            let decodedData = NSKeyedUnarchiver.unarchiveObject(with: simpleData)
-//            if let profile = decodedData as? Profile{
-//                return profile
-//            }
-//        }
-//        return Profile(name: "",info: "",avatar: UIImage.init(named: "EmptyAvatar")!,needSave: false)
-//    }
-//
-//    static func getEmptyProfile()->Profile{
-//        return Profile(name: "",info: "",avatar: UIImage.init(named: "EmptyAvatar")!,needSave: false)
-//    }
+
     
     init(name: String, info: String, avatar : UIImage, needSave : Bool) {
         self.name = name
@@ -160,30 +147,4 @@ class Profile : NSObject, NSCoding, ProfileProtocol{
         return (UIImageJPEGRepresentation(image, jpegCompressionQuality)?.base64EncodedString())!
     }
     
-//    func saveProfile()->String?{
-//        self.needSave = false
-//
-//        avatar = newAvatar
-//        name = newName
-//        info = newInfo
-//
-//
-//        if let fileURL = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("profile.prf"){
-//            do {
-//                let data = NSKeyedArchiver.archivedData(withRootObject: self)
-//                try data.write(to: fileURL)
-//                if( Int(arc4random_uniform(2))==1){
-//                    return nil
-//
-//                }else{
-//                    return "generated error"
-//
-//                }
-//            } catch let error {
-//                print(error.localizedDescription)
-//                return error.localizedDescription
-//            }
-//        }
-//        return "can't get path"
-//    }
 }

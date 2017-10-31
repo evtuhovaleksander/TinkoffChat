@@ -23,11 +23,11 @@ extension ProfileService{
                 return profile
             }
         }
-        return Profile(name: "",info: "",avatar: UIImage.init(named: "EmptyAvatar")!,needSave: false)
+        return Profile(name: "",info: "",avatar: UIImage.init(named: "EmptyAvatar") ?? UIImage(),needSave: false)
     }
     
     func getEmptyProfileService()->Profile{
-        return Profile(name: "",info: "",avatar: UIImage.init(named: "EmptyAvatar")!,needSave: false)
+        return Profile(name: "",info: "",avatar: UIImage.init(named: "EmptyAvatar") ?? UIImage(),needSave: false)
     }
     
     func saveProfileService(profile:Profile)->String?{
@@ -66,20 +66,5 @@ extension ProfileService{
 
 
 
-//extension ProfileOperator{
-//    func getProfile()->Profile{
-//        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("profile.prf")
-//        if let simpleData:Data = try? Data(contentsOf: fileURL) {
-//            let decodedData = NSKeyedUnarchiver.unarchiveObject(with: simpleData)
-//            if let profile = decodedData as? Profile{
-//                return profile
-//            }
-//        }
-//        return Profile(name: "",info: "",avatar: UIImage.init(named: "EmptyAvatar")!,needSave: false)
-//    }
-//
-//    func getEmptyProfile()->Profile{
-//        return Profile(name: "",info: "",avatar: UIImage.init(named: "EmptyAvatar")!,needSave: false)
-//    }
-//}
+
 

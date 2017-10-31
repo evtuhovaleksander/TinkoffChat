@@ -47,7 +47,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @IBOutlet weak var activity: UIActivityIndicatorView!
     
-    var picker:UIImagePickerController?=UIImagePickerController()
+    var picker:UIImagePickerController=UIImagePickerController()
     
    
     
@@ -66,7 +66,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         super.viewDidLoad()
         
         //        set delegates
-        picker!.delegate = self
+        picker.delegate = self
         nameTextField.delegate = self
         infoTextView.delegate = self
         
@@ -168,19 +168,19 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func openGallary()
     {
-        picker!.allowsEditing = false
-        picker!.sourceType = UIImagePickerControllerSourceType.photoLibrary
-        present(picker!, animated: true, completion: nil)
+        picker.allowsEditing = false
+        picker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+        present(picker, animated: true, completion: nil)
     }
     
     
     func openCamera()
     {
         if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)){
-            picker!.allowsEditing = false
-            picker!.sourceType = UIImagePickerControllerSourceType.camera
-            picker!.cameraCaptureMode = .photo
-            present(picker!, animated: true, completion: nil)
+            picker.allowsEditing = false
+            picker.sourceType = UIImagePickerControllerSourceType.camera
+            picker.cameraCaptureMode = .photo
+            present(picker, animated: true, completion: nil)
         }else{
             let alert = UIAlertController(title: "Нет камеры", message: "На этом устройстве нет камеры", preferredStyle: .alert)
             let ok = UIAlertAction(title: "OK", style:.default, handler: nil)
@@ -228,12 +228,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        model.profile.newInfo = infoTextView.text!
+        model.profile.newInfo = infoTextView.text ?? ""
         setSaveButtonsAvalibleState()
     }
     
     @IBAction func nameChanged(_ sender: Any) {
-        model.profile.newName = nameTextField.text!
+        model.profile.newName = nameTextField.text ?? ""
         setSaveButtonsAvalibleState()
     }
     

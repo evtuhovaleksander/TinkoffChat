@@ -74,7 +74,7 @@ class DialogCell: UITableViewCell, ConversationCellConfiguration {
                 }
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "dd.MM.YYYY"
-                if(dateFormatter.string(from: date!) != dateFormatter.string(from: Date())){
+                if(dateFormatter.string(from: date ?? Date()) != dateFormatter.string(from: Date())){
                     dateFormatter.dateFormat = "dd.MMM"
                     dateLabel.text = dateFormatter.string(from: date!)
                 }

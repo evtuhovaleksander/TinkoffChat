@@ -108,8 +108,8 @@ class ConversationViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     @IBAction func send(_ sender: Any) {
-        model.sendMessage(string: messageText.text!, to: model.userID)
-        //multipeerCommunicator.sendMessage(string: messageText.text!, to: userID!, completionHandler: nil)
+        model.sendMessage(string: messageText.text ?? "", to: model.userID)
+       
     }
     
     

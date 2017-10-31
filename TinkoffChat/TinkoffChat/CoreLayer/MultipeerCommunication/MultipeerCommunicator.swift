@@ -98,8 +98,7 @@ class MultipeerCommunicator:NSObject, ICommunicator{
      
         chatUsers = Dictionary<String,ChatUser>()
         
-        myPeerID = MCPeerID(displayName: (UIDevice.current.identifierForVendor?.uuidString)!)//UUID().uuidString)
-        //"1")//(UIDevice.current.identifierForVendor?.uuidString)!)
+        myPeerID = MCPeerID(displayName: (UIDevice.current.identifierForVendor?.uuidString) ?? "evtuhov")//
         
         let discoveryInfo = ["userName":self.myName]
         
@@ -172,18 +171,6 @@ extension MultipeerCommunicator : MCNearbyServiceAdvertiserDelegate {
         else{
             invitationHandler(false,nil)
         }
-        
-        
-        
-        
-        
-        
-//        if(!chatUser.session.connectedPeers.contains(peerID)){
-//            invitationHandler(true,chatUser.session)
-//        }else{
-//            invitationHandler(false,nil)
-//        }
-        
         
     }
     
