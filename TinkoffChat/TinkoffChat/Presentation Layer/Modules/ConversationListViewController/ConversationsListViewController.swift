@@ -170,9 +170,9 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
             let navVC = segue.destination as? ConversationViewController
             navVC?.title = (sender as! ChatDialog).name
             navVC?.communicationManager = rootAssembly.communicationManager
-            navVC?.multipeerCommunicator = rootAssembly.multiPeerCommunicator
-            navVC?.userName = (sender as! ChatDialog).name
-            navVC?.userID = (sender as! ChatDialog).userID
+            //navVC?.multipeerCommunicator = rootAssembly.multiPeerCommunicator
+            navVC?.userName = (sender as! ChatDialog).name!
+            navVC?.userID = (sender as! ChatDialog).userID!
         }
     }
     

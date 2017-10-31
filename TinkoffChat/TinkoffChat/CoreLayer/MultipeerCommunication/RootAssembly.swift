@@ -11,12 +11,12 @@ import Foundation
 let rootAssembly : RootAssembly = RootAssembly(name: "name")
 class RootAssembly{
     let communicationManager: CommunicationManager
-    let multiPeerCommunicator : MultipeerCommunicator
+    //let multiPeerCommunicator : MultipeerCommunicator
     
     init(name:String) {
-        self.communicationManager = CommunicationManager()
-        self.multiPeerCommunicator = MultipeerCommunicator(selfName: name)
-        self.multiPeerCommunicator.delegate=self.communicationManager
+        var multiPeerCommunicator = MultipeerCommunicator(selfName: name)
+        self.communicationManager = CommunicationManager(multipeerCommunicator:multiPeerCommunicator)
+        multiPeerCommunicator.delegate=self.communicationManager
     }
 }
 

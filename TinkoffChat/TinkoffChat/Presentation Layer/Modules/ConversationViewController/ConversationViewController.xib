@@ -9,7 +9,14 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConversationViewController" customModule="TinkoffChat" customModuleProvider="target">
+            <connections>
+                <outlet property="messageText" destination="Gst-fR-Lxe" id="C6v-PP-xmw"/>
+                <outlet property="sendButton" destination="Nvg-gs-vZU" id="KXY-23-nVY"/>
+                <outlet property="table" destination="khq-FP-x7V" id="IVN-eH-Aa3"/>
+                <outlet property="view" destination="iN0-l3-epB" id="Yfm-B1-DQB"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="375" height="634"/>

@@ -7,3 +7,10 @@
 //
 
 import Foundation
+
+class ConversationViewControllerAsembler{
+    static func createConversationsViewController(userName:String,userID:String)->ConversationViewController{
+        let communicationManager = rootAssembly.communicationManager
+       return ConversationViewController(userName:userName,userID:userID,communicationManager:communicationManager)
+    }
+}

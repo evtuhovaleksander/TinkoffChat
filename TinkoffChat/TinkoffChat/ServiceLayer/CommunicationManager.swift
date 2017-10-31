@@ -42,6 +42,12 @@ class CommunicationManager: CommunicatorDelegate{
     
     var dialogs: Dictionary<String,ChatDialog> = Dictionary<String,ChatDialog>()
     
+    let multipeerCommunicator:MultipeerCommunicator
+    
+    init(multipeerCommunicator:MultipeerCommunicator) {
+        self.multipeerCommunicator = multipeerCommunicator
+    }
+    
     func getDialogByUserID(userID:String)->ChatDialog{
         return getDialog(userID: userID, userName: "")
     }
