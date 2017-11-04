@@ -20,6 +20,11 @@
 		DE4A4F0C1F9DE972009F3296 /* JSONManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4A4F0B1F9DE972009F3296 /* JSONManager.swift */; };
 		DE57A8021FA8969D006B83AB /* ChatDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE57A8011FA8969D006B83AB /* ChatDialog.swift */; };
 		DE57A8041FA896AB006B83AB /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE57A8031FA896AB006B83AB /* ChatMessage.swift */; };
+		DE588B531FAE032E001869ED /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE588B521FAE032E001869ED /* Coordinator.swift */; };
+		DE588B581FAE0576001869ED /* ManagedObjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE588B571FAE0576001869ED /* ManagedObjectModel.swift */; };
+		DE588B5A1FAE058F001869ED /* PersistentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE588B591FAE058F001869ED /* PersistentStore.swift */; };
+		DE588B5D1FAE0AB1001869ED /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DE588B5B1FAE0AB1001869ED /* Model.xcdatamodeld */; };
+		DE588B5F1FAE0EE8001869ED /* CoreProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE588B5E1FAE0EE8001869ED /* CoreProfileModel.swift */; };
 		DE8C67761FA8619F00BB65E8 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8C67751FA8619F00BB65E8 /* ProfileViewController.swift */; };
 		DE8C67781FA861AB00BB65E8 /* ProfileViewControllerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8C67771FA861AB00BB65E8 /* ProfileViewControllerModel.swift */; };
 		DE8C677A1FA861B700BB65E8 /* ProfileViewControllerAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8C67791FA861B700BB65E8 /* ProfileViewControllerAssembler.swift */; };
@@ -59,6 +64,11 @@
 		DE4A4F0B1F9DE972009F3296 /* JSONManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONManager.swift; sourceTree = "<group>"; };
 		DE57A8011FA8969D006B83AB /* ChatDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDialog.swift; sourceTree = "<group>"; };
 		DE57A8031FA896AB006B83AB /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
+		DE588B521FAE032E001869ED /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		DE588B571FAE0576001869ED /* ManagedObjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjectModel.swift; sourceTree = "<group>"; };
+		DE588B591FAE058F001869ED /* PersistentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStore.swift; sourceTree = "<group>"; };
+		DE588B5C1FAE0AB1001869ED /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		DE588B5E1FAE0EE8001869ED /* CoreProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreProfileModel.swift; sourceTree = "<group>"; };
 		DE8C67751FA8619F00BB65E8 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		DE8C67771FA861AB00BB65E8 /* ProfileViewControllerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewControllerModel.swift; sourceTree = "<group>"; };
 		DE8C67791FA861B700BB65E8 /* ProfileViewControllerAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewControllerAssembler.swift; sourceTree = "<group>"; };
@@ -124,6 +134,18 @@
 				DE4A4F051F9CB7D5009F3296 /* Protocols.swift */,
 			);
 			path = TinkoffChat;
+			sourceTree = "<group>";
+		};
+		DE588B511FAE02E2001869ED /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				DE588B521FAE032E001869ED /* Coordinator.swift */,
+				DE588B571FAE0576001869ED /* ManagedObjectModel.swift */,
+				DE588B591FAE058F001869ED /* PersistentStore.swift */,
+				DE588B5B1FAE0AB1001869ED /* Model.xcdatamodeld */,
+				DE588B5E1FAE0EE8001869ED /* CoreProfileModel.swift */,
+			);
+			path = CoreData;
 			sourceTree = "<group>";
 		};
 		DE8C67741FA8617900BB65E8 /* ProfileViewController */ = {
@@ -197,6 +219,7 @@
 		DEEEF0EC1FA78C0300C428EF /* CoreLayer */ = {
 			isa = PBXGroup;
 			children = (
+				DE588B511FAE02E2001869ED /* CoreData */,
 				DEEEF0EE1FA78C6700C428EF /* MultiThreading */,
 				DEEEF0ED1FA78C4800C428EF /* MultipeerCommunication */,
 			);
@@ -303,10 +326,13 @@
 			files = (
 				DEEEF0E91FA78B3700C428EF /* ConversationsListViewControllerAsembler.swift in Sources */,
 				DE8C677A1FA861B700BB65E8 /* ProfileViewControllerAssembler.swift in Sources */,
+				DE588B531FAE032E001869ED /* Coordinator.swift in Sources */,
 				DE57A8021FA8969D006B83AB /* ChatDialog.swift in Sources */,
+				DE588B581FAE0576001869ED /* ManagedObjectModel.swift in Sources */,
 				DEAA8C7B1FA7B8C700421F4B /* ConversationViewController.swift in Sources */,
 				DE4A4F0C1F9DE972009F3296 /* JSONManager.swift in Sources */,
 				DEEEF0F21FA78CFB00C428EF /* ChatUser.swift in Sources */,
+				DE588B5F1FAE0EE8001869ED /* CoreProfileModel.swift in Sources */,
 				DEEC92C41FA86557007A64FA /* ProfileServiceProtocol.swift in Sources */,
 				DE009D7B1F8A8E8800E4DF93 /* MessageCell.swift in Sources */,
 				DEEEF0F41FA7946E00C428EF /* RootAssembly.swift in Sources */,
@@ -325,7 +351,9 @@
 				DE009D711F8A21AE00E4DF93 /* ConversationsListViewController.swift in Sources */,
 				DE8C67761FA8619F00BB65E8 /* ProfileViewController.swift in Sources */,
 				DE4A4EFE1F9C8273009F3296 /* CommunicationManager.swift in Sources */,
+				DE588B5A1FAE058F001869ED /* PersistentStore.swift in Sources */,
 				DE395D8B1F93BE150019370A /* TaskManagers.swift in Sources */,
+				DE588B5D1FAE0AB1001869ED /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -500,6 +528,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		DE588B5B1FAE0AB1001869ED /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				DE588B5C1FAE0AB1001869ED /* Model.xcdatamodel */,
+			);
+			currentVersion = DE588B5C1FAE0AB1001869ED /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = DE040EFC1F72C9DC00638712 /* Project object */;
 }

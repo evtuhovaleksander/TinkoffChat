@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13533" systemVersion="16G29" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="AppUser" representedClassName="AppUser" syncable="YES" codeGenerationType="class">
+        <relationship name="profile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CoreProfile" inverseName="appUser" inverseEntity="CoreProfile" syncable="YES"/>
+    </entity>
+    <entity name="CoreProfile" representedClassName="CoreProfile" syncable="YES" codeGenerationType="class">
+        <attribute name="avatar" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="info" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="appUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AppUser" inverseName="profile" inverseEntity="AppUser" syncable="YES"/>
+    </entity>
+    <fetchRequest name="AppUser" entity="AppUser"/>
+    <elements>
+        <element name="AppUser" positionX="-63" positionY="-18" width="128" height="58"/>
+        <element name="CoreProfile" positionX="340" positionY="-9" width="128" height="103"/>
+    </elements>
+</model>
