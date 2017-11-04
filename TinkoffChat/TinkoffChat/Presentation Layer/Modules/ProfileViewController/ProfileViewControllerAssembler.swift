@@ -8,13 +8,11 @@
 
 import Foundation
 
-class ProfileViewControllerAssembler : ProfileService {
+class ProfileViewControllerAssembler {
     static func createProfileViewControllerAssembler()->ProfileViewController{
-        let profile = ProfileViewControllerAssembler().getEmptyProfileService()
-        let model = ProfileViewControllerModel(profile: profile)
+        let model = ProfileViewControllerModel()
         let controller = ProfileViewController(model: model)
         model.delegate = controller
-        model.setupManagersDelegates(delegate: model)
         return controller
     }
 }

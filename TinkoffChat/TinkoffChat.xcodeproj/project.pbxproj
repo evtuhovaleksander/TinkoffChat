@@ -21,9 +21,7 @@
 		DE57A8021FA8969D006B83AB /* ChatDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE57A8011FA8969D006B83AB /* ChatDialog.swift */; };
 		DE57A8041FA896AB006B83AB /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE57A8031FA896AB006B83AB /* ChatMessage.swift */; };
 		DE588B531FAE032E001869ED /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE588B521FAE032E001869ED /* Coordinator.swift */; };
-		DE588B581FAE0576001869ED /* ManagedObjectModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE588B571FAE0576001869ED /* ManagedObjectModel.swift */; };
-		DE588B5A1FAE058F001869ED /* PersistentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE588B591FAE058F001869ED /* PersistentStore.swift */; };
-		DE588B5D1FAE0AB1001869ED /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DE588B5B1FAE0AB1001869ED /* Model.xcdatamodeld */; };
+		DE588B5D1FAE0AB1001869ED /* Storage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DE588B5B1FAE0AB1001869ED /* Storage.xcdatamodeld */; };
 		DE588B5F1FAE0EE8001869ED /* CoreProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE588B5E1FAE0EE8001869ED /* CoreProfileModel.swift */; };
 		DE8C67761FA8619F00BB65E8 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8C67751FA8619F00BB65E8 /* ProfileViewController.swift */; };
 		DE8C67781FA861AB00BB65E8 /* ProfileViewControllerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8C67771FA861AB00BB65E8 /* ProfileViewControllerModel.swift */; };
@@ -65,8 +63,6 @@
 		DE57A8011FA8969D006B83AB /* ChatDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDialog.swift; sourceTree = "<group>"; };
 		DE57A8031FA896AB006B83AB /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		DE588B521FAE032E001869ED /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
-		DE588B571FAE0576001869ED /* ManagedObjectModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjectModel.swift; sourceTree = "<group>"; };
-		DE588B591FAE058F001869ED /* PersistentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentStore.swift; sourceTree = "<group>"; };
 		DE588B5C1FAE0AB1001869ED /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		DE588B5E1FAE0EE8001869ED /* CoreProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreProfileModel.swift; sourceTree = "<group>"; };
 		DE8C67751FA8619F00BB65E8 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -122,6 +118,7 @@
 		DE040F061F72C9DC00638712 /* TinkoffChat */ = {
 			isa = PBXGroup;
 			children = (
+				DE588B5B1FAE0AB1001869ED /* Storage.xcdatamodeld */,
 				DEEEF0F31FA7946E00C428EF /* RootAssembly.swift */,
 				DEEEF0EC1FA78C0300C428EF /* CoreLayer */,
 				DEEEF0E71FA78AE200C428EF /* ServiceLayer */,
@@ -140,9 +137,6 @@
 			isa = PBXGroup;
 			children = (
 				DE588B521FAE032E001869ED /* Coordinator.swift */,
-				DE588B571FAE0576001869ED /* ManagedObjectModel.swift */,
-				DE588B591FAE058F001869ED /* PersistentStore.swift */,
-				DE588B5B1FAE0AB1001869ED /* Model.xcdatamodeld */,
 				DE588B5E1FAE0EE8001869ED /* CoreProfileModel.swift */,
 			);
 			path = CoreData;
@@ -328,7 +322,6 @@
 				DE8C677A1FA861B700BB65E8 /* ProfileViewControllerAssembler.swift in Sources */,
 				DE588B531FAE032E001869ED /* Coordinator.swift in Sources */,
 				DE57A8021FA8969D006B83AB /* ChatDialog.swift in Sources */,
-				DE588B581FAE0576001869ED /* ManagedObjectModel.swift in Sources */,
 				DEAA8C7B1FA7B8C700421F4B /* ConversationViewController.swift in Sources */,
 				DE4A4F0C1F9DE972009F3296 /* JSONManager.swift in Sources */,
 				DEEEF0F21FA78CFB00C428EF /* ChatUser.swift in Sources */,
@@ -351,9 +344,8 @@
 				DE009D711F8A21AE00E4DF93 /* ConversationsListViewController.swift in Sources */,
 				DE8C67761FA8619F00BB65E8 /* ProfileViewController.swift in Sources */,
 				DE4A4EFE1F9C8273009F3296 /* CommunicationManager.swift in Sources */,
-				DE588B5A1FAE058F001869ED /* PersistentStore.swift in Sources */,
 				DE395D8B1F93BE150019370A /* TaskManagers.swift in Sources */,
-				DE588B5D1FAE0AB1001869ED /* Model.xcdatamodeld in Sources */,
+				DE588B5D1FAE0AB1001869ED /* Storage.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -530,13 +522,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		DE588B5B1FAE0AB1001869ED /* Model.xcdatamodeld */ = {
+		DE588B5B1FAE0AB1001869ED /* Storage.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				DE588B5C1FAE0AB1001869ED /* Model.xcdatamodel */,
 			);
 			currentVersion = DE588B5C1FAE0AB1001869ED /* Model.xcdatamodel */;
-			path = Model.xcdatamodeld;
+			path = Storage.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

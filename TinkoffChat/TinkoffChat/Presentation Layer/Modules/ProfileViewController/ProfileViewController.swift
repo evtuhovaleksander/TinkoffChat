@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate,UITextViewDelegate,TaskManagerDelegate,ProfileViewControllerModelDelegate {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate,UITextViewDelegate,CoreProfileViewControllerModelDelegate {
     
     func startAnimate() {
         self.activityStartAnimate()
@@ -23,10 +23,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         loadDataFromProfile()
     }
     
-    func receiveProfile(profile: Profile) {
-        model.profile=profile
-        self.loadDataFromProfile()
-    }
+    
     
     
     @IBOutlet weak var scrollView: UIScrollView!
@@ -51,9 +48,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
    
     
-    var model:IProfileViewControllerModel
+    var model:ICoreProfileViewControllerModel
     
-    init(model:IProfileViewControllerModel) {
+    init(model:ICoreProfileViewControllerModel) {
         self.model = model
         super.init(nibName: nil, bundle: nil)
     }
@@ -65,7 +62,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //        set delegates
+        
         picker.delegate = self
         nameTextField.delegate = self
         infoTextView.delegate = self
@@ -101,7 +98,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         view.addGestureRecognizer(tap)
         
-        model.gcdManager.readProfile()
+       
     }
     
     
@@ -191,9 +188,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-        model.profile.newAvatar = image
+        //model.newAvatar = image
+        model.avatar = image
         photoImageView.image = image
-        setSaveButtonsAvalibleState()
+        //setSaveButtonsAvalibleState()
         dismiss(animated:true, completion: nil)
     }
     
@@ -206,50 +204,38 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     func loadDataFromProfile(){
-        photoImageView.image = model.profile.avatar
-        nameTextField.text = model.profile.name
-        infoTextView.text = model.profile.info
-        setSaveButtonsAvalibleState()
+            photoImageView.image = model.avatar
+            nameTextField.text = model.name
+            infoTextView.text = model.info
+        
+        //setSaveButtonsAvalibleState()
     }
     
     func setSaveButtonsAvalibleState(){
-        if(model.profile.needSave){
-            gcdButton.isEnabled = true
-            operationButton.isEnabled = true
-            gcdButton.backgroundColor = .green
-            operationButton.backgroundColor = .green
-        }
-        else{
+//        if(model.profile.needSave){
+//            gcdButton.isEnabled = true
+//            operationButton.isEnabled = true
+//            gcdButton.backgroundColor = .green
+//            operationButton.backgroundColor = .green
+//        }
+//        else{
             gcdButton.isEnabled = false
             operationButton.isEnabled = false
             gcdButton.backgroundColor = .red
             operationButton.backgroundColor = .red
-        }
+//        }
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        model.profile.newInfo = infoTextView.text ?? ""
-        setSaveButtonsAvalibleState()
+        model.info = infoTextView.text ?? ""
+        //setSaveButtonsAvalibleState()
     }
     
     @IBAction func nameChanged(_ sender: Any) {
-        model.profile.newName = nameTextField.text ?? ""
-        setSaveButtonsAvalibleState()
+        model.name = nameTextField.text ?? ""
+        //setSaveButtonsAvalibleState()
     }
-    
-    
 
-    
-    
-    
-    @IBAction func gcdSaveAction(_ sender: Any) {
-        self.model.gcdSave()
-    }
-    
-    @IBAction func operationSaveAction(_ sender: Any) {
-        self.model.operationSave()
-    }
-    
     func activityStartAnimate(){
         activity.isHidden=false
         activity.startAnimating()
@@ -261,49 +247,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         activity.stopAnimating()
     }
     
-    
-    func showSucsessAlert(){
-        let optionMenu = UIAlertController(title: "Даные сохранены", message: nil, preferredStyle: .actionSheet)
-        
-        let okAction = UIAlertAction(title: "ОК", style: .default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            DispatchQueue.main.async() {
-               self.loadDataFromProfile()
-            optionMenu.dismiss(animated: true, completion: nil)
-            }})
-        
-        optionMenu.addAction(okAction)
-        self.present(optionMenu, animated: true, completion: nil)
-    }
-    
-    func showErrorAlert(string:String, gcdMode:Bool){
-        let optionMenu = UIAlertController(title: "Ошибка", message: string, preferredStyle: .actionSheet)
-        
-        let cancelAction = UIAlertAction(title: "Отмена", style: .default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            DispatchQueue.main.async() {
-                self.activityStopAnimate()
-                self.model.gcdManager.readProfile()
-                
-            }
-            optionMenu.dismiss(animated: true, completion: nil)
-            
-        })
-        
-        let againAction = UIAlertAction(title: "Повторить", style: .default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            if gcdMode {
-                self.model.gcdSave()
-            }
-            else{
-                self.model.operationSave()
-            }
-        })
-        
-        optionMenu.addAction(cancelAction)
-        optionMenu.addAction(againAction)
-        self.present(optionMenu, animated: true, completion: nil)
-    }
+
     
 }
 

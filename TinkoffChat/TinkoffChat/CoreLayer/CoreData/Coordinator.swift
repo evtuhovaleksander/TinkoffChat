@@ -11,6 +11,20 @@ import CoreData
 
 class CoreDataService{
     
+    init() {
+        //print(self.storeURL)
+        //print(self.managedObjectModel)
+        //print(self.persistentStoreCoordinator)
+        //print(self.masterContext)
+        //print(self.mainContext)
+        //print(self.saveContext)
+    }
+    
+    public var contextSave : NSManagedObjectContext?{
+        get{
+            return saveContext
+        }
+    }
     
     private var storeURL : URL {
         get{
@@ -28,6 +42,7 @@ class CoreDataService{
                 guard let modelURL = Bundle.main.url(forResource: managedObjectModelName, withExtension : "momd") else{
                     return nil
                 }
+                
                 
                 _managedObjectModel = NSManagedObjectModel(contentsOf:modelURL)
             }
@@ -123,7 +138,8 @@ class CoreDataService{
     
     public func performSave(context: NSManagedObjectContext,completionHandler : (()->Void)?){
         
-        if context.hasChanges {
+        //if context.hasChanges {
+        if true {
             context.perform { [weak self] in
                 do{
                     try context.save()
@@ -142,22 +158,10 @@ class CoreDataService{
             completionHandler?()
         }
     }
-
-
-//    static func insertAppUser(in context:NSManagedObjectContext)->AppUser?{
-//        if let appUser = NSEntityDescription.insertNewObject(forEntityName: "AppUser", into: context) as? AppUser{
-//            if appUser.profile == nil {
-//                if let profile = NSEntityDescription.insertNewObject(forEntityName: "CoreProfile", into: context) as? CoreProfile{
-//                    profile.avatar = CoreProfileModel.imageToBase64ImageString(image: UIImage.init(named: "EmptyAvatar") ?? UIImage())
-//                    profile.name = "name"
-//                    profile.info = "info"
-//                }
-//            }
-//            return appUser
-//        }
-//
-//        return nil
-//    }
+    
+    public func doSave(completionHandler : (()->Void)?){
+        performSave(context: saveContext!, completionHandler: completionHandler)
+    }
     
     static func findOrInsertAppUser(in context: NSManagedObjectContext) -> AppUser?{
         guard let model = context.persistentStoreCoordinator?.managedObjectModel else{
@@ -190,8 +194,44 @@ class CoreDataService{
         return appUser
     }
     
+    func findOrInsertAppUser() -> AppUser?{
+        guard let context = self.mainContext else{
+            assert(false)
+            return nil
+        }
+        
+        
+        guard let model = context.persistentStoreCoordinator?.managedObjectModel else{
+            print("model ")
+            assert(false)
+            return nil
+            
+        }
+        
+        var appUser : AppUser?
+        
+        guard  let fetchRequest = AppUser.fetchRequestAppUser(model:model) else {
+            return nil
+        }
+        
+        do{
+            let results = try context.fetch(fetchRequest)
+            assert(results.count < 2,"multip appusers")
+            if let foundUser = results.first{
+                return foundUser
+            }
+        }catch{
+            print(error)
+        }
+        
+        if appUser == nil {
+            appUser = AppUser.insertAppUser(in: context)
+            self.doSave(completionHandler: nil)
+        }
+        
+        return appUser
+    }
     
-
 
 }
 
@@ -201,9 +241,10 @@ extension AppUser{
         if let appUser = NSEntityDescription.insertNewObject(forEntityName: "AppUser", into: context) as? AppUser{
             if appUser.profile == nil {
                 if let profile = NSEntityDescription.insertNewObject(forEntityName: "CoreProfile", into: context) as? CoreProfile{
-                    profile.avatar = CoreProfileModel.imageToBase64ImageString(image: UIImage.init(named: "EmptyAvatar") ?? UIImage())
+                    profile.avatar = ImageEnCoder.imageToBase64ImageString(image: UIImage.init(named: "EmptyAvatar") ?? UIImage())
                     profile.name = "name"
                     profile.info = "info"
+                    appUser.profile = profile
                 }
             }
             return appUser
@@ -225,27 +266,5 @@ extension AppUser{
     }
 }
 
-//private var storeURL : URL {
-//    get{
-//        let documentsDirURL : URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-//        let url = documentsDirURL.appendingPathComponent("Store.sqlite")
-//        return url
-//    }
-//}
-//
-//private let managedObjectModelName = "Storage"
-//private var _managedObjectModel : NSManagedObjectModel?
-//private var managedObjectModel : NSManagedObjectModel? {
-//    get{
-//        if _managedObjectModel == nil{
-//            guard let modelURL = Bundle.main.url(forResource: managedObjectModelName, withExtension : "momd") else{
-//                return nil
-//            }
-//
-//            _managedObjectModel = NSManagedObjectModel(contentsOf:modelURL)
-//        }
-//
-//        return _managedObjectModel
-//    }
-//}
+
 

@@ -6,20 +6,20 @@
 //  Copyright © 2017 Aleksander Evtuhov. All rights reserved.
 //
 
-import Foundation
-import UIKit
-
-protocol TaskManager {
-    var delegate:TaskManagerDelegate? {get set}
-    func saveProfile(profile:Profile)
-    func readProfile()
-}
-
-protocol TaskManagerDelegate{
-    func startAnimate()
-    func stopAnimate()
-    func showErrorAlert(string:String,gcdMode:Bool)
-    func showSucsessAlert()
-    func receiveProfile(profile:Profile)
-}
-
+//import Foundation
+//import UIKit
+//
+//protocol TaskManager {
+//    var delegate:TaskManagerDelegate? {get set}
+//    func saveProfile(profile:Profile)
+//    func readProfile()
+//}
+//
+//protocol TaskManagerDelegate{
+//    func startAnimate()
+//    func stopAnimate()
+//    func showErrorAlert(string:String,gcdMode:Bool)
+//    func showSucsessAlert()
+//    func receiveProfile(profile:Profile)
+//}
+//

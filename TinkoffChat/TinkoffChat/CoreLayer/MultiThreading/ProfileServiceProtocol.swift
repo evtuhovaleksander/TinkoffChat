@@ -8,63 +8,63 @@
 
 import UIKit
 
-protocol ProfileService {
-    func getProfileService()->Profile
-    func getEmptyProfileService()->Profile
-    func saveProfileService(profile:Profile)->String?
-}
-
-extension ProfileService{
-    func getProfileService()->Profile{
-        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("profile.prf")
-        if let simpleData:Data = try? Data(contentsOf: fileURL) {
-            let decodedData = NSKeyedUnarchiver.unarchiveObject(with: simpleData)
-            if let profile = decodedData as? Profile{
-                return profile
-            }
-        }
-        return Profile(name: "",info: "",avatar: UIImage.init(named: "EmptyAvatar") ?? UIImage(),needSave: false)
-    }
-    
-    func getEmptyProfileService()->Profile{
-        return Profile(name: "",info: "",avatar: UIImage.init(named: "EmptyAvatar") ?? UIImage(),needSave: false)
-    }
-    
-    func saveProfileService(profile:Profile)->String?{
-        
-        if( Int(arc4random_uniform(2))==1){
-            
-            
-        }else{
-            return "generated error"
-        }
-        
-        profile.needSave = false
-        
-        profile.avatar = profile.newAvatar
-        profile.name = profile.newName
-        profile.info = profile.newInfo
-        
-        
-        if let fileURL = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("profile.prf"){
-            do {
-                let data = NSKeyedArchiver.archivedData(withRootObject: profile)
-                try data.write(to: fileURL)
-                return nil
-            } catch let error {
-                print(error.localizedDescription)
-                return error.localizedDescription
-            }
-        }
-        return "can't get path"
-    }
-    
-    
-    
-    
-}
-
-
-
-
-
+//protocol ProfileService {
+//    func getProfileService()->Profile
+//    func getEmptyProfileService()->Profile
+//    func saveProfileService(profile:Profile)->String?
+//}
+//
+//extension ProfileService{
+//    func getProfileService()->Profile{
+//        let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("profile.prf")
+//        if let simpleData:Data = try? Data(contentsOf: fileURL) {
+//            let decodedData = NSKeyedUnarchiver.unarchiveObject(with: simpleData)
+//            if let profile = decodedData as? Profile{
+//                return profile
+//            }
+//        }
+//        return Profile(name: "",info: "",avatar: UIImage.init(named: "EmptyAvatar") ?? UIImage(),needSave: false)
+//    }
+//    
+//    func getEmptyProfileService()->Profile{
+//        return Profile(name: "",info: "",avatar: UIImage.init(named: "EmptyAvatar") ?? UIImage(),needSave: false)
+//    }
+//    
+//    func saveProfileService(profile:Profile)->String?{
+//        
+//        if( Int(arc4random_uniform(2))==1){
+//            
+//            
+//        }else{
+//            return "generated error"
+//        }
+//        
+//        profile.needSave = false
+//        
+//        profile.avatar = profile.newAvatar
+//        profile.name = profile.newName
+//        profile.info = profile.newInfo
+//        
+//        
+//        if let fileURL = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("profile.prf"){
+//            do {
+//                let data = NSKeyedArchiver.archivedData(withRootObject: profile)
+//                try data.write(to: fileURL)
+//                return nil
+//            } catch let error {
+//                print(error.localizedDescription)
+//                return error.localizedDescription
+//            }
+//        }
+//        return "can't get path"
+//    }
+//    
+//    
+//    
+//    
+//}
+//
+//
+//
+//
+//
