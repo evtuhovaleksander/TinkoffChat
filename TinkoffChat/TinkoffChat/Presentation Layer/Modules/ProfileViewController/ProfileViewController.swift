@@ -23,7 +23,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         loadDataFromProfile()
     }
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        model.getModel()
+    }
     
     
     @IBOutlet weak var scrollView: UIScrollView!
@@ -204,11 +206,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     func loadDataFromProfile(){
-            photoImageView.image = model.avatar
-            nameTextField.text = model.name
-            infoTextView.text = model.info
         
-        //setSaveButtonsAvalibleState()
+        DispatchQueue.main.async {
+            self.photoImageView.image = self.model.avatar
+            self.nameTextField.text = self.model.name
+            self.infoTextView.text = self.model.info
+        }
     }
     
     func setSaveButtonsAvalibleState(){

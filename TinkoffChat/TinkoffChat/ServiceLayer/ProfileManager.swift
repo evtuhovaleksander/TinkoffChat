@@ -44,20 +44,13 @@ class ProfileManager:ProfileManagerProtocol,ProfileManagerCoreServiceProtocolDel
     
     init(){
         self.service = rootAssembly.coreDataService
+        self.service.profileManagerDelegate = self
     }
     
     func save(){
         self.service.saveProfile()
     }
     
-//    func loadProfileSinc() -> CoreProfile? {
-//        if let appUser = self.service.findOrInsertAppUser(){
-//            if let profile = appUser.profile{
-//                return profile
-//            }
-//        }
-//        return nil
-//    }
     
     func loadProfile(){
         service.getProfile()
@@ -69,6 +62,7 @@ class ProfileManager:ProfileManagerProtocol,ProfileManagerCoreServiceProtocolDel
 }
 
 protocol ProfileManagerCoreServiceProtocol {
+    var profileManagerDelegate: ProfileManagerCoreServiceProtocolDelegate? {get set}
     func getProfile()
     func saveProfile()
 }

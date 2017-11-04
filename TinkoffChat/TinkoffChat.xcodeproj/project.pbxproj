@@ -22,7 +22,6 @@
 		DE57A8041FA896AB006B83AB /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE57A8031FA896AB006B83AB /* ChatMessage.swift */; };
 		DE588B531FAE032E001869ED /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE588B521FAE032E001869ED /* Coordinator.swift */; };
 		DE588B5D1FAE0AB1001869ED /* Storage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DE588B5B1FAE0AB1001869ED /* Storage.xcdatamodeld */; };
-		DE588B5F1FAE0EE8001869ED /* CoreProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE588B5E1FAE0EE8001869ED /* CoreProfileModel.swift */; };
 		DE8C67761FA8619F00BB65E8 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8C67751FA8619F00BB65E8 /* ProfileViewController.swift */; };
 		DE8C67781FA861AB00BB65E8 /* ProfileViewControllerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8C67771FA861AB00BB65E8 /* ProfileViewControllerModel.swift */; };
 		DE8C677A1FA861B700BB65E8 /* ProfileViewControllerAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8C67791FA861B700BB65E8 /* ProfileViewControllerAssembler.swift */; };
@@ -64,7 +63,6 @@
 		DE57A8031FA896AB006B83AB /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		DE588B521FAE032E001869ED /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		DE588B5C1FAE0AB1001869ED /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		DE588B5E1FAE0EE8001869ED /* CoreProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreProfileModel.swift; sourceTree = "<group>"; };
 		DE8C67751FA8619F00BB65E8 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		DE8C67771FA861AB00BB65E8 /* ProfileViewControllerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewControllerModel.swift; sourceTree = "<group>"; };
 		DE8C67791FA861B700BB65E8 /* ProfileViewControllerAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewControllerAssembler.swift; sourceTree = "<group>"; };
@@ -137,7 +135,6 @@
 			isa = PBXGroup;
 			children = (
 				DE588B521FAE032E001869ED /* Coordinator.swift */,
-				DE588B5E1FAE0EE8001869ED /* CoreProfileModel.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -325,7 +322,6 @@
 				DEAA8C7B1FA7B8C700421F4B /* ConversationViewController.swift in Sources */,
 				DE4A4F0C1F9DE972009F3296 /* JSONManager.swift in Sources */,
 				DEEEF0F21FA78CFB00C428EF /* ChatUser.swift in Sources */,
-				DE588B5F1FAE0EE8001869ED /* CoreProfileModel.swift in Sources */,
 				DEEC92C41FA86557007A64FA /* ProfileServiceProtocol.swift in Sources */,
 				DE009D7B1F8A8E8800E4DF93 /* MessageCell.swift in Sources */,
 				DEEEF0F41FA7946E00C428EF /* RootAssembly.swift in Sources */,

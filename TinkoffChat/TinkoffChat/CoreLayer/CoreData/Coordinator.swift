@@ -11,12 +11,28 @@ import CoreData
 
 class CoreDataService : ProfileManagerCoreServiceProtocol{
     
+    
+    
+    
     func getProfile() {
+        saveContext?.perform {
+            guard let appUser = self.findOrInsertAppUser() else {
+                self.profileManagerDelegate?.recievedProfile(profile: nil)
+                return
+            }
+            
+            if let coreProfile =  appUser.profile {
+                self.profileManagerDelegate?.recievedProfile(profile: coreProfile)
+            }else{
+                self.profileManagerDelegate?.recievedProfile(profile: nil)
+            }
+            
+        }
         
     }
     
     func saveProfile() {
-        <#code#>
+        doSave(completionHandler: nil)
     }
     
     
@@ -174,36 +190,36 @@ class CoreDataService : ProfileManagerCoreServiceProtocol{
         performSave(context: saveContext!, completionHandler: completionHandler)
     }
     
-    static func findOrInsertAppUser(in context: NSManagedObjectContext) -> AppUser?{
-        guard let model = context.persistentStoreCoordinator?.managedObjectModel else{
-            print("model ")
-            assert(false)
-            return nil
-            
-        }
-        
-        var appUser : AppUser?
-        
-        guard  let fetchRequest = AppUser.fetchRequestAppUser(model:model) else {
-            return nil
-        }
-        
-        do{
-            let results = try context.fetch(fetchRequest)
-            assert(results.count < 2,"multip appusers")
-            if let foundUser = results.first{
-                appUser = foundUser
-            }
-        }catch{
-            print(error)
-        }
-        
-        if appUser == nil {
-            appUser = AppUser.insertAppUser(in: context)
-        }
-        
-        return appUser
-    }
+//    static func findOrInsertAppUser(in context: NSManagedObjectContext) -> AppUser?{
+//        guard let model = context.persistentStoreCoordinator?.managedObjectModel else{
+//            print("model ")
+//            assert(false)
+//            return nil
+//
+//        }
+//
+//        var appUser : AppUser?
+//
+//        guard  let fetchRequest = AppUser.fetchRequestAppUser(model:model) else {
+//            return nil
+//        }
+//
+//        do{
+//            let results = try context.fetch(fetchRequest)
+//            assert(results.count < 2,"multip appusers")
+//            if let foundUser = results.first{
+//                appUser = foundUser
+//            }
+//        }catch{
+//            print(error)
+//        }
+//
+//        if appUser == nil {
+//            appUser = AppUser.insertAppUser(in: context)
+//        }
+//
+//        return appUser
+//    }
     
     func findOrInsertAppUser() -> AppUser?{
         guard let context = self.mainContext else{

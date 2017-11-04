@@ -42,8 +42,6 @@ class ProfileViewControllerModel : ICoreProfileViewControllerModel,ProfileManage
     
     func getModel() {
         self.profileManager.loadProfile()
-        //self.coreProfile = profileManager.loadProfile()
-        //delegate?.update()
     }
     
     
@@ -108,10 +106,6 @@ class ProfileViewControllerModel : ICoreProfileViewControllerModel,ProfileManage
         delegate?.stopAnimate()
     }
     
-//    func update() {
-//        self.coreProfile = profileManager.loadProfile()
-//        delegate?.update()
-//    }
     
     var coreProfile:CoreProfile?
     
@@ -120,8 +114,12 @@ class ProfileViewControllerModel : ICoreProfileViewControllerModel,ProfileManage
     var profileManager:ProfileManagerProtocol
     
     init() {
-        let appUser  = rootAssembly.coreDataService.findOrInsertAppUser()
-        self.coreProfile = appUser?.profile
+        //let appUser  = rootAssembly.coreDataService.findOrInsertAppUser()
+        //self.coreProfile = appUser?.profile
+        
+        
         profileManager = ProfileManager()
+        profileManager.delegate = self
+        
     }
 }
