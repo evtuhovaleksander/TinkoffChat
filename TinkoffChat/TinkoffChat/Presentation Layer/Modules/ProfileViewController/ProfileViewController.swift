@@ -247,9 +247,52 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         activity.stopAnimating()
     }
     
+    
+//    func showSucsessAlert(){
+//           let optionMenu = UIAlertController(title: "Даные сохранены", message: nil, preferredStyle: .actionSheet)
+//    
+//            let okAction = UIAlertAction(title: "ОК", style: .default, handler: {
+//                (alert: UIAlertAction!) -> Void in
+//                DispatchQueue.main.async() {
+//                   self.loadDataFromProfile()
+//                optionMenu.dismiss(animated: true, completion: nil)
+//                }})
+//    
+//            optionMenu.addAction(okAction)
+//            self.present(optionMenu, animated: true, completion: nil)
+//        }
+//
+//    func showErrorAlert(string:String){
+//            let optionMenu = UIAlertController(title: "Ошибка", message: string, preferredStyle: .actionSheet)
+//    
+//            let cancelAction = UIAlertAction(title: "Отмена", style: .default, handler: {
+//                (alert: UIAlertAction!) -> Void in
+//                DispatchQueue.main.async() {
+//                    self.activityStopAnimate()
+//                    self.model.getModel()
+//                }
+//                optionMenu.dismiss(animated: true, completion: nil)
+//    
+//            })
+//    
+//            let againAction = UIAlertAction(title: "Повторить", style: .default, handler: {
+//                (alert: UIAlertAction!) -> Void in
+//                self.model.saveModel()
+//            })
+//    
+//            optionMenu.addAction(cancelAction)
+//            optionMenu.addAction(againAction)
+//            self.present(optionMenu, animated: true, completion: nil)
+//       }
+
+
+}
+
 
     
-}
+
+    
+
 
 
 

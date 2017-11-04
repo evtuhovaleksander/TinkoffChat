@@ -9,12 +9,13 @@
 import UIKit
 
 protocol ProfileManagerDelegate {
-    //func recievedProfile(model:CoreProfileModel)
+    func recievedProfile(model:CoreProfile?)
 }
 
 protocol ProfileManagerProtocol  {
-    var service:CoreDataService {get set}
-    func loadProfile()->CoreProfile?
+    var service:ProfileManagerCoreServiceProtocol {get set}
+    var delegate:ProfileManagerDelegate? {get set}
+    func loadProfile()
     func save()
 }
 
@@ -34,28 +35,45 @@ class ImageEnCoder{
 
 
 
-class ProfileManager:ProfileManagerProtocol{
-
+class ProfileManager:ProfileManagerProtocol,ProfileManagerCoreServiceProtocolDelegate{
+    var delegate: ProfileManagerDelegate?
     
-    var service: CoreDataService
+
+    var service: ProfileManagerCoreServiceProtocol
+    
     
     init(){
         self.service = rootAssembly.coreDataService
     }
     
     func save(){
-        self.service.doSave(completionHandler: nil)
+        self.service.saveProfile()
     }
     
-    func loadProfile() -> CoreProfile? {
-        if let appUser = self.service.findOrInsertAppUser(){
-            if let profile = appUser.profile{
-                return profile
-            }
-        }
-        return nil
+//    func loadProfileSinc() -> CoreProfile? {
+//        if let appUser = self.service.findOrInsertAppUser(){
+//            if let profile = appUser.profile{
+//                return profile
+//            }
+//        }
+//        return nil
+//    }
+    
+    func loadProfile(){
+        service.getProfile()
+    }
+    
+    func recievedProfile(profile:CoreProfile?){
+        delegate?.recievedProfile(model: profile)
     }
 }
 
+protocol ProfileManagerCoreServiceProtocol {
+    func getProfile()
+    func saveProfile()
+}
+protocol ProfileManagerCoreServiceProtocolDelegate {
+    func recievedProfile(profile:CoreProfile?)
+}
 
 

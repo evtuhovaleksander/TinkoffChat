@@ -9,7 +9,18 @@
 import UIKit
 import CoreData
 
-class CoreDataService{
+class CoreDataService : ProfileManagerCoreServiceProtocol{
+    
+    func getProfile() {
+        
+    }
+    
+    func saveProfile() {
+        <#code#>
+    }
+    
+    
+    var profileManagerDelegate:ProfileManagerCoreServiceProtocolDelegate?
     
     init() {
         //print(self.storeURL)
@@ -20,11 +31,11 @@ class CoreDataService{
         //print(self.saveContext)
     }
     
-    public var contextSave : NSManagedObjectContext?{
-        get{
-            return saveContext
-        }
-    }
+//    public var contextSave : NSManagedObjectContext?{
+//        get{
+//            return saveContext
+//        }
+//    }
     
     private var storeURL : URL {
         get{

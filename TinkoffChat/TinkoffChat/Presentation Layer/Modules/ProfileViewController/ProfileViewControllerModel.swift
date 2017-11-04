@@ -20,16 +20,30 @@ protocol ICoreProfileViewControllerModel{
     func startAnimate()
     func stopAnimate()
     func getModel()
-    
+    func saveModel()
     var name:String {get set}
     var info:String {get set}
     var avatar:UIImage {get set}
 }
 
-class ProfileViewControllerModel : ICoreProfileViewControllerModel{
-    func getModel() {
-        self.coreProfile = profileManager.loadProfile()
+class ProfileViewControllerModel : ICoreProfileViewControllerModel,ProfileManagerDelegate{
+    func saveModel() {
+        profileManager.save()
+    }
+    
+    
+    func recievedProfile(model: CoreProfile?) {
+        self.coreProfile = model
         delegate?.update()
+    }
+    
+    
+    
+    
+    func getModel() {
+        self.profileManager.loadProfile()
+        //self.coreProfile = profileManager.loadProfile()
+        //delegate?.update()
     }
     
     
@@ -94,10 +108,10 @@ class ProfileViewControllerModel : ICoreProfileViewControllerModel{
         delegate?.stopAnimate()
     }
     
-    func update() {
-        self.coreProfile = profileManager.loadProfile()
-        delegate?.update()
-    }
+//    func update() {
+//        self.coreProfile = profileManager.loadProfile()
+//        delegate?.update()
+//    }
     
     var coreProfile:CoreProfile?
     
