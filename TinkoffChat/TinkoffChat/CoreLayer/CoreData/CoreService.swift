@@ -15,7 +15,7 @@ class CoreDataService : ProfileManagerCoreServiceProtocol{
     
     
     func getProfile() {
-        saveContext?.perform {
+        mainContext?.perform {
             guard let appUser = self.findOrInsertAppUser() else {
                 self.profileManagerDelegate?.recievedProfile(profile: nil)
                 return

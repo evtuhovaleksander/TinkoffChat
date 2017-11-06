@@ -206,28 +206,27 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     func loadDataFromProfile(){
-        
-        DispatchQueue.main.async {
+        //DispatchQueue.main.async {
             self.photoImageView.image = self.model.avatar
             self.nameTextField.text = self.model.name
             self.infoTextView.text = self.model.info
-        }
+        //}
     }
     
-    func setSaveButtonsAvalibleState(){
-//        if(model.profile.needSave){
-//            gcdButton.isEnabled = true
-//            operationButton.isEnabled = true
-//            gcdButton.backgroundColor = .green
-//            operationButton.backgroundColor = .green
-//        }
-//        else{
-            gcdButton.isEnabled = false
-            operationButton.isEnabled = false
-            gcdButton.backgroundColor = .red
-            operationButton.backgroundColor = .red
-//        }
-    }
+//    func setSaveButtonsAvalibleState(){
+////        if(model.profile.needSave){
+////            gcdButton.isEnabled = true
+////            operationButton.isEnabled = true
+////            gcdButton.backgroundColor = .green
+////            operationButton.backgroundColor = .green
+////        }
+////        else{
+//            gcdButton.isEnabled = false
+//            operationButton.isEnabled = false
+//            gcdButton.backgroundColor = .red
+//            operationButton.backgroundColor = .red
+////        }
+//    }
     
     func textViewDidChange(_ textView: UITextView) {
         model.info = infoTextView.text ?? ""

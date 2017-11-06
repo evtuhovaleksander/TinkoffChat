@@ -20,7 +20,7 @@
 		DE4A4F0C1F9DE972009F3296 /* JSONManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4A4F0B1F9DE972009F3296 /* JSONManager.swift */; };
 		DE57A8021FA8969D006B83AB /* ChatDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE57A8011FA8969D006B83AB /* ChatDialog.swift */; };
 		DE57A8041FA896AB006B83AB /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE57A8031FA896AB006B83AB /* ChatMessage.swift */; };
-		DE588B531FAE032E001869ED /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE588B521FAE032E001869ED /* Coordinator.swift */; };
+		DE588B531FAE032E001869ED /* CoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE588B521FAE032E001869ED /* CoreService.swift */; };
 		DE588B5D1FAE0AB1001869ED /* Storage.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DE588B5B1FAE0AB1001869ED /* Storage.xcdatamodeld */; };
 		DE8C67761FA8619F00BB65E8 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8C67751FA8619F00BB65E8 /* ProfileViewController.swift */; };
 		DE8C67781FA861AB00BB65E8 /* ProfileViewControllerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE8C67771FA861AB00BB65E8 /* ProfileViewControllerModel.swift */; };
@@ -61,7 +61,7 @@
 		DE4A4F0B1F9DE972009F3296 /* JSONManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONManager.swift; sourceTree = "<group>"; };
 		DE57A8011FA8969D006B83AB /* ChatDialog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatDialog.swift; sourceTree = "<group>"; };
 		DE57A8031FA896AB006B83AB /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
-		DE588B521FAE032E001869ED /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		DE588B521FAE032E001869ED /* CoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreService.swift; sourceTree = "<group>"; };
 		DE588B5C1FAE0AB1001869ED /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		DE8C67751FA8619F00BB65E8 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		DE8C67771FA861AB00BB65E8 /* ProfileViewControllerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewControllerModel.swift; sourceTree = "<group>"; };
@@ -134,7 +134,7 @@
 		DE588B511FAE02E2001869ED /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				DE588B521FAE032E001869ED /* Coordinator.swift */,
+				DE588B521FAE032E001869ED /* CoreService.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -317,7 +317,7 @@
 			files = (
 				DEEEF0E91FA78B3700C428EF /* ConversationsListViewControllerAsembler.swift in Sources */,
 				DE8C677A1FA861B700BB65E8 /* ProfileViewControllerAssembler.swift in Sources */,
-				DE588B531FAE032E001869ED /* Coordinator.swift in Sources */,
+				DE588B531FAE032E001869ED /* CoreService.swift in Sources */,
 				DE57A8021FA8969D006B83AB /* ChatDialog.swift in Sources */,
 				DEAA8C7B1FA7B8C700421F4B /* ConversationViewController.swift in Sources */,
 				DE4A4F0C1F9DE972009F3296 /* JSONManager.swift in Sources */,
