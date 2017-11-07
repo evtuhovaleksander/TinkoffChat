@@ -43,7 +43,7 @@ class ProfileManager:ProfileManagerProtocol,ProfileManagerCoreServiceProtocolDel
     
     
     init(){
-        self.service = rootAssembly.coreDataService
+        self.service = CoreDataService()//rootAssembly.coreDataService
         self.service.profileManagerDelegate = self
     }
     
