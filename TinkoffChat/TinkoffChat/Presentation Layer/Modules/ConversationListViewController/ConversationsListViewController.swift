@@ -96,17 +96,11 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //        var dialog:ChatDialog
-        //        if(indexPath.section == 0){
-        //            dialog = onlineDialogs[indexPath.row]
-        //        }else{
-        //            dialog = offlineDialogs[indexPath.row]
-        //        }
-        //
-        //        let controller = ConversationViewControllerAsembler.createConversationsViewController(userName: dialog.name!, userID: dialog.userID!)
-        //
-        //        self.navigationController?.pushViewController(controller, animated: true)
-        //        tableView.deselectRow(at: indexPath, animated: true)
+       var conversation = model?.conversationForIndexPath(indexPath: indexPath)
+       let controller = ConversationViewControllerAsembler.createConversationsViewController(conversation: conversation)
+        
+       self.navigationController?.pushViewController(controller, animated: true)
+       tableView.deselectRow(at: indexPath, animated: true)
     }
     
     

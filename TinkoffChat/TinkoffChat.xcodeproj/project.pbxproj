@@ -16,6 +16,8 @@
 		DE07B27B1FB8535800C1C6BC /* ConversationCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE07B27A1FB8535800C1C6BC /* ConversationCellProtocol.swift */; };
 		DE07B27E1FB8573100C1C6BC /* ConversationListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE07B27D1FB8573100C1C6BC /* ConversationListManager.swift */; };
 		DE395D8B1F93BE150019370A /* TaskManagers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE395D8A1F93BE150019370A /* TaskManagers.swift */; };
+		DE438CE81FB89C1C00655317 /* ConversationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE438CE71FB89C1C00655317 /* ConversationManager.swift */; };
+		DE438CEB1FB89EA000655317 /* MessageCellConfProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE438CEA1FB89EA000655317 /* MessageCellConfProtocol.swift */; };
 		DE4A4EFE1F9C8273009F3296 /* CommunicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4A4EFD1F9C8273009F3296 /* CommunicationManager.swift */; };
 		DE4A4F061F9CB7D5009F3296 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4A4F051F9CB7D5009F3296 /* Protocols.swift */; };
 		DE4A4F081F9CB932009F3296 /* MultipeerCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4A4F071F9CB932009F3296 /* MultipeerCommunicator.swift */; };
@@ -59,6 +61,8 @@
 		DE07B27A1FB8535800C1C6BC /* ConversationCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCellProtocol.swift; sourceTree = "<group>"; };
 		DE07B27D1FB8573100C1C6BC /* ConversationListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListManager.swift; sourceTree = "<group>"; };
 		DE395D8A1F93BE150019370A /* TaskManagers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagers.swift; sourceTree = "<group>"; };
+		DE438CE71FB89C1C00655317 /* ConversationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationManager.swift; sourceTree = "<group>"; };
+		DE438CEA1FB89EA000655317 /* MessageCellConfProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellConfProtocol.swift; sourceTree = "<group>"; };
 		DE4A4EFD1F9C8273009F3296 /* CommunicationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationManager.swift; sourceTree = "<group>"; };
 		DE4A4F051F9CB7D5009F3296 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		DE4A4F071F9CB932009F3296 /* MultipeerCommunicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultipeerCommunicator.swift; sourceTree = "<group>"; };
@@ -152,6 +156,18 @@
 			path = Hide;
 			sourceTree = "<group>";
 		};
+		DE438CE91FB89D3000655317 /* Hide */ = {
+			isa = PBXGroup;
+			children = (
+				DE009D7A1F8A8E8800E4DF93 /* MessageCell.swift */,
+				DEAA8C801FA7B91400421F4B /* ConversationViewController.xib */,
+				DEE9F8971FA8ACFA0095FD80 /* IncomeMessageCell.xib */,
+				DEE9F89B1FA8AD1E0095FD80 /* OutcomeMessageCell.xib */,
+				DE438CEA1FB89EA000655317 /* MessageCellConfProtocol.swift */,
+			);
+			path = Hide;
+			sourceTree = "<group>";
+		};
 		DE588B511FAE02E2001869ED /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
@@ -175,13 +191,11 @@
 		DEAA8C791FA7B8A000421F4B /* ConversationViewController */ = {
 			isa = PBXGroup;
 			children = (
+				DE438CE91FB89D3000655317 /* Hide */,
+				DE438CE71FB89C1C00655317 /* ConversationManager.swift */,
 				DEAA8C7A1FA7B8C700421F4B /* ConversationViewController.swift */,
 				DEAA8C7C1FA7B8DB00421F4B /* ConversationViewControllerModel.swift */,
 				DEAA8C7E1FA7B8E900421F4B /* ConversationViewControllerAssembler.swift */,
-				DE009D7A1F8A8E8800E4DF93 /* MessageCell.swift */,
-				DEAA8C801FA7B91400421F4B /* ConversationViewController.xib */,
-				DEE9F8971FA8ACFA0095FD80 /* IncomeMessageCell.xib */,
-				DEE9F89B1FA8AD1E0095FD80 /* OutcomeMessageCell.xib */,
 			);
 			path = ConversationViewController;
 			sourceTree = "<group>";
@@ -354,6 +368,7 @@
 				DEAA8C7D1FA7B8DB00421F4B /* ConversationViewControllerModel.swift in Sources */,
 				DE4A4F081F9CB932009F3296 /* MultipeerCommunicator.swift in Sources */,
 				DEEC92C61FA86601007A64FA /* Operation.swift in Sources */,
+				DE438CEB1FB89EA000655317 /* MessageCellConfProtocol.swift in Sources */,
 				DEEC92C81FA8660C007A64FA /* GCD.swift in Sources */,
 				DEEEF0E31FA78A1700C428EF /* ConversationsListViewControllerModel.swift in Sources */,
 				DE4A4F061F9CB7D5009F3296 /* Protocols.swift in Sources */,
@@ -365,6 +380,7 @@
 				DE8C67761FA8619F00BB65E8 /* ProfileViewController.swift in Sources */,
 				DE4A4EFE1F9C8273009F3296 /* CommunicationManager.swift in Sources */,
 				DE395D8B1F93BE150019370A /* TaskManagers.swift in Sources */,
+				DE438CE81FB89C1C00655317 /* ConversationManager.swift in Sources */,
 				DE588B5D1FAE0AB1001869ED /* Storage.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

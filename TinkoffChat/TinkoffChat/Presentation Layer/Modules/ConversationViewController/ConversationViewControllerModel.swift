@@ -6,49 +6,72 @@
 //  Copyright © 2017 Aleksander Evtuhov. All rights reserved.
 //
 
-import Foundation
+import UIKit
+import CoreData
 
-protocol ConversationViewControllerModelDelegate{
-    func setupDialog(dialog:ChatDialog)
+protocol IConversationViewControllerModel : class {
+    var manager : IConversationManager {get set}
+    var delegate: ConversationViewControllerModelDelegate {get set}
+    
+    func numberOfRowsInSection (section: Int) -> Int
+    func messageForIndexPath (indexPath: IndexPath) -> Message?
+    func startSync ()
+    func updateUnRead()
+    func sendMessage(string: String)
 }
 
-protocol IConversationViewControllerModel{
-    var communicationManager:CommunicatorDelegate {get set}
-    var userName:String {get set}
-    var userID:String {get set}
-    var delegate:ConversationViewControllerModelDelegate? {get set}
-    
-    func getDialog()
-    func updateUnread()
-    func sendMessage(string: String, to: String)
+protocol ConversationViewControllerModelDelegate : NSFetchedResultsControllerDelegate {
+}
+
+class MessageModel{
+    // visual side of message
 }
 
 class ConversationViewControllerModel:IConversationViewControllerModel{
+
+    var manager: IConversationManager
+    var delegate: ConversationViewControllerModelDelegate
     
-    var communicationManager:CommunicatorDelegate
-    var userName:String
-    var userID:String
-    var delegate:ConversationViewControllerModelDelegate?
-    
-    init(userName:String,userID:String,communicationManager:CommunicatorDelegate) {
-        self.userID=userID
-        self.userName=userName
-        self.communicationManager = communicationManager
+    var fetchedResultsController : NSFetchedResultsController<Message>{
+        get{
+            return manager.fetchedResultsController
+        }
     }
     
-    func getDialog(){
-        let dialog = communicationManager.getChatDialog(userID: userID)
-        delegate?.setupDialog(dialog: dialog)
+    init(delegate: ConversationViewControllerModelDelegate,conversation:Conversation) {
+        self.delegate = delegate
+        manager = ConversationManager(delegate:delegate,conversation:conversation)
     }
     
-    func updateUnread(){
-        communicationManager.updateUnread(userID: userID)
+    func numberOfRowsInSection (section: Int) -> Int {
+        guard let sections = fetchedResultsController.sections else {
+            return 0
+        }
+        return sections[section].numberOfObjects
     }
     
-    func sendMessage(string: String, to: String){
-        communicationManager.multipeerCommunicator.sendMessage(string: string, to: to, completionHandler: nil)
+    func messageForIndexPath (indexPath: IndexPath) -> Message? {
+        return fetchedResultsController.object(at: indexPath)
     }
+    
+   
+    func startSync() {
+        do {
+            try manager.fetchedResultsController.performFetch()
+        } catch {
+            print("Error fetching: \(error)")
+        }
+    }
+    
+    func updateUnRead(){
+        
+    }
+    
+    func sendMessage(string: String){
+        
+    }
+    
+    
     
     
 }
-

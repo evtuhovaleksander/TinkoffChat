@@ -7,33 +7,17 @@
 //
 
 import UIKit
+import CoreData
 
-class ConversationViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, ConversationViewControllerModelDelegate,CommunicationManagerConversationDelegate{
-    
-    func update() {
-        model.getDialog()
-    }
-    
-    
-    
-   
-    
-    var messages:[ChatMessage] = [ChatMessage]()
-    
-    //var communicationManager:CommunicationManager
-    //var multipeerCommunicator:MultipeerCommunicator?
-    
-    
-    //var userName:String
-    //var userID:String
-    var model:IConversationViewControllerModel
+class ConversationViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, ConversationViewControllerModelDelegate{
+
+    var model:IConversationViewControllerModel?
     
     @IBOutlet weak var table: UITableView!
     
     @IBOutlet weak var sendButton: UIButton!
     
-    init(model:IConversationViewControllerModel) {
-        self.model=model
+    init() {
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -44,55 +28,30 @@ class ConversationViewController: UIViewController,UITableViewDelegate,UITableVi
     @IBOutlet weak var messageText: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = model.userName
+        //self.title = model?.userName
         self.table.register(UINib.init(nibName: "IncomeMessageCell", bundle: nil), forCellReuseIdentifier: "IncomeMessageCell")
         self.table.register(UINib.init(nibName: "OutcomeMessageCell", bundle: nil), forCellReuseIdentifier: "OutcomeMessageCell")
         self.table.delegate = self
         self.table.dataSource = self
-        //NotificationCenter.default.addObserver(self, selector: #selector(refreshDialogNot), name: .refreshDialog, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        model.getDialog()
+        model?.startSync()
     }
-    
-    func setupDialog(dialog:ChatDialog){
-                DispatchQueue.main.async {
-                    self.messages = dialog.messages
-                    self.sendButton.isEnabled = dialog.online
-                    self.table.reloadData()
-                }
-    }
-    
-    
-//    func refreshDialog(){
-//        DispatchQueue.main.async {
-//            let dialog = self.communicationManager.getChatDialog(userName: self.userName)
-//            self.messages = dialog.messages
-//            self.sendButton.isEnabled = dialog.online
-//            self.table.reloadData()
-//        }
-//    }
-    
-//    @objc func refreshDialogNot(_ notification: NSNotification){
-//        model.getDialog()
-//    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        model.updateUnread()
-        model.communicationManager.convListDelegate?.update()
-        //NotificationCenter.default.post(name: .refreshDialogs, object: nil)
+        model?.updateUnRead()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
+        return model?.numberOfRowsInSection(section: section) ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let message = messages[indexPath.row]
+        if let message = model?.messageForIndexPath(indexPath: indexPath){
         
         if(message.income){
             let cell = table.dequeueReusableCell(withIdentifier: "IncomeMessageCell", for: indexPath) as! MessageCell
@@ -103,21 +62,78 @@ class ConversationViewController: UIViewController,UITableViewDelegate,UITableVi
             let cell = table.dequeueReusableCell(withIdentifier: "OutcomeMessageCell", for: indexPath) as! MessageCell
             cell.messageText = message.text
             return cell
+            }
+            
+        }else{
+            let cell = table.dequeueReusableCell(withIdentifier: "IncomeMessageCell", for: indexPath) as! MessageCell
+            return cell
         }
         
     }
     
     @IBAction func send(_ sender: Any) {
-        model.sendMessage(string: messageText.text ?? "", to: model.userID)
-       
+        model?.sendMessage(string: messageText.text ?? "")
     }
     
     
 }
 
-
-protocol MessageCellConfiguration : class {
-    var messageText : String? {get set}
+extension ConversationViewController:NSFetchedResultsControllerDelegate{
+    
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        table.endUpdates()
+    }
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        table.beginUpdates()
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        switch (type) {
+        case .insert:
+            table.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
+            break
+        case .delete:
+            table.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
+            break
+        default:
+            break
+        }
+    }
+    
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                    didChange anObject: Any,
+                    at indexPath: IndexPath?,
+                    for type: NSFetchedResultsChangeType,
+                    newIndexPath: IndexPath?) {
+        switch type {
+        case .delete:
+            if let indexPath = indexPath {
+                table.deleteRows(at: [indexPath], with: .automatic)
+            }
+        case .insert:
+            if let newIndexPath = newIndexPath {
+                table.insertRows(at: [newIndexPath], with: .automatic)
+            }
+        case .move:
+            if let indexPath = indexPath {
+                table.deleteRows(at: [indexPath], with: .automatic)
+            }
+            
+            if let newIndexPath = newIndexPath {
+                table.insertRows(at: [newIndexPath], with: .automatic)
+            }
+        case .update:
+            if let indexPath = indexPath {
+                table.reloadRows(at: [indexPath], with: .automatic)
+            }
+        }
+    }
 }
+
+
+
 
 

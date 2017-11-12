@@ -31,20 +31,20 @@
                         <action selector="toProfile:" destination="-1" eventType="touchUpInside" id="GTh-Yl-w1f"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ck2-hI-VjV">
-                    <rect key="frame" x="41" y="622" width="46" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Button"/>
-                    <connections>
-                        <action selector="act:" destination="-1" eventType="touchUpInside" id="jn0-nN-aQh"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fMR-BJ-c1r">
-                    <rect key="frame" x="284" y="627" width="46" height="30"/>
+                    <rect key="frame" x="284" y="627" width="79" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Button"/>
+                    <state key="normal" title="del convs"/>
                     <connections>
                         <action selector="del:" destination="-1" eventType="touchUpInside" id="11e-ol-M5B"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ck2-hI-VjV">
+                    <rect key="frame" x="4" y="630" width="81" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="add conv"/>
+                    <connections>
+                        <action selector="act:" destination="-1" eventType="touchUpInside" id="jn0-nN-aQh"/>
                     </connections>
                 </button>
             </subviews>
@@ -60,7 +60,7 @@
                 <constraint firstItem="LGu-sK-klF" firstAttribute="leading" secondItem="34g-Zj-lcK" secondAttribute="leading" id="z75-to-BWH"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="34g-Zj-lcK"/>
-            <point key="canvasLocation" x="8" y="-389"/>
+            <point key="canvasLocation" x="7.5" y="-389.5"/>
         </view>
     </objects>
 </document>
