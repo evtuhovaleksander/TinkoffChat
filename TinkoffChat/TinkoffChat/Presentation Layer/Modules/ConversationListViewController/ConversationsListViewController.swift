@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,ConversationsListViewControllerModelDelegate {
     
     func update() {
         DispatchQueue.main.async {
@@ -24,7 +24,7 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     
     var fetchedResultsController:NSFetchedResultsController<Conversation>?{
         get{
-            return model?.fetchedResultsController
+            return model?.manager.fetchedResultsController
         }
     }
     

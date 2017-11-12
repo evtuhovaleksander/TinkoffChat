@@ -10,29 +10,22 @@ import UIKit
 import CoreData
 
 protocol IConversationsListViewControllerModel : class {
-    var fetchedResultsController : NSFetchedResultsController<Conversation> {get set}
+    var manager : IConversationListManager {get set}
+    var delegate: ConversationsListViewControllerModelDelegate {get set}
 }
 
 protocol ConversationsListViewControllerModelDelegate : NSFetchedResultsControllerDelegate {
-    
+    //
 }
 
 class ConversationsListViewControllerModel:IConversationsListViewControllerModel{
-    var fetchedResultsController : NSFetchedResultsController<Conversation>
-    
-    init(delegate:NSFetchedResultsControllerDelegate) {
-        let context = rootAssembly.coreDataService.mainContext
-        
-        let fetchRequest = NSFetchRequest<Conversation>(entityName: "Conversation")
-        let descriptors = [NSSortDescriptor(key: "user.online",
-                                            ascending: false)]
-        fetchRequest.sortDescriptors = descriptors
-        var fetchedResultsController = NSFetchedResultsController<Conversation>(fetchRequest:
-            fetchRequest, managedObjectContext: context!, sectionNameKeyPath: #keyPath(Conversation.user.online),
-                          cacheName: nil)
-        self.fetchedResultsController = fetchedResultsController
-        self.fetchedResultsController.delegate = delegate
+    var manager: IConversationListManager
+    var delegate: ConversationsListViewControllerModelDelegate
+    init(delegate: ConversationsListViewControllerModelDelegate) {
+        self.delegate = delegate
+        manager = ConversationListManager(delegate:delegate)
     }
+    
 
    
 }
