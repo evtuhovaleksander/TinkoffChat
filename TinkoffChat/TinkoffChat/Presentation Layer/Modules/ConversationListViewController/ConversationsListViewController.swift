@@ -19,14 +19,8 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     }
     
     @IBOutlet weak var table: UITableView!
-    //var fetchedResultsController:NSFetchedResultsController<Conversation>?
     var model : IConversationsListViewControllerModel?
     
-    var fetchedResultsController:NSFetchedResultsController<Conversation>?{
-        get{
-            return model?.manager.fetchedResultsController
-        }
-    }
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -45,32 +39,30 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        do {
-            try self.fetchedResultsController?.performFetch()
-        } catch {
-            print("Error fetching: \(error)")
-        }
+        model?.startSync()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        guard let frc = fetchedResultsController, let sectionsCount =
-            frc.sections?.count else {
-                return 0
-        }
-        return sectionsCount
+        return model?.numberOfSections() ?? 0
+//        guard let frc = fetchedResultsController, let sectionsCount =
+//            frc.sections?.count else {
+//                return 0
+//        }
+//        return sectionsCount
 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let frc = fetchedResultsController, let sections = frc.sections else {
-            return 0
-        }
-        return sections[section].numberOfObjects
+        return model?.numberOfRowsInSection(section: section) ?? 0
+//        guard let frc = fetchedResultsController, let sections = frc.sections else {
+//            return 0
+//        }
+//        return sections[section].numberOfObjects
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = table.dequeueReusableCell(withIdentifier: "DialogCell", for: indexPath) as! DialogCell
-        if let conversation = fetchedResultsController?.object(at: indexPath) {
+        if let conversation = model?.conversationForIndexPath(indexPath: indexPath){//let conversation = fetchedResultsController?.object(at: indexPath) {
 
             cell.name = conversation.user?.name ?? ""
             if let messages = conversation.messages{
@@ -107,17 +99,18 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        guard let frc = fetchedResultsController, let sections =
-            frc.sections else {
-                return ""
-        }
-        
-        if (sections[section].name == "1")
-        {
-            return "online"
-        }else{
-            return "offline"
-        }
+        return model?.titleForHeaderInSection(section: section) ?? ""
+//        guard let frc = fetchedResultsController, let sections =
+//            frc.sections else {
+//                return ""
+//        }
+//
+//        if (sections[section].name == "1")
+//        {
+//            return "online"
+//        }else{
+//            return "offline"
+//        }
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
