@@ -10,20 +10,30 @@ import UIKit
 import CoreData
 
 protocol IConversationsListViewControllerModel : class {
-
+    var fetchedResultsController : NSFetchedResultsController<Conversation> {get set}
 }
 
-protocol ConversationsListViewControllerModelDelegate : class {
-    func setupDialogs(allDialogs: [ChatDialog])
+protocol ConversationsListViewControllerModelDelegate : NSFetchedResultsControllerDelegate {
+    
 }
 
 class ConversationsListViewControllerModel:IConversationsListViewControllerModel{
-    var controller : ConversationsListViewController
-    var manager : ConversationListManager?
-    init(controller:ConversationsListViewController) {
-        self.controller = controller
-        //self.manager = ConversationListManager(model: self)
+    var fetchedResultsController : NSFetchedResultsController<Conversation>
+    
+    init(delegate:NSFetchedResultsControllerDelegate) {
+        let context = rootAssembly.coreDataService.mainContext
+        
+        let fetchRequest = NSFetchRequest<Conversation>(entityName: "Conversation")
+        let descriptors = [NSSortDescriptor(key: "user.online",
+                                            ascending: false)]
+        fetchRequest.sortDescriptors = descriptors
+        var fetchedResultsController = NSFetchedResultsController<Conversation>(fetchRequest:
+            fetchRequest, managedObjectContext: context!, sectionNameKeyPath: #keyPath(Conversation.user.online),
+                          cacheName: nil)
+        self.fetchedResultsController = fetchedResultsController
+        self.fetchedResultsController.delegate = delegate
     }
+
    
 }
 

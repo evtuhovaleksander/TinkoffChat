@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,CommunicationManagerConversationListDelegate {
+class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func update() {
         DispatchQueue.main.async {
@@ -19,11 +19,15 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     }
     
     @IBOutlet weak var table: UITableView!
-    var fetchedResultsController:NSFetchedResultsController<Conversation>?
-    //var onlineDialogs : [ChatDialog] = [ChatDialog]()
-    //var offlineDialogs : [ChatDialog] = [ChatDialog]()
+    //var fetchedResultsController:NSFetchedResultsController<Conversation>?
     var model : IConversationsListViewControllerModel?
-
+    
+    var fetchedResultsController:NSFetchedResultsController<Conversation>?{
+        get{
+            return model?.fetchedResultsController
+        }
+    }
+    
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -38,10 +42,6 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         self.title = "Tinkoff Chat"
         table.dataSource = self
         table.delegate = self
-        //table.reloadData()
-        //model.getDialogs()
-        //NotificationCenter.default.addObserver(self, selector: #selector(refreshDialogs), name: .refreshDialogs, object: nil)
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,7 +50,6 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         } catch {
             print("Error fetching: \(error)")
         }
-        //table.reloadData()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -59,19 +58,7 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
                 return 0
         }
         return sectionsCount
-//        if sectionsCount>0{
-//            var a = frc.sections?[0].indexTitle
-//            var b = frc.sections?[0].name
-//            print(b)
-//        }
-//        if sectionsCount>1{
-//            var c = frc.sections?[1].indexTitle
-//            var d = frc.sections?[1].name
-//       print(d)
-//        }
-//
-//        return sectionsCount
-        //return 2
+
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -79,26 +66,6 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
             return 0
         }
         return sections[section].numberOfObjects
-        
-        if sections.count == 0 {return 0}
-        
-        var online = 0
-        var offline = 0
-        
-        for section in sections{
-            if section.name == "1" {
-                online = section.numberOfObjects
-                
-            }else{
-                offline = section.numberOfObjects
-            }
-        }
-        
-        if section == 0{
-            return online
-        }else{
-            return offline
-        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -146,7 +113,6 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         }
         
         if (sections[section].name == "1")
-        //if section == 0
         {
             return "online"
         }else{
@@ -154,14 +120,10 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         }
     }
 
-
-    
-
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 40
     }
 
-  
     
     @IBAction func toProfile(_ sender: Any) {
         self.present(ProfileViewControllerAssembler.createProfileViewControllerAssembler(), animated: true, completion: nil)
@@ -197,25 +159,17 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     }
     
     @IBAction func del(_ sender: Any) {
-        
-        
-       
         var convs = rootAssembly.coreDataService.findConversations()
         for i in convs!{
             rootAssembly.coreDataService.mainContext?.delete(i)
         }
-        
-//        managedContext.delete(note)
-//
+
         do {
             try rootAssembly.coreDataService.doSave(completionHandler: nil)
         } catch let error as NSError {
             print("Error While Deleting Note: \(error.userInfo)")
         }
-        
-       
     }
-
 }
 
 
@@ -241,7 +195,6 @@ extension ConversationsListViewController:NSFetchedResultsControllerDelegate{
                 default:
                     break
                 }
-
     }
 
     
@@ -273,8 +226,6 @@ extension ConversationsListViewController:NSFetchedResultsControllerDelegate{
             }
         }
     }
-    
-
 }
 
 
