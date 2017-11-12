@@ -11,13 +11,6 @@ import CoreData
 
 class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,ConversationsListViewControllerModelDelegate {
     
-    func update() {
-        DispatchQueue.main.async {
-            //self.model.getDialogs()
-            //self.table.reloadData()
-        }
-    }
-    
     @IBOutlet weak var table: UITableView!
     var model : IConversationsListViewControllerModel?
     
@@ -44,20 +37,10 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return model?.numberOfSections() ?? 0
-//        guard let frc = fetchedResultsController, let sectionsCount =
-//            frc.sections?.count else {
-//                return 0
-//        }
-//        return sectionsCount
-
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return model?.numberOfRowsInSection(section: section) ?? 0
-//        guard let frc = fetchedResultsController, let sections = frc.sections else {
-//            return 0
-//        }
-//        return sections[section].numberOfObjects
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -100,17 +83,7 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return model?.titleForHeaderInSection(section: section) ?? ""
-//        guard let frc = fetchedResultsController, let sections =
-//            frc.sections else {
-//                return ""
-//        }
-//
-//        if (sections[section].name == "1")
-//        {
-//            return "online"
-//        }else{
-//            return "offline"
-//        }
+
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

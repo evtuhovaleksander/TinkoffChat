@@ -23,7 +23,12 @@ protocol IConversationsListViewControllerModel : class {
 protocol ConversationsListViewControllerModelDelegate : NSFetchedResultsControllerDelegate {
 }
 
+class Dialog{
+    // visual side of conversation
+}
+
 class ConversationsListViewControllerModel:IConversationsListViewControllerModel{
+    
     
     
     var manager: IConversationListManager
