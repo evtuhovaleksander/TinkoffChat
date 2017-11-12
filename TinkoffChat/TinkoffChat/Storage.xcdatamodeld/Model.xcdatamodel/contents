@@ -4,7 +4,6 @@
         <relationship name="profile" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CoreProfile" inverseName="appUser" inverseEntity="CoreProfile" syncable="YES"/>
     </entity>
     <entity name="Conversation" representedClassName="Conversation" syncable="YES" codeGenerationType="class">
-        <attribute name="hasUnread" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Message" inverseName="conversation" inverseEntity="Message" syncable="YES"/>
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="conversation" inverseEntity="User" syncable="YES"/>
@@ -25,6 +24,7 @@
         <relationship name="conversation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Conversation" inverseName="messages" inverseEntity="Conversation" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="online" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="conversation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Conversation" inverseName="user" inverseEntity="Conversation" syncable="YES"/>
@@ -34,9 +34,9 @@
     <fetchRequest name="Message" entity="Message"/>
     <elements>
         <element name="AppUser" positionX="-63" positionY="-18" width="128" height="58"/>
-        <element name="Conversation" positionX="144" positionY="36" width="128" height="105"/>
+        <element name="Conversation" positionX="144" positionY="36" width="128" height="90"/>
         <element name="CoreProfile" positionX="340" positionY="-9" width="128" height="103"/>
         <element name="Message" positionX="153" positionY="45" width="128" height="150"/>
-        <element name="User" positionX="135" positionY="27" width="128" height="90"/>
+        <element name="User" positionX="135" positionY="27" width="128" height="105"/>
     </elements>
 </model>

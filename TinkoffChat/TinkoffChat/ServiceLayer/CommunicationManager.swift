@@ -25,46 +25,43 @@ protocol CommunicationManagerConversationDelegate{
 
 
 class CommunicationManager: CommunicatorDelegate{
-    
+
     var dialogs: Dictionary<String,ChatDialog> = Dictionary<String,ChatDialog>()
     
+    var service: CoreDataService
     
     var convListDelegate:CommunicationManagerConversationListDelegate?
     var convDelegate:CommunicationManagerConversationDelegate?
     
-    var multipeerCommunicator:MultipeerCommunicator
+    var multipeerCommunicator:MultipeerCommunicator?
     
-    init(multipeerCommunicator:MultipeerCommunicator) {
+    init(multipeerCommunicator:MultipeerCommunicator,service:CoreDataService) {
         self.multipeerCommunicator = multipeerCommunicator
+        self.service = service
+
     }
     
-    func getDialogByUserID(userID:String)->ChatDialog{
-        return getDialog(userID: userID, userName: "")
-    }
-    
-    func getDialog(userID:String, userName:String)->ChatDialog{
-        if let dialog = dialogs[userID]{
-            return dialog
-        }
-        
-        let dialog = ChatDialog(name:userName,userID:userID)
-        dialogs[userID]=dialog
-        return dialog
-    }
+
     
     func didFoundUser(userID: String, userName: String?) {
-        let dialog = getDialog(userID: userID, userName: userName ?? "userName")
-        print(dialog)
+        
+        if let conversation = service.findConversation(id: userID){
+            
+        }else{
+            let _ = Conversation.insertConversation(in: service.mainContext!, id: userID, name: userName ?? "", online: false)
+            service.doSave(completionHandler: nil)
+        }
+        
+        
     }
     
     func userDidBecome(userID:String,online:Bool){
-        let dialog = getDialogByUserID(userID: userID)
-        dialog.online = online
-        dialogs[userID] = dialog
+        if let conversation = service.findConversation(id: userID){
+            conversation.user?.online = online
+            service.doSave(completionHandler: nil)
+        }
         convDelegate?.update()
         convListDelegate?.update()
-        //NotificationCenter.default.post(name: .refreshDialog, object: nil)
-        //NotificationCenter.default.post(name: .refreshDialogs, object: nil)
     }
     
     func didLostUser(userID: String) {
@@ -80,74 +77,28 @@ class CommunicationManager: CommunicatorDelegate{
     }
     
     func didRecieveMessage(text: String, fromUser: String, toUser: String) {
-        let message = ChatMessage(text: text,date: Date(),income: false)
         
-        let dialog:ChatDialog
-        
+        let conversation:Conversation?
+        var income = false
         var user = ""
         if(toUser == "me"){
-            message.income = true
-            dialog = getDialogByUserID(userID: fromUser)
+            income = true
+            conversation = service.findConversation(id: fromUser)
             user = fromUser
         }else{
-            message.income = false
-            dialog = getDialogByUserID(userID: toUser)
+            income = false
+            conversation = service.findConversation(id: toUser)
             user = toUser
         }
         
-        dialog.messages.append(message)
-        dialog.messages.sort{ $0.date < $1.date }
-        dialogs[user]=dialog
+        let _ = Message.insertMessage(in: service.mainContext!, conversation: conversation!, text: text, income: income, id: jsonManager.generateMessageID(), date: Date(), unread: true)
+        
+        service.doSave(completionHandler: nil)
         convDelegate?.update()
         convListDelegate?.update()
-        //NotificationCenter.default.post(name: .refreshDialog, object: nil)
-        //NotificationCenter.default.post(name: .refreshDialogs, object: nil)
     }
-    
-    func getDialogMessages(userName:String)->[ChatMessage]{
-        for item in dialogs{
-           if item.value.name == userName{
-                return item.value.messages
-            }
-        }
-        
-        return [ChatMessage]()
-        
-    }
-    
-    func getChatDialog(userName:String)->ChatDialog{
-        
-        for item in dialogs{
-            if item.value.name == userName{
-                return item.value
-            }
-        }
-        
-        return ChatDialog(name:"", userID: "")
-        
-    }
-    
-    func getChatDialog(userID:String)->ChatDialog{
-        
-        return dialogs[userID] ?? ChatDialog(name: "", userID: userID)
-        
-    }
-    
-    func getChatDialogs()->[ChatDialog]{
-        var array = [ChatDialog]()
-        for item in dialogs{
-            array.append(item.value)
-        }
-        return array
-    }
-    
-    func updateUnread(userID:String){
-        let dialog = dialogs[userID]
-        for message in (dialog ?? ChatDialog(name: "", userID: userID)).messages{
-            message.unRead = false
-        }
-        dialogs[userID]=dialog
-    }
+
+
     
 
     

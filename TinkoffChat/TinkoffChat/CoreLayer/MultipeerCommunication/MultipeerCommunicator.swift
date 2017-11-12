@@ -23,7 +23,7 @@ protocol CommunicatorDelegate : class{
     var convListDelegate:CommunicationManagerConversationListDelegate? {get set}
     var convDelegate:CommunicationManagerConversationDelegate? {get set}
     
-    var multipeerCommunicator:MultipeerCommunicator {get set}
+    var multipeerCommunicator:MultipeerCommunicator? {get set}
     
     func didFoundUser(userID: String, userName:String?)
     func didLostUser(userID: String)
@@ -33,20 +33,6 @@ protocol CommunicatorDelegate : class{
     func failedToStartAdvertising(error:Error)
     
     func didRecieveMessage(text: String, fromUser: String, toUser: String)
-    
-    func getDialogByUserID(userID:String)->ChatDialog
-    
-    func getDialog(userID:String, userName:String)->ChatDialog
-    
-    func getDialogMessages(userName:String)->[ChatMessage]
-    
-    func getChatDialog(userName:String)->ChatDialog
-    
-    func getChatDialog(userID:String)->ChatDialog
-    
-    func getChatDialogs()->[ChatDialog]
-    
-    func updateUnread(userID:String)
 }
 
 
@@ -130,7 +116,8 @@ class MultipeerCommunicator:NSObject, ICommunicator{
             print(error.localizedDescription)
                return
             }
-            delegate?.didRecieveMessage(text: string, fromUser: "me", toUser: chatUser.mcPeerID.displayName)
+            
+            delegate?.didRecieveMessage(text: string, fromUser: "me", toUser: userID)
         }
     }
 
@@ -160,19 +147,15 @@ extension MultipeerCommunicator : MCNearbyServiceAdvertiserDelegate {
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
         print( "didReceiveInvitationFromPeer \(peerID)")
         
-        //if let chatUser = chatUsers[peerID.displayName]{
-        let chatUser = getChatUser(userPeerID: peerID, userName: "")
+        if let chatUser = chatUsers[peerID.displayName]{
             if(!chatUser.session.connectedPeers.contains(peerID)){
                 invitationHandler(true,chatUser.session)
             }else{
                 invitationHandler(false,nil)
             }
             chatUsers[peerID.displayName]=chatUser
-//        }
-//        else{
-//            invitationHandler(false,nil)
-//        }
-        
+    }
+    
     }
     
 }
@@ -189,19 +172,13 @@ extension MultipeerCommunicator : MCNearbyServiceBrowserDelegate{
         if(!chatUser.session.connectedPeers.contains(peerID)){
             browser.invitePeer(peerID, to: chatUser.session, withContext: nil, timeout: 5)
             delegate?.didFoundUser(userID: peerID.displayName, userName: name)
-            //delegate?.userDidBecome(userID: peerID.displayName, online: true)
         }
         chatUsers[peerID.displayName]=chatUser
     }
     
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
-//        let chatUser = getChatUser(userPeerID: peerID, userName: "")
         delegate?.didLostUser(userID: peerID.displayName)
         delegate?.userDidBecome(userID: peerID.displayName, online: false)
-//        if let user = chatUsers[peerID.displayName]{
-//
-//        }
-        
         chatUsers[peerID.displayName]=nil
     }
     

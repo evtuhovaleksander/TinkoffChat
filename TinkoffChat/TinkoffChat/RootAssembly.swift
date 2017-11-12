@@ -15,10 +15,18 @@ class RootAssembly{
     let coreDataService: CoreDataService
     
     init(name:String) {
-        let multiPeerCommunicator = MultipeerCommunicator(selfName: name)
-        self.communicationManager = CommunicationManager(multipeerCommunicator:multiPeerCommunicator)
-        multiPeerCommunicator.delegate=self.communicationManager
         self.coreDataService = CoreDataService()
+        let multiPeerCommunicator = MultipeerCommunicator(selfName: name)
+        self.communicationManager = CommunicationManager(multipeerCommunicator:multiPeerCommunicator,service:self.coreDataService)
+        multiPeerCommunicator.delegate=self.communicationManager
+        
+    }
+}
+
+
+class Tester{
+    static func recieve_message(conversation:Conversation){
+        rootAssembly.communicationManager.didRecieveMessage(text: "edededed", fromUser: (conversation.user?.id!)!, toUser: "me")
     }
 }
 

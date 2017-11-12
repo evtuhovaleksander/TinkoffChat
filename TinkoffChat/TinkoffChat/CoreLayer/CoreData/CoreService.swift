@@ -347,10 +347,11 @@ extension AppUser{
 
 extension User {
     
-    static func insertUser(in context:NSManagedObjectContext,conversation : Conversation, name: String, online: Bool) -> User?{
+    static func insertUser(in context:NSManagedObjectContext,conversation : Conversation, name: String, online: Bool,id:String) -> User?{
         if let user = NSEntityDescription.insertNewObject(forEntityName: "User", into: context) as? User{
             user.online = online
             user.name = name
+            user.id = id
             user.conversation = conversation
             return user
         }
@@ -408,9 +409,8 @@ extension Conversation{
         if let conversation = NSEntityDescription.insertNewObject(forEntityName: "Conversation", into: context) as? Conversation{
             conversation.id = id
             
-            if let user = User.insertUser(in: context, conversation: conversation, name: name, online: online){
+            if let user = User.insertUser(in: context, conversation: conversation, name: name, online: online,id:id){
                 conversation.user = user
-                conversation.hasUnread = false
             }else{
                 assert(false)
             }

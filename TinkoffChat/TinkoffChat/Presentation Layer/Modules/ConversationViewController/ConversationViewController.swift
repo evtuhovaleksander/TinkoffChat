@@ -108,7 +108,7 @@ class ConversationViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     func updateOnline(){
-       sendButton.isEnabled = model?.conversation.user?.online
+       sendButton.isEnabled = model?.conversation.user?.online ?? false
     }
     
 

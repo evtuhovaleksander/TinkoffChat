@@ -72,7 +72,7 @@ class ConversationViewControllerModel:IConversationViewControllerModel{
     }
     
     func sendMessage(string: String){
-        
+        manager.sendMessage(string: string)
     }
     
     

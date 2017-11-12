@@ -23,8 +23,11 @@ protocol IConversationManager {
     var fetchedResultsController : NSFetchedResultsController<Message> {get set}
     var service : CoreDataService {get set}
     var conversation:Conversation {get set}
+    var communicationManager : CommunicatorDelegate {get set}
     
+    func sendMessage(string: String)
     func updateUnRead()
+    
 }
 
 protocol ConversationManagerDelegate{
@@ -35,6 +38,7 @@ class ConversationManager : NSObject, IConversationManager{
     var fetchedResultsController : NSFetchedResultsController<Message>
     var service : CoreDataService
     var conversation:Conversation
+    var communicationManager : CommunicatorDelegate
     
     init(delegate:NSFetchedResultsControllerDelegate,conversation:Conversation) {
         self.service = rootAssembly.coreDataService
@@ -48,6 +52,8 @@ class ConversationManager : NSObject, IConversationManager{
                           cacheName: nil)
         self.fetchedResultsController = fetchedResultsController
         self.fetchedResultsController.delegate = delegate
+        
+        self.communicationManager = rootAssembly.communicationManager
     }
     
     
@@ -64,6 +70,10 @@ class ConversationManager : NSObject, IConversationManager{
         } catch let error as NSError {
             print("Error While Deleting Note: \(error.userInfo)")
         }
+    }
+    
+    func sendMessage(string: String){
+        communicationManager.multipeerCommunicator?.sendMessage(string: string, to: conversation.user?.id ?? "", completionHandler: nil)
     }
 
 }
