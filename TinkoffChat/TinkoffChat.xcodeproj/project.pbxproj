@@ -160,7 +160,6 @@
 			isa = PBXGroup;
 			children = (
 				DE009D7A1F8A8E8800E4DF93 /* MessageCell.swift */,
-				DEAA8C801FA7B91400421F4B /* ConversationViewController.xib */,
 				DEE9F8971FA8ACFA0095FD80 /* IncomeMessageCell.xib */,
 				DEE9F89B1FA8AD1E0095FD80 /* OutcomeMessageCell.xib */,
 				DE438CEA1FB89EA000655317 /* MessageCellConfProtocol.swift */,
@@ -196,6 +195,7 @@
 				DEAA8C7A1FA7B8C700421F4B /* ConversationViewController.swift */,
 				DEAA8C7C1FA7B8DB00421F4B /* ConversationViewControllerModel.swift */,
 				DEAA8C7E1FA7B8E900421F4B /* ConversationViewControllerAssembler.swift */,
+				DEAA8C801FA7B91400421F4B /* ConversationViewController.xib */,
 			);
 			path = ConversationViewController;
 			sourceTree = "<group>";

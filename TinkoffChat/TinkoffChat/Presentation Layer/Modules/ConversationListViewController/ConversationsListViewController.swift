@@ -13,7 +13,7 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     
     @IBOutlet weak var table: UITableView!
     var model : IConversationsListViewControllerModel?
-    
+    weak var conversationController:ConversationViewControllerModelDelegate?
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -33,6 +33,7 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     
     override func viewWillAppear(_ animated: Bool) {
         model?.startSync()
+        table.reloadData()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -98,7 +99,7 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
        var conversation = model?.conversationForIndexPath(indexPath: indexPath)
        let controller = ConversationViewControllerAsembler.createConversationsViewController(conversation: conversation)
-        
+        self.conversationController = controller
        self.navigationController?.pushViewController(controller, animated: true)
        tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -163,6 +164,7 @@ extension ConversationsListViewController:NSFetchedResultsControllerDelegate{
                     at indexPath: IndexPath?,
                     for type: NSFetchedResultsChangeType,
                     newIndexPath: IndexPath?) {
+        conversationController?.updateOnline()
         switch type {
         case .delete:
             if let indexPath = indexPath {

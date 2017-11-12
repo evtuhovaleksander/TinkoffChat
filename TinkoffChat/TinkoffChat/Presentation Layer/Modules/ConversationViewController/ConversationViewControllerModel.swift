@@ -12,6 +12,7 @@ import CoreData
 protocol IConversationViewControllerModel : class {
     var manager : IConversationManager {get set}
     var delegate: ConversationViewControllerModelDelegate {get set}
+    var conversation:Conversation {get set}
     
     func numberOfRowsInSection (section: Int) -> Int
     func messageForIndexPath (indexPath: IndexPath) -> Message?
@@ -21,6 +22,7 @@ protocol IConversationViewControllerModel : class {
 }
 
 protocol ConversationViewControllerModelDelegate : NSFetchedResultsControllerDelegate {
+     func updateOnline()
 }
 
 class MessageModel{
@@ -31,6 +33,7 @@ class ConversationViewControllerModel:IConversationViewControllerModel{
 
     var manager: IConversationManager
     var delegate: ConversationViewControllerModelDelegate
+    var conversation:Conversation
     
     var fetchedResultsController : NSFetchedResultsController<Message>{
         get{
@@ -40,6 +43,7 @@ class ConversationViewControllerModel:IConversationViewControllerModel{
     
     init(delegate: ConversationViewControllerModelDelegate,conversation:Conversation) {
         self.delegate = delegate
+        self.conversation = conversation
         manager = ConversationManager(delegate:delegate,conversation:conversation)
     }
     
@@ -64,7 +68,7 @@ class ConversationViewControllerModel:IConversationViewControllerModel{
     }
     
     func updateUnRead(){
-        
+        manager.updateUnRead()
     }
     
     func sendMessage(string: String){

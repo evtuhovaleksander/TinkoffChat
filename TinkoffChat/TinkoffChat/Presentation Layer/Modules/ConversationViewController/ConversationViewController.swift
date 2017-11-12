@@ -75,6 +75,43 @@ class ConversationViewController: UIViewController,UITableViewDelegate,UITableVi
         model?.sendMessage(string: messageText.text ?? "")
     }
     
+    var i = 0
+    @IBAction func add(_ sender: Any) {
+        let cont = rootAssembly.coreDataService.mainContext
+        i+=1
+        let str = String(i)
+        
+        var income = false
+        
+        if(Int(arc4random_uniform(10))>5){
+            income = true
+        }
+        
+        let _ = Message.insertMessage(in: cont!, conversation: (model?.conversation)!, text: str, income: income, id: jsonManager.generateMessageID(), date: Date(),unread: true)
+        
+        rootAssembly.coreDataService.doSave(completionHandler: nil)
+    }
+    
+    
+    @IBAction func del(_ sender: Any) {
+        var convs = rootAssembly.coreDataService.findMessages()
+        for i in convs!{
+            rootAssembly.coreDataService.mainContext?.delete(i)
+        }
+        
+        do {
+            try rootAssembly.coreDataService.doSave(completionHandler: nil)
+        } catch let error as NSError {
+            print("Error While Deleting Note: \(error.userInfo)")
+        }
+        
+    }
+    
+    func updateOnline(){
+       sendButton.isEnabled = model?.conversation.user?.online
+    }
+    
+
     
 }
 

@@ -284,6 +284,33 @@ class CoreDataService : ProfileManagerCoreServiceProtocol{
         return nil
     }
     
+    func findMessages() -> [Message]?{
+        guard let context = self.mainContext else{
+            assert(false)
+            return nil
+        }
+        
+        
+        guard let model = context.persistentStoreCoordinator?.managedObjectModel else{
+            print("model ")
+            assert(false)
+            return nil
+            
+        }
+        
+        guard  let fetchRequest = Message.fetchRequestMessages(model: model) else {
+            return nil
+        }
+        
+        do{
+            let results = try context.fetch(fetchRequest)
+            return results
+        }catch{
+            print(error)
+        }
+        return nil
+    }
+    
 
 }
 
@@ -334,16 +361,44 @@ extension User {
 
 extension Message {
     
-    static func insertMessage(in context:NSManagedObjectContext,conversation : Conversation, text: String, income: Bool,id:String) -> Message?{
+    static func insertMessage(in context:NSManagedObjectContext,conversation : Conversation, text: String, income: Bool,id:String,date:Date,unread:Bool) -> Message?{
         if let message = NSEntityDescription.insertNewObject(forEntityName: "Message", into: context) as? Message{
             message.id = id
             message.conversation = conversation
             message.text = text
             message.income = income
+            message.unread = unread
+            message.date = date
             return message
         }
         
         return nil
+    }
+    
+    
+    static func fetchRequestMessages(model:NSManagedObjectModel) -> NSFetchRequest<Message>?{
+        
+        let templateName = "Message"
+        
+        guard let fetchRequest = model.fetchRequestTemplate(forName: templateName) as? NSFetchRequest<Message> else {
+            assert(false,"")
+            return nil
+        }
+        return fetchRequest
+    }
+    
+    static func fetchRequestMessages(context:NSManagedObjectContext,conversation:Conversation) -> NSFetchRequest<Message>?{
+        
+        let fetchRequest = NSFetchRequest<Message>(entityName: "Message")
+        
+        let predicate = NSPredicate(format: "conversation == %@", conversation)
+        fetchRequest.predicate = predicate
+        
+        let descriptors = [NSSortDescriptor(key: "date",
+                                            ascending: true)]
+        fetchRequest.sortDescriptors = descriptors
+        
+        return fetchRequest
     }
 }
 
@@ -355,6 +410,7 @@ extension Conversation{
             
             if let user = User.insertUser(in: context, conversation: conversation, name: name, online: online){
                 conversation.user = user
+                conversation.hasUnread = false
             }else{
                 assert(false)
             }
