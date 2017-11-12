@@ -38,7 +38,7 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         self.title = "Tinkoff Chat"
         table.dataSource = self
         table.delegate = self
-        table.reloadData()
+        //table.reloadData()
         //model.getDialogs()
         //NotificationCenter.default.addObserver(self, selector: #selector(refreshDialogs), name: .refreshDialogs, object: nil)
 
@@ -71,13 +71,15 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
 //        }
 //
 //        return sectionsCount
-        return 2
+        //return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let frc = fetchedResultsController, let sections = frc.sections else {
             return 0
         }
+        return sections[section].numberOfObjects
+        
         if sections.count == 0 {return 0}
         
         var online = 0
@@ -138,7 +140,14 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0{
+        guard let frc = fetchedResultsController, let sections =
+            frc.sections else {
+                return ""
+        }
+        
+        if (sections[section].name == "1")
+        //if section == 0
+        {
             return "online"
         }else{
             return "offline"
@@ -189,12 +198,8 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     
     @IBAction func del(_ sender: Any) {
         
-        do {
-            try self.fetchedResultsController?.performFetch()
-        } catch {
-            print("Error fetching: \(error)")
-        }
         
+       
         var convs = rootAssembly.coreDataService.findConversations()
         for i in convs!{
             rootAssembly.coreDataService.mainContext?.delete(i)
@@ -207,6 +212,8 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         } catch let error as NSError {
             print("Error While Deleting Note: \(error.userInfo)")
         }
+        
+       
     }
 
 }
@@ -216,13 +223,26 @@ extension ConversationsListViewController:NSFetchedResultsControllerDelegate{
     
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        //table.endUpdates()
+        table.endUpdates()
     }
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        //table.beginUpdates()
+        table.beginUpdates()
     }
     
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+                switch (type) {
+                case .insert:
+                    table.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
+                    break
+                case .delete:
+                    table.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
+                    break
+                default:
+                    break
+                }
+
+    }
 
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
@@ -254,62 +274,7 @@ extension ConversationsListViewController:NSFetchedResultsControllerDelegate{
         }
     }
     
-    func controller(controller: NSFetchedResultsController<NSFetchRequestResult>,
-                    didChange sectionInfo: NSFetchedResultsSectionInfo,
-                    atSectionIndex sectionIndex: Int,
-                    for type: NSFetchedResultsChangeType) {
-        
-        switch (type) {
-        case .insert:
-            table.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
-            break
-        case .delete:
-            table.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
-            break
-        default:
-            break
-        }
-        
-    }
-    
-//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
-//        switch type {
-//        case .delete:
-//            table.deleteSections(IndexSet(integer: (sectionIndex)), with: .automatic)
-//
-//            
-//        case .insert:
-//            table.insertSections(IndexSet(integer: (sectionIndex)), with: .automatic)
-//            
-//        case .update:
-//            break
-//            
-//        case .move:
-//            break
-//        }
-//    }
-    
-//    private func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
-//                            didChange sectionInfo: NSFetchedResultsSectionInfo,
-//                            atSectionIndex sectionIndex: IndexPath?,
-//                            for type: NSFetchedResultsChangeType) {
-//        switch type {
-//        case .delete:
-//            table.deleteSections(IndexSet(integer: (sectionIndex?.section)!),
-//                                     with: .automatic)
-//
-//
-//        case .insert:
-//            table.insertSections(IndexSet(integer: (sectionIndex?.section)!),
-//                                     with: .automatic)
-//
-//        case .update:
-//            break
-//
-//        case .move:
-//           break
-//    }
-}
+
 }
 
 
