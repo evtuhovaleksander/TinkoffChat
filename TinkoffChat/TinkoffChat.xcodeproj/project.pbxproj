@@ -13,6 +13,8 @@
 		DE040F0F1F72C9DC00638712 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE040F0E1F72C9DC00638712 /* Assets.xcassets */; };
 		DE040F121F72C9DC00638712 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE040F101F72C9DC00638712 /* LaunchScreen.storyboard */; };
 		DE040F1A1F72D1AD00638712 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE040F191F72D1AD00638712 /* Media.xcassets */; };
+		DE07B27B1FB8535800C1C6BC /* ConversationCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE07B27A1FB8535800C1C6BC /* ConversationCellProtocol.swift */; };
+		DE07B27E1FB8573100C1C6BC /* ConversationListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE07B27D1FB8573100C1C6BC /* ConversationListManager.swift */; };
 		DE395D8B1F93BE150019370A /* TaskManagers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE395D8A1F93BE150019370A /* TaskManagers.swift */; };
 		DE4A4EFE1F9C8273009F3296 /* CommunicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4A4EFD1F9C8273009F3296 /* CommunicationManager.swift */; };
 		DE4A4F061F9CB7D5009F3296 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4A4F051F9CB7D5009F3296 /* Protocols.swift */; };
@@ -54,6 +56,8 @@
 		DE040F111F72C9DC00638712 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DE040F131F72C9DC00638712 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE040F191F72D1AD00638712 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		DE07B27A1FB8535800C1C6BC /* ConversationCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCellProtocol.swift; sourceTree = "<group>"; };
+		DE07B27D1FB8573100C1C6BC /* ConversationListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListManager.swift; sourceTree = "<group>"; };
 		DE395D8A1F93BE150019370A /* TaskManagers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagers.swift; sourceTree = "<group>"; };
 		DE4A4EFD1F9C8273009F3296 /* CommunicationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationManager.swift; sourceTree = "<group>"; };
 		DE4A4F051F9CB7D5009F3296 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
@@ -131,9 +135,27 @@
 			path = TinkoffChat;
 			sourceTree = "<group>";
 		};
+		DE07B2791FB848BE00C1C6BC /* CoreExtentions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CoreExtentions;
+			sourceTree = "<group>";
+		};
+		DE07B27C1FB8535D00C1C6BC /* Hide */ = {
+			isa = PBXGroup;
+			children = (
+				DEE9F8921FA8A7E90095FD80 /* DialogCell.swift */,
+				DEE9F8931FA8A7E90095FD80 /* DialogCell.xib */,
+				DE07B27A1FB8535800C1C6BC /* ConversationCellProtocol.swift */,
+			);
+			path = Hide;
+			sourceTree = "<group>";
+		};
 		DE588B511FAE02E2001869ED /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				DE07B2791FB848BE00C1C6BC /* CoreExtentions */,
 				DE588B521FAE032E001869ED /* CoreService.swift */,
 			);
 			path = CoreData;
@@ -185,12 +207,12 @@
 		DEEEF0E11FA7898800C428EF /* ConversationListViewController */ = {
 			isa = PBXGroup;
 			children = (
+				DE07B27C1FB8535D00C1C6BC /* Hide */,
 				DE009D701F8A21AE00E4DF93 /* ConversationsListViewController.swift */,
 				DEEEF0E21FA78A1700C428EF /* ConversationsListViewControllerModel.swift */,
 				DEEEF0E81FA78B3700C428EF /* ConversationsListViewControllerAsembler.swift */,
 				DEAA8C751FA7A21600421F4B /* ConversationsListViewController.xib */,
-				DEE9F8921FA8A7E90095FD80 /* DialogCell.swift */,
-				DEE9F8931FA8A7E90095FD80 /* DialogCell.xib */,
+				DE07B27D1FB8573100C1C6BC /* ConversationListManager.swift */,
 			);
 			path = ConversationListViewController;
 			sourceTree = "<group>";
@@ -317,10 +339,12 @@
 			files = (
 				DEEEF0E91FA78B3700C428EF /* ConversationsListViewControllerAsembler.swift in Sources */,
 				DE8C677A1FA861B700BB65E8 /* ProfileViewControllerAssembler.swift in Sources */,
+				DE07B27B1FB8535800C1C6BC /* ConversationCellProtocol.swift in Sources */,
 				DE588B531FAE032E001869ED /* CoreService.swift in Sources */,
 				DE57A8021FA8969D006B83AB /* ChatDialog.swift in Sources */,
 				DEAA8C7B1FA7B8C700421F4B /* ConversationViewController.swift in Sources */,
 				DE4A4F0C1F9DE972009F3296 /* JSONManager.swift in Sources */,
+				DE07B27E1FB8573100C1C6BC /* ConversationListManager.swift in Sources */,
 				DEEEF0F21FA78CFB00C428EF /* ChatUser.swift in Sources */,
 				DEEC92C41FA86557007A64FA /* ProfileServiceProtocol.swift in Sources */,
 				DE009D7B1F8A8E8800E4DF93 /* MessageCell.swift in Sources */,

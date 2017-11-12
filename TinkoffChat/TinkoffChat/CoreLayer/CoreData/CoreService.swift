@@ -11,9 +11,7 @@ import CoreData
 
 class CoreDataService : ProfileManagerCoreServiceProtocol{
     
-    
-    
-    
+
     func getProfile() {
         mainContext?.perform {
             guard let appUser = self.findOrInsertAppUser() else {
@@ -103,7 +101,7 @@ class CoreDataService : ProfileManagerCoreServiceProtocol{
     
     
     private var _masterContext : NSManagedObjectContext?
-    private var masterContext : NSManagedObjectContext?{
+    var masterContext : NSManagedObjectContext?{
         get{
             if _masterContext == nil{
                 let context = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.privateQueueConcurrencyType)
@@ -123,7 +121,7 @@ class CoreDataService : ProfileManagerCoreServiceProtocol{
     }
     
     private var _mainContext : NSManagedObjectContext?
-    private var mainContext : NSManagedObjectContext?{
+    var mainContext : NSManagedObjectContext?{
         get{
             if _mainContext == nil{
                 let context = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType)
@@ -143,7 +141,7 @@ class CoreDataService : ProfileManagerCoreServiceProtocol{
     }
     
     private var _saveContext : NSManagedObjectContext?
-    private var saveContext : NSManagedObjectContext?{
+    var saveContext : NSManagedObjectContext?{
         get{
             if _saveContext == nil{
                 let context = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.privateQueueConcurrencyType)
@@ -190,37 +188,7 @@ class CoreDataService : ProfileManagerCoreServiceProtocol{
         performSave(context: saveContext!, completionHandler: completionHandler)
     }
     
-//    static func findOrInsertAppUser(in context: NSManagedObjectContext) -> AppUser?{
-//        guard let model = context.persistentStoreCoordinator?.managedObjectModel else{
-//            print("model ")
-//            assert(false)
-//            return nil
-//
-//        }
-//
-//        var appUser : AppUser?
-//
-//        guard  let fetchRequest = AppUser.fetchRequestAppUser(model:model) else {
-//            return nil
-//        }
-//
-//        do{
-//            let results = try context.fetch(fetchRequest)
-//            assert(results.count < 2,"multip appusers")
-//            if let foundUser = results.first{
-//                appUser = foundUser
-//            }
-//        }catch{
-//            print(error)
-//        }
-//
-//        if appUser == nil {
-//            appUser = AppUser.insertAppUser(in: context)
-//        }
-//
-//        return appUser
-//    }
-    
+
     func findOrInsertAppUser() -> AppUser?{
         guard let context = self.mainContext else{
             assert(false)
@@ -259,6 +227,63 @@ class CoreDataService : ProfileManagerCoreServiceProtocol{
         return appUser
     }
     
+    func findConversation(id:String) -> Conversation?{
+        guard let context = self.mainContext else{
+            assert(false)
+            return nil
+        }
+        
+        
+        guard let model = context.persistentStoreCoordinator?.managedObjectModel else{
+            print("model ")
+            assert(false)
+            return nil
+            
+        }
+        
+        guard  let fetchRequest = Conversation.fetchRequestConversationByID(model:model,id:id) else {
+            return nil
+        }
+        
+        do{
+            let results = try context.fetch(fetchRequest)
+            assert(results.count < 2,"multip convs for 1 id")
+            if let conversation = results.first{
+                return conversation
+            }
+        }catch{
+            print(error)
+        }
+        return nil
+    }
+    
+    func findConversations() -> [Conversation]?{
+        guard let context = self.mainContext else{
+            assert(false)
+            return nil
+        }
+        
+        
+        guard let model = context.persistentStoreCoordinator?.managedObjectModel else{
+            print("model ")
+            assert(false)
+            return nil
+            
+        }
+        
+        guard  let fetchRequest = Conversation.fetchRequestConversation(model:model) else {
+            return nil
+        }
+        
+        do{
+            let results = try context.fetch(fetchRequest)
+            return results
+        }catch{
+            print(error)
+        }
+        return nil
+    }
+    
 
 }
 
@@ -291,6 +316,79 @@ extension AppUser{
         
         return fetchRequest
     }
+}
+
+extension User {
+    
+    static func insertUser(in context:NSManagedObjectContext,conversation : Conversation, name: String, online: Bool) -> User?{
+        if let user = NSEntityDescription.insertNewObject(forEntityName: "User", into: context) as? User{
+            user.online = online
+            user.name = name
+            user.conversation = conversation
+            return user
+        }
+        
+        return nil
+    }
+}
+
+extension Message {
+    
+    static func insertMessage(in context:NSManagedObjectContext,conversation : Conversation, text: String, income: Bool,id:String) -> Message?{
+        if let message = NSEntityDescription.insertNewObject(forEntityName: "Message", into: context) as? Message{
+            message.id = id
+            message.conversation = conversation
+            message.text = text
+            message.income = income
+            return message
+        }
+        
+        return nil
+    }
+}
+
+extension Conversation{
+    
+    static func insertConversation(in context:NSManagedObjectContext,id:String,name:String,online:Bool)->Conversation?{
+        if let conversation = NSEntityDescription.insertNewObject(forEntityName: "Conversation", into: context) as? Conversation{
+            conversation.id = id
+            
+            if let user = User.insertUser(in: context, conversation: conversation, name: name, online: online){
+                conversation.user = user
+            }else{
+                assert(false)
+            }
+            
+            return conversation
+        }
+        
+        return nil
+    }
+    
+    static func fetchRequestConversationByID(model:NSManagedObjectModel,id:String) -> NSFetchRequest<Conversation>?{
+        
+        let templateName = "Conversation"
+        
+        guard let fetchRequest = model.fetchRequestTemplate(forName: templateName) as? NSFetchRequest<Conversation> else {
+            assert(false,"")
+           return nil
+        }
+        let predicate = NSPredicate(format: "id == %@", id)
+        fetchRequest.predicate = predicate
+        return fetchRequest
+    }
+    
+    static func fetchRequestConversation(model:NSManagedObjectModel) -> NSFetchRequest<Conversation>?{
+        
+        let templateName = "Conversation"
+        
+        guard let fetchRequest = model.fetchRequestTemplate(forName: templateName) as? NSFetchRequest<Conversation> else {
+            assert(false,"")
+            return nil
+        }
+        return fetchRequest
+    }
+    
 }
 
 

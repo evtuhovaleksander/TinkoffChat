@@ -6,12 +6,11 @@
 //  Copyright © 2017 Aleksander Evtuhov. All rights reserved.
 //
 
-import Foundation
+import UIKit
+import CoreData
 
 protocol IConversationsListViewControllerModel : class {
-    var communicationManager : CommunicatorDelegate {get set}
-    var delegate : ConversationsListViewControllerModelDelegate? {get set}
-    func getDialogs()
+
 }
 
 protocol ConversationsListViewControllerModelDelegate : class {
@@ -19,17 +18,16 @@ protocol ConversationsListViewControllerModelDelegate : class {
 }
 
 class ConversationsListViewControllerModel:IConversationsListViewControllerModel{
-    var communicationManager : CommunicatorDelegate
-    var delegate : ConversationsListViewControllerModelDelegate?
-    
-    init() {
-        self.communicationManager = rootAssembly.communicationManager
+    var controller : ConversationsListViewController
+    var manager : ConversationListManager?
+    init(controller:ConversationsListViewController) {
+        self.controller = controller
+        //self.manager = ConversationListManager(model: self)
     }
-    
-    func getDialogs() {
-        delegate?.setupDialogs(allDialogs:communicationManager.getChatDialogs())
-    }  
+   
 }
+
+
 
 
 
