@@ -48,7 +48,7 @@ class CommunicationManager: CommunicatorDelegate{
         if let conversation = service.findConversation(id: userID){
             
         }else{
-            let _ = Conversation.insertConversation(in: service.mainContext!, id: userID, name: userName ?? "", online: false)
+            let _ = Conversation.insertConversation(in: service.saveContext!, id: userID, name: userName ?? "", online: false)
             service.doSave(completionHandler: nil)
         }
         
@@ -91,7 +91,7 @@ class CommunicationManager: CommunicatorDelegate{
             user = toUser
         }
         
-        let _ = Message.insertMessage(in: service.mainContext!, conversation: conversation!, text: text, income: income, id: jsonManager.generateMessageID(), date: Date(), unread: true)
+        let _ = Message.insertMessage(in: service.saveContext!, conversation: conversation!, text: text, income: income, id: jsonManager.generateMessageID(), date: Date(), unread: true)
         
         service.doSave(completionHandler: nil)
         convDelegate?.update()

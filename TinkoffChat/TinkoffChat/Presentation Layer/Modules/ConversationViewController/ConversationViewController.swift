@@ -77,7 +77,7 @@ class ConversationViewController: UIViewController,UITableViewDelegate,UITableVi
     
     var i = 0
     @IBAction func add(_ sender: Any) {
-        let cont = rootAssembly.coreDataService.mainContext
+        let cont = rootAssembly.coreDataService.saveContext
         i+=1
         let str = String(i)
         

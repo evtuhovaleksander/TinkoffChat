@@ -31,22 +31,6 @@
                         <action selector="toProfile:" destination="-1" eventType="touchUpInside" id="GTh-Yl-w1f"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fMR-BJ-c1r">
-                    <rect key="frame" x="284" y="627" width="79" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="del convs"/>
-                    <connections>
-                        <action selector="del:" destination="-1" eventType="touchUpInside" id="11e-ol-M5B"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ck2-hI-VjV">
-                    <rect key="frame" x="4" y="630" width="81" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="add conv"/>
-                    <connections>
-                        <action selector="act:" destination="-1" eventType="touchUpInside" id="jn0-nN-aQh"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>

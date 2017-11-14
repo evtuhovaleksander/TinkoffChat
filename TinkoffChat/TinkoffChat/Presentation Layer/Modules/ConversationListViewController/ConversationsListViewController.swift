@@ -88,7 +88,7 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 40
+        return 80
     }
 
     
@@ -106,7 +106,7 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     
     
     @IBAction func act(_ sender: Any) {
-        let cont = rootAssembly.coreDataService.mainContext
+        let cont = rootAssembly.coreDataService.saveContext
         let str = String(Int(arc4random_uniform(9999)))
         
         var online = false

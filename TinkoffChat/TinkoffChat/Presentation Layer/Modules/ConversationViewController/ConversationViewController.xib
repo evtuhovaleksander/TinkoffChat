@@ -36,13 +36,10 @@
                                     <rect key="frame" x="0.0" y="587" width="375" height="60"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="97X-ZK-kHY">
-                                            <rect key="frame" x="0.0" y="0.0" width="66" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="315" height="60"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gst-fR-Lxe">
-                                                    <rect key="frame" x="8" y="8" width="50" height="44"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="50" id="vNF-nE-ANg"/>
-                                                    </constraints>
+                                                    <rect key="frame" x="8" y="8" width="299" height="44"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -57,30 +54,13 @@
                                             </constraints>
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nvg-gs-vZU">
-                                            <rect key="frame" x="76" y="0.0" width="50" height="60"/>
+                                            <rect key="frame" x="325" y="0.0" width="50" height="60"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="50" id="UgM-60-V3x"/>
                                             </constraints>
                                             <state key="normal" title="Send"/>
                                             <connections>
                                                 <action selector="send:" destination="-1" eventType="touchUpInside" id="aV7-oz-C8m"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F9u-oR-CtU">
-                                            <rect key="frame" x="136" y="0.0" width="60" height="60"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="60" id="pmK-w7-VHF"/>
-                                            </constraints>
-                                            <state key="normal" title="add mes"/>
-                                            <connections>
-                                                <action selector="add:" destination="-1" eventType="touchUpInside" id="gmJ-bv-oMB"/>
-                                            </connections>
-                                        </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9d6-NN-CM7">
-                                            <rect key="frame" x="206" y="0.0" width="169" height="60"/>
-                                            <state key="normal" title="del mess"/>
-                                            <connections>
-                                                <action selector="del:" destination="-1" eventType="touchUpInside" id="uD1-iE-L2E"/>
                                             </connections>
                                         </button>
                                     </subviews>

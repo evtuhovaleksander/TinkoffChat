@@ -124,6 +124,7 @@
 		DE040F061F72C9DC00638712 /* TinkoffChat */ = {
 			isa = PBXGroup;
 			children = (
+				DE8462321FBAEC9D002C2088 /* trash */,
 				DE588B5B1FAE0AB1001869ED /* Storage.xcdatamodeld */,
 				DEEEF0F31FA7946E00C428EF /* RootAssembly.swift */,
 				DEEEF0EC1FA78C0300C428EF /* CoreLayer */,
@@ -174,6 +175,21 @@
 				DE588B521FAE032E001869ED /* CoreService.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		DE8462321FBAEC9D002C2088 /* trash */ = {
+			isa = PBXGroup;
+			children = (
+				DE57A8031FA896AB006B83AB /* ChatMessage.swift */,
+				DEEC92C71FA8660C007A64FA /* GCD.swift */,
+				DEEC92C51FA86601007A64FA /* Operation.swift */,
+				DE4A4EFD1F9C8273009F3296 /* CommunicationManager.swift */,
+				DE395D8A1F93BE150019370A /* TaskManagers.swift */,
+				DEEEF0EE1FA78C6700C428EF /* MultiThreading */,
+				DEEC92C31FA86557007A64FA /* ProfileServiceProtocol.swift */,
+				DE57A8011FA8969D006B83AB /* ChatDialog.swift */,
+			);
+			path = trash;
 			sourceTree = "<group>";
 		};
 		DE8C67741FA8617900BB65E8 /* ProfileViewController */ = {
@@ -235,10 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				DE4A4F0B1F9DE972009F3296 /* JSONManager.swift */,
-				DE4A4EFD1F9C8273009F3296 /* CommunicationManager.swift */,
 				DEEEF0EF1FA78CC200C428EF /* ProfileManager.swift */,
-				DE57A8011FA8969D006B83AB /* ChatDialog.swift */,
-				DE57A8031FA896AB006B83AB /* ChatMessage.swift */,
 			);
 			path = ServiceLayer;
 			sourceTree = "<group>";
@@ -247,7 +260,6 @@
 			isa = PBXGroup;
 			children = (
 				DE588B511FAE02E2001869ED /* CoreData */,
-				DEEEF0EE1FA78C6700C428EF /* MultiThreading */,
 				DEEEF0ED1FA78C4800C428EF /* MultipeerCommunication */,
 			);
 			path = CoreLayer;
@@ -265,10 +277,6 @@
 		DEEEF0EE1FA78C6700C428EF /* MultiThreading */ = {
 			isa = PBXGroup;
 			children = (
-				DE395D8A1F93BE150019370A /* TaskManagers.swift */,
-				DEEC92C31FA86557007A64FA /* ProfileServiceProtocol.swift */,
-				DEEC92C51FA86601007A64FA /* Operation.swift */,
-				DEEC92C71FA8660C007A64FA /* GCD.swift */,
 			);
 			path = MultiThreading;
 			sourceTree = "<group>";
