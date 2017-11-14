@@ -94,16 +94,13 @@ class ConversationViewController: UIViewController,UITableViewDelegate,UITableVi
     
     
     @IBAction func del(_ sender: Any) {
-        var convs = rootAssembly.coreDataService.findMessages()
+        let convs = rootAssembly.coreDataService.findMessages()
         for i in convs!{
             rootAssembly.coreDataService.mainContext?.delete(i)
         }
         
-        do {
-            try rootAssembly.coreDataService.doSave(completionHandler: nil)
-        } catch let error as NSError {
-            print("Error While Deleting Note: \(error.userInfo)")
-        }
+        rootAssembly.coreDataService.doSave(completionHandler: nil)
+        
         
     }
     

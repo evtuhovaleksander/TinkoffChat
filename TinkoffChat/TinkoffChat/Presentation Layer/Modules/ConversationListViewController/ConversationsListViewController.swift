@@ -97,7 +97,7 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       var conversation = model?.conversationForIndexPath(indexPath: indexPath)
+        let conversation = model?.conversationForIndexPath(indexPath: indexPath)
        let controller = ConversationViewControllerAsembler.createConversationsViewController(conversation: conversation)
         self.conversationController = controller
        self.navigationController?.pushViewController(controller, animated: true)
@@ -120,16 +120,13 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     }
     
     @IBAction func del(_ sender: Any) {
-        var convs = rootAssembly.coreDataService.findConversations()
+        let convs = rootAssembly.coreDataService.findConversations()
         for i in convs!{
             rootAssembly.coreDataService.mainContext?.delete(i)
         }
 
-        do {
-            try rootAssembly.coreDataService.doSave(completionHandler: nil)
-        } catch let error as NSError {
-            print("Error While Deleting Note: \(error.userInfo)")
-        }
+        rootAssembly.coreDataService.doSave(completionHandler: nil)
+        
     }
 }
 

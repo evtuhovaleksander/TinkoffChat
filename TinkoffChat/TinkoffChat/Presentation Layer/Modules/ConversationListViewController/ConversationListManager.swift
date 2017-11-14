@@ -27,7 +27,7 @@ class ConversationListManager : NSObject, IConversationListManager{
         let descriptors = [NSSortDescriptor(key: "user.online",
                                             ascending: false)]
         fetchRequest.sortDescriptors = descriptors
-        var fetchedResultsController = NSFetchedResultsController<Conversation>(fetchRequest:
+        let fetchedResultsController = NSFetchedResultsController<Conversation>(fetchRequest:
             fetchRequest, managedObjectContext: context!, sectionNameKeyPath: #keyPath(Conversation.user.online),
                           cacheName: nil)
         self.fetchedResultsController = fetchedResultsController

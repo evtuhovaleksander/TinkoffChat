@@ -179,8 +179,6 @@ class CoreDataService : ProfileManagerCoreServiceProtocol{
                 }
                 
             }
-        }else{
-            completionHandler?()
         }
     }
     

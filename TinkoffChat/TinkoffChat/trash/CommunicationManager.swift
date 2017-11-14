@@ -45,7 +45,7 @@ class CommunicationManager: CommunicatorDelegate{
     
     func didFoundUser(userID: String, userName: String?) {
         
-        if let conversation = service.findConversation(id: userID){
+        if let _ = service.findConversation(id: userID){
             
         }else{
             let _ = Conversation.insertConversation(in: service.saveContext!, id: userID, name: userName ?? "", online: false)
@@ -90,7 +90,7 @@ class CommunicationManager: CommunicatorDelegate{
             conversation = service.findConversation(id: toUser)
             user = toUser
         }
-        
+        print(user)
         let _ = Message.insertMessage(in: service.saveContext!, conversation: conversation!, text: text, income: income, id: jsonManager.generateMessageID(), date: Date(), unread: true)
         
         service.doSave(completionHandler: nil)
@@ -103,3 +103,4 @@ class CommunicationManager: CommunicatorDelegate{
 
     
 }
+

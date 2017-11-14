@@ -20,8 +20,8 @@ protocol CommunicatorDelegate : class{
     var dialogs: Dictionary<String,ChatDialog> {get set}
     
     
-    var convListDelegate:CommunicationManagerConversationListDelegate? {get set}
-    var convDelegate:CommunicationManagerConversationDelegate? {get set}
+    //var convListDelegate:CommunicationManagerConversationListDelegate? {get set}
+    //var convDelegate:CommunicationManagerConversationDelegate? {get set}
     
     var multipeerCommunicator:MultipeerCommunicator? {get set}
     

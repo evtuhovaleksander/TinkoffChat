@@ -47,7 +47,7 @@ class ConversationManager : NSObject, IConversationManager{
         
         let fetchRequest = Message.fetchRequestMessages(context: service.mainContext!, conversation: conversation)
         
-        var fetchedResultsController = NSFetchedResultsController<Message>(fetchRequest:
+        let fetchedResultsController = NSFetchedResultsController<Message>(fetchRequest:
             fetchRequest!, managedObjectContext: context!, sectionNameKeyPath: nil,
                           cacheName: nil)
         self.fetchedResultsController = fetchedResultsController
@@ -65,11 +65,9 @@ class ConversationManager : NSObject, IConversationManager{
             (item as! Message).unread = false;
         }
         
-        do {
-            try service.doSave(completionHandler: nil)
-        } catch let error as NSError {
-            print("Error While Deleting Note: \(error.userInfo)")
-        }
+   
+       service.doSave(completionHandler: nil)
+      
     }
     
     func sendMessage(string: String){
