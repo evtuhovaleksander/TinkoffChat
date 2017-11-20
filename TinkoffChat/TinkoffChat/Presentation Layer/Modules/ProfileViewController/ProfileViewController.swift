@@ -9,7 +9,9 @@
 import Foundation
 import UIKit
 
-class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate,UITextViewDelegate,CoreProfileViewControllerModelDelegate {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate,UITextViewDelegate,CoreProfileViewControllerModelDelegate,IPhotoSelectionViewControllerDelegate {
+
+    
     
     func startAnimate() {
         self.activityStartAnimate()
@@ -153,6 +155,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             self.openGallary()
         })
         
+        let urlAction = UIAlertAction(title: "Загрузить", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            let controller = PhotoSelectionViewControllerAssembler.getController(delegate: self)
+            self.present(controller, animated: true, completion: nil)
+        })
+        
         let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
             print("Cancelled")
@@ -160,6 +168,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         optionMenu.addAction(deleteAction)
         optionMenu.addAction(saveAction)
+        optionMenu.addAction(urlAction)
+        
         optionMenu.addAction(cancelAction)
         
         self.present(optionMenu, animated: true, completion: nil)
@@ -287,7 +297,14 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
 //            self.present(optionMenu, animated: true, completion: nil)
 //       }
 
-
+    func userSelectedPicture(image: UIImage) {
+        model.avatar = image
+        photoImageView.image = image
+    }
+    
+    func userCanceled() {
+        
+    }
 }
 
 

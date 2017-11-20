@@ -105,29 +105,30 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     }
     
     
-    @IBAction func act(_ sender: Any) {
-        let cont = rootAssembly.coreDataService.saveContext
-        let str = String(Int(arc4random_uniform(9999)))
-        
-        var online = false
-        
-        if(Int(arc4random_uniform(10))>5){
-            online = true
-        }
-        
-        let _ = Conversation.insertConversation(in: cont!, id: str, name: str, online: online)
-        rootAssembly.coreDataService.doSave(completionHandler: nil)
-    }
+//    @IBAction func act(_ sender: Any) {
+//        let cont = rootAssembly.coreDataService.saveContext
+//        let str = String(Int(arc4random_uniform(9999)))
+//
+//        var online = false
+//
+//        if(Int(arc4random_uniform(10))>5){
+//            online = true
+//        }
+//
+//        let _ = Conversation.insertConversation(in: cont!, id: str, name: str, online: online)
+//        rootAssembly.coreDataService.doSave(completionHandler: nil)
+//    }
     
-    @IBAction func del(_ sender: Any) {
-        let convs = rootAssembly.coreDataService.findConversations()
-        for i in convs!{
-            rootAssembly.coreDataService.mainContext?.delete(i)
-        }
-
-        rootAssembly.coreDataService.doSave(completionHandler: nil)
-        
-    }
+//    @IBAction func del(_ sender: Any) {
+//        let convs = rootAssembly.coreDataService.findConversations()
+//        for i in convs!{
+//            rootAssembly.coreDataService.mainContext?.delete(i)
+//        }
+//
+//        rootAssembly.coreDataService.doSave(completionHandler: nil)
+//        
+//    }
+    
 }
 
 
@@ -185,6 +186,8 @@ extension ConversationsListViewController:NSFetchedResultsControllerDelegate{
             }
         }
     }
+    
+    
 }
 
 
