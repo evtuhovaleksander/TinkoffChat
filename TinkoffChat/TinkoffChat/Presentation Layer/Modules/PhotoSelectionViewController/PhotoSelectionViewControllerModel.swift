@@ -119,7 +119,7 @@ class PhotoSelectionViewControllerModel:IPhotoSelectionViewControllerModel,Netwo
     }
     
         func cropImage(image: UIImage) -> UIImage? {
-            let cgImage :CGImage! = image.cgImage
+            //let cgImage :CGImage! = image.cgImage
     
             var rect:CGRect
     

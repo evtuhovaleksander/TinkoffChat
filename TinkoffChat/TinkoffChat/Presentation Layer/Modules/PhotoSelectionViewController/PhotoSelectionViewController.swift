@@ -113,7 +113,7 @@ class PhotoSelectionViewController: UIViewController, UICollectionViewDataSource
     
     func imageLoaded(row: Int) {
         DispatchQueue.main.async {
-            var ip = IndexPath(row: row, section: 0)
+            let ip = IndexPath(row: row, section: 0)
             self.collectionView.reloadItems(at: [ip])
         }
     }
