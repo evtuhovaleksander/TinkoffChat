@@ -37,7 +37,6 @@ class ConversationsListViewControllerModel:IConversationsListViewControllerModel
     var fetchedResultsController : NSFetchedResultsController<Conversation>{
         get{
             return manager.fetchedResultsController
-            
         }
     }
     

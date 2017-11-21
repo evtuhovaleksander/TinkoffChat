@@ -13,13 +13,14 @@ let rootAssembly : RootAssembly = RootAssembly(name: "name")
 class RootAssembly{
     let communicationManager: CommunicatorDelegate
     let coreDataService: CoreDataService
+    let requestSender:RequestSender
     
     init(name:String) {
         self.coreDataService = CoreDataService()
         let multiPeerCommunicator = MultipeerCommunicator(selfName: name)
         self.communicationManager = CommunicationManager(multipeerCommunicator:multiPeerCommunicator,service:self.coreDataService)
         multiPeerCommunicator.delegate=self.communicationManager
-        
+        self.requestSender = RequestSender()
     }
 }
 

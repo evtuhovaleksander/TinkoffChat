@@ -10,18 +10,26 @@ import Foundation
 
 class ImageListRequest: IRequest {
     fileprivate var command: String {
-        assertionFailure("❌ Should use a subclass of AppleRSSRequest ")
         return ""
     }
-   
-    private var baseUrl: String = "https://itunes.apple.com/us/rss/"
-
-    private var requestFormat: String = "json"
+    
+    var limitString: String {
+        return "&per_page=\(limit)"
+    }
+    
+    var secretKeyString: String {
+        return "?key=\(secretKey)"
+    }
+    
+    var base: String = "https://pixabay.com/api/"
+    let secretKey = "7093037-873cea2ce2fa9851c7e05a01f"
+    var limit: Int = 100
     
     // MARK: - IRequest
-    
     var urlRequest: URLRequest? {
-        let urlString: String = baseUrl + command + requestFormat
+
+        let urlString: String = base + secretKeyString + command + limitString
+        
         if let url = URL(string: urlString) {
             return URLRequest(url: url)
         }
@@ -29,8 +37,5 @@ class ImageListRequest: IRequest {
         return nil
     }
     
-    // MARK: - Initialization
-    
-    init() {
-    }
 }
+

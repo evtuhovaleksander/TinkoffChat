@@ -11,3 +11,4 @@ import Foundation
 class Parser<T> {
     func parse(data: Data) -> T? { return nil }
 }
+

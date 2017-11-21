@@ -422,11 +422,9 @@ extension Conversation{
     static func fetchRequestConversationByID(model:NSManagedObjectModel,id:String) -> NSFetchRequest<Conversation>?{
         
         let templateName = "Conversation"
-        
-        guard let fetchRequest = model.fetchRequestTemplate(forName: templateName) as? NSFetchRequest<Conversation> else {
-            assert(false,"")
-           return nil
-        }
+//        let fetchRequest = NSFetchRequest<Conversation>(entityName: "Conversation")
+        let fetchRequest = NSFetchRequest<Conversation>(entityName: "Conversation") 
+
         let predicate = NSPredicate(format: "id == %@", id)
         fetchRequest.predicate = predicate
         return fetchRequest

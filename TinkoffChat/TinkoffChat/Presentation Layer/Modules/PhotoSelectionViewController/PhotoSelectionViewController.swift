@@ -20,6 +20,7 @@ class PhotoSelectionViewController: UIViewController, UICollectionViewDataSource
     
     @IBOutlet weak var collectionView: UICollectionView!
     
+    @IBOutlet weak var activity: UIActivityIndicatorView!
     init(model:IPhotoSelectionViewControllerModel){
         self.model = model
         super.init(nibName: nil, bundle: nil)
@@ -53,6 +54,12 @@ class PhotoSelectionViewController: UIViewController, UICollectionViewDataSource
         
         
         collectionView.reloadData()
+        activity.startAnimating()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        activity.startAnimating()
+        model.getImageList()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -101,10 +108,7 @@ class PhotoSelectionViewController: UIViewController, UICollectionViewDataSource
     
 
     
-    @IBAction func act(_ sender: Any) {
-        model.getImageList()
-    }
-    
+
     
     
     func imageLoaded(row: Int) {
@@ -116,6 +120,7 @@ class PhotoSelectionViewController: UIViewController, UICollectionViewDataSource
     
     func imageListLoaded() {
         DispatchQueue.main.async {
+            self.activity.stopAnimating()
             self.collectionView.reloadData()
             
         }
