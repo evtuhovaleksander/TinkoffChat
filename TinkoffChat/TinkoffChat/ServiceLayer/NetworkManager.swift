@@ -21,7 +21,18 @@ protocol NetworkManagerDelegate{
     func recievedImage(image:UIImage, forID:Int)
 }
 
-class NetworkManager{
+protocol INetworkManager{
+    var requestSender:RequestSender {get set}
+    var delegate : NetworkManagerDelegate? {get set}
+    
+    
+    func getImageList()
+    func getImage(forUrl:String,id:Int)
+}
+
+
+
+class NetworkManager:INetworkManager{
     var requestSender = RequestSender()
     var delegate : NetworkManagerDelegate?
     

@@ -88,7 +88,7 @@ protocol IPhotoSelectionViewControllerModel{
     var images:[ImageModelProtocol] {get set}
     var delegate: PhotoSelectionViewControllerModelDelegate? {get set}
     
-    var manager:NetworkManager? {get set}
+    var manager:INetworkManager? {get set}
     
     func imageLoaded(row:Int)
     func getImageList()
@@ -135,7 +135,7 @@ class PhotoSelectionViewControllerModel:IPhotoSelectionViewControllerModel,Netwo
     
         }
     
-    var manager: NetworkManager?
+    var manager: INetworkManager?
     var delegate: PhotoSelectionViewControllerModelDelegate?
     
     var images: [ImageModelProtocol] = []
