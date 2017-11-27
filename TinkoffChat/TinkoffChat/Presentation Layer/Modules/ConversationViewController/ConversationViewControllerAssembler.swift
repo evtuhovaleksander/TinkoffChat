@@ -15,6 +15,8 @@ class ConversationViewControllerAsembler{
         if let conv = conversation{
             let model = ConversationViewControllerModel(delegate: controller,conversation:conv)
             controller.model = model
+            model.delegate = controller
+            rootAssembly.communicationManager.convDelegate = model
         }else{
            assert(false)
         }

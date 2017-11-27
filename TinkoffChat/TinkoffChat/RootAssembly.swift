@@ -25,9 +25,3 @@ class RootAssembly{
 }
 
 
-class Tester{
-    static func recieve_message(conversation:Conversation){
-        rootAssembly.communicationManager.didRecieveMessage(text: "edededed", fromUser: (conversation.user?.id!)!, toUser: "me")
-    }
-}
-

@@ -21,7 +21,7 @@ protocol CommunicatorDelegate : class{
     
     
     //var convListDelegate:CommunicationManagerConversationListDelegate? {get set}
-    //var convDelegate:CommunicationManagerConversationDelegate? {get set}
+    var convDelegate:CommunicationManagerConversationDelegate? {get set}
     
     var multipeerCommunicator:MultipeerCommunicator? {get set}
     

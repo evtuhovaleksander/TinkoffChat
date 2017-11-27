@@ -29,11 +29,12 @@ class MessageModel{
     // visual side of message
 }
 
-class ConversationViewControllerModel:IConversationViewControllerModel{
+class ConversationViewControllerModel:IConversationViewControllerModel,ConversationManagerDelegate,CommunicationManagerConversationDelegate{
 
     var manager: IConversationManager
     var delegate: ConversationViewControllerModelDelegate
     var conversation:Conversation
+    
     
     var fetchedResultsController : NSFetchedResultsController<Message>{
         get{
@@ -45,6 +46,7 @@ class ConversationViewControllerModel:IConversationViewControllerModel{
         self.delegate = delegate
         self.conversation = conversation
         manager = ConversationManager(delegate:delegate,conversation:conversation)
+        
     }
     
     func numberOfRowsInSection (section: Int) -> Int {
@@ -75,6 +77,9 @@ class ConversationViewControllerModel:IConversationViewControllerModel{
         manager.sendMessage(string: string)
     }
     
+    func update() {
+        delegate.updateOnline()
+    }
     
     
     

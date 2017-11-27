@@ -24,21 +24,22 @@ protocol IConversationManager {
     var service : CoreDataService {get set}
     var conversation:Conversation {get set}
     var communicationManager : CommunicatorDelegate {get set}
-    
+    var delegate:ConversationManagerDelegate? {get set}
     func sendMessage(string: String)
     func updateUnRead()
-    
 }
 
 protocol ConversationManagerDelegate{
-    
+    func update()
 }
 
-class ConversationManager : NSObject, IConversationManager{
+class ConversationManager : NSObject, IConversationManager, CommunicationManagerConversationDelegate{
     var fetchedResultsController : NSFetchedResultsController<Message>
     var service : CoreDataService
     var conversation:Conversation
     var communicationManager : CommunicatorDelegate
+    var delegate:ConversationManagerDelegate?
+    
     
     init(delegate:NSFetchedResultsControllerDelegate,conversation:Conversation) {
         self.service = rootAssembly.coreDataService
@@ -54,6 +55,7 @@ class ConversationManager : NSObject, IConversationManager{
         self.fetchedResultsController.delegate = delegate
         
         self.communicationManager = rootAssembly.communicationManager
+        
     }
     
     
@@ -72,6 +74,10 @@ class ConversationManager : NSObject, IConversationManager{
     
     func sendMessage(string: String){
         communicationManager.multipeerCommunicator?.sendMessage(string: string, to: conversation.user?.id ?? "", completionHandler: nil)
+    }
+    
+    func update(){
+        delegate?.update()
     }
 
 }

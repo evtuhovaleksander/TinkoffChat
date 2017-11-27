@@ -29,17 +29,27 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                             <subviews>
                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="khq-FP-x7V">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="587"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="567"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </tableView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kcv-34-nU7">
+                                    <rect key="frame" x="0.0" y="567" width="375" height="20"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="20" id="rcN-XG-tgl"/>
+                                    </constraints>
+                                    <state key="normal" title="Test "/>
+                                    <connections>
+                                        <action selector="on:" destination="-1" eventType="touchUpInside" id="p9O-fN-Bxl"/>
+                                    </connections>
+                                </button>
                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="yl6-lb-TKE">
                                     <rect key="frame" x="0.0" y="587" width="375" height="60"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="97X-ZK-kHY">
-                                            <rect key="frame" x="0.0" y="0.0" width="315" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="215" height="60"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gst-fR-Lxe">
-                                                    <rect key="frame" x="8" y="8" width="299" height="44"/>
+                                                    <rect key="frame" x="8" y="8" width="199" height="44"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -53,16 +63,28 @@
                                                 <constraint firstItem="Gst-fR-Lxe" firstAttribute="leading" secondItem="97X-ZK-kHY" secondAttribute="leading" constant="8" id="yql-VY-p8n"/>
                                             </constraints>
                                         </view>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nvg-gs-vZU">
-                                            <rect key="frame" x="325" y="0.0" width="50" height="60"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qye-re-WSm">
+                                            <rect key="frame" x="225" y="0.0" width="150" height="60"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nvg-gs-vZU">
+                                                    <rect key="frame" x="20" y="8" width="110" height="44"/>
+                                                    <state key="normal" title="Send">
+                                                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="send:" destination="-1" eventType="touchUpInside" id="aV7-oz-C8m"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="50" id="UgM-60-V3x"/>
+                                                <constraint firstItem="Nvg-gs-vZU" firstAttribute="top" secondItem="Qye-re-WSm" secondAttribute="top" constant="8" id="HUC-Wo-X5y"/>
+                                                <constraint firstItem="Nvg-gs-vZU" firstAttribute="leading" secondItem="Qye-re-WSm" secondAttribute="leading" constant="20" id="ZDr-m8-1da"/>
+                                                <constraint firstAttribute="trailing" secondItem="Nvg-gs-vZU" secondAttribute="trailing" constant="20" id="buJ-Dp-dUr"/>
+                                                <constraint firstAttribute="bottom" secondItem="Nvg-gs-vZU" secondAttribute="bottom" constant="8" id="uWK-kq-uc0"/>
+                                                <constraint firstAttribute="width" constant="150" id="utO-ru-TAH"/>
                                             </constraints>
-                                            <state key="normal" title="Send"/>
-                                            <connections>
-                                                <action selector="send:" destination="-1" eventType="touchUpInside" id="aV7-oz-C8m"/>
-                                            </connections>
-                                        </button>
+                                        </view>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="60" id="rpC-fw-8O7"/>

@@ -65,7 +65,11 @@ class CommunicationManager: CommunicatorDelegate{
     }
     
     func didLostUser(userID: String) {
-        return
+        if let conversation = service.findConversation(id: userID){
+            conversation.user?.online = false
+            service.doSave(completionHandler: nil)
+        }
+        convDelegate?.update()
     }
     
     func failedToStartBrowsingForUsers(error: Error) {

@@ -16,6 +16,7 @@
 		DE07B27B1FB8535800C1C6BC /* ConversationCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE07B27A1FB8535800C1C6BC /* ConversationCellProtocol.swift */; };
 		DE07B27E1FB8573100C1C6BC /* ConversationListManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE07B27D1FB8573100C1C6BC /* ConversationListManager.swift */; };
 		DE395D8B1F93BE150019370A /* TaskManagers.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE395D8A1F93BE150019370A /* TaskManagers.swift */; };
+		DE43049E1FCC335B0009AD56 /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE43049D1FCC335B0009AD56 /* Animator.swift */; };
 		DE438CE81FB89C1C00655317 /* ConversationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE438CE71FB89C1C00655317 /* ConversationManager.swift */; };
 		DE438CEB1FB89EA000655317 /* MessageCellConfProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE438CEA1FB89EA000655317 /* MessageCellConfProtocol.swift */; };
 		DE4A4EFE1F9C8273009F3296 /* CommunicationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE4A4EFD1F9C8273009F3296 /* CommunicationManager.swift */; };
@@ -76,6 +77,7 @@
 		DE07B27A1FB8535800C1C6BC /* ConversationCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCellProtocol.swift; sourceTree = "<group>"; };
 		DE07B27D1FB8573100C1C6BC /* ConversationListManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationListManager.swift; sourceTree = "<group>"; };
 		DE395D8A1F93BE150019370A /* TaskManagers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagers.swift; sourceTree = "<group>"; };
+		DE43049D1FCC335B0009AD56 /* Animator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
 		DE438CE71FB89C1C00655317 /* ConversationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationManager.swift; sourceTree = "<group>"; };
 		DE438CEA1FB89EA000655317 /* MessageCellConfProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellConfProtocol.swift; sourceTree = "<group>"; };
 		DE4A4EFD1F9C8273009F3296 /* CommunicationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunicationManager.swift; sourceTree = "<group>"; };
@@ -265,7 +267,6 @@
 				DE57A8031FA896AB006B83AB /* ChatMessage.swift */,
 				DEEC92C71FA8660C007A64FA /* GCD.swift */,
 				DEEC92C51FA86601007A64FA /* Operation.swift */,
-				DE4A4EFD1F9C8273009F3296 /* CommunicationManager.swift */,
 				DE395D8A1F93BE150019370A /* TaskManagers.swift */,
 				DEEEF0EE1FA78C6700C428EF /* MultiThreading */,
 				DEEC92C31FA86557007A64FA /* ProfileServiceProtocol.swift */,
@@ -312,6 +313,7 @@
 				DE8C67741FA8617900BB65E8 /* ProfileViewController */,
 				DEAA8C791FA7B8A000421F4B /* ConversationViewController */,
 				DEEEF0E11FA7898800C428EF /* ConversationListViewController */,
+				DE43049D1FCC335B0009AD56 /* Animator.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -331,6 +333,7 @@
 		DEEEF0E71FA78AE200C428EF /* ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
+				DE4A4EFD1F9C8273009F3296 /* CommunicationManager.swift */,
 				DE50FBE51FC4466200985161 /* NetworkManager.swift */,
 				DE438CE71FB89C1C00655317 /* ConversationManager.swift */,
 				DE07B27D1FB8573100C1C6BC /* ConversationListManager.swift */,
@@ -461,6 +464,7 @@
 				DE5631C11FC2F9CE0087A6C0 /* Parser.swift in Sources */,
 				DE5631C61FC2FA8A0087A6C0 /* ImageListRequest.swift in Sources */,
 				DE009D7B1F8A8E8800E4DF93 /* MessageCell.swift in Sources */,
+				DE43049E1FCC335B0009AD56 /* Animator.swift in Sources */,
 				DEEEF0F41FA7946E00C428EF /* RootAssembly.swift in Sources */,
 				DEE9F8941FA8A7E90095FD80 /* DialogCell.swift in Sources */,
 				DE5631C81FC2FAF20087A6C0 /* RequestFactory.swift in Sources */,
