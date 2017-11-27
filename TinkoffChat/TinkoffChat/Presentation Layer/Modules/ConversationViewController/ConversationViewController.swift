@@ -62,7 +62,7 @@ class ConversationViewController: UIViewController,UITableViewDelegate,UITableVi
         
         let ani = Animator((longTapRecognizer?.location(in: self.view))!, self.view,Int(w),Int(h))
         ani.start()
-        sleep(0.5)
+        usleep(100000)
         //animations.append(ani)
     }
     
