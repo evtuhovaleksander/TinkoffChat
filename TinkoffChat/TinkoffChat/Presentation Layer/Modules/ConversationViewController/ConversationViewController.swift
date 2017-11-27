@@ -187,7 +187,7 @@ class ConversationViewController: UIViewController,UITableViewDelegate,UITableVi
 //
 //
         var color = UIColor.green
-        var duration = 0.5
+        let duration = 0.5
         if(online){
             color = .green
         }else{
@@ -204,7 +204,7 @@ class ConversationViewController: UIViewController,UITableViewDelegate,UITableVi
         colorAnimation.duration = duration
         
         
-        var group = CAAnimationGroup()
+        let group = CAAnimationGroup()
         group.animations = [scaleAnimation,colorAnimation]
         group.duration = duration
         
@@ -217,18 +217,18 @@ class ConversationViewController: UIViewController,UITableViewDelegate,UITableVi
     func setLabelOnline(_ online:Bool){
         var color = UIColor.green
         var targetscale = 1.0
-        var basescale = 1.0
+        //let basescale = 1.0
         
         
         var duration = 1.0
         if(online){
             color = .green
             targetscale = 1.5
-            basescale = 1.0
+            //basescale = 1.0
         }else{
             color = .black
             targetscale = 1.0
-            basescale = 1.5
+            //basescale = 1.5
         }
         
         

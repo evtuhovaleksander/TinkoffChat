@@ -59,7 +59,7 @@ class Animator:NSObject,CAAnimationDelegate{
         posAnimation.duration = duration
         
         
-        var group = CAAnimationGroup()
+        let group = CAAnimationGroup()
         group.animations = [scaleAnimation,opaAnimation,posAnimation]
         group.duration = duration
         group.delegate = self
